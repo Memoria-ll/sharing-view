@@ -1023,6 +1023,30 @@
     },
     "rarity": "☆6"
   },
+  "R002": {
+    "name": {
+      "jp": "ケルシー・エスペランタ",
+      "en": "Kal'tsit·Esperanta",
+      "ch": "凯尔希·思衡托"
+    },
+    "rarity": "☆6"
+  },
+  "R00A": {
+    "name": {
+      "jp": "クロージャ",
+      "en": "Closure",
+      "ch": "可露希尔"
+    },
+    "rarity": "☆6"
+  },
+  "US53": {
+    "name": {
+      "jp": "ヴィイ",
+      "en": "Вий",
+      "ch": "维伊"
+    },
+    "rarity": "☆6"
+  },
   "RB01": {
     "name": {
       "jp": "サベージ",
@@ -2559,6 +2583,14 @@
     },
     "rarity": "☆5"
   },
+  "US42": {
+    "name": {
+      "jp": "クラックボーン",
+      "en": "Crackborne",
+      "ch": "裂响"
+    },
+    "rarity": "☆5"
+  },
   "JC04": {
     "name": {
       "jp": "クーリエ",
@@ -3292,6 +3324,14 @@
       "jp": "CONFESS-47",
       "en": "CONFESS-47",
       "ch": "CONFESS-47"
+    },
+    "rarity": "☆1"
+  },
+  "RCX7": {
+    "name": {
+      "jp": "GALLUS²",
+      "en": "GALLUS²",
+      "ch": "GALLUS²"
     },
     "rarity": "☆1"
   }
