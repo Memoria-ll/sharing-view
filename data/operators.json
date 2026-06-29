@@ -1047,6 +1047,14 @@
     },
     "rarity": "☆6"
   },
+  "MH05": {
+    "name": {
+      "jp": "焔狐竜オーキッド",
+      "en": "Orchid V.M.",
+      "ch": "焰狐龙梓兰"
+    },
+    "rarity": "☆6"
+  },
   "RB01": {
     "name": {
       "jp": "サベージ",
@@ -2591,6 +2599,14 @@
     },
     "rarity": "☆5"
   },
+  "MH06": {
+    "name": {
+      "jp": "ジンオウSカタパルト",
+      "en": "Catapult Z.S.",
+      "ch": "雷狼龙S空爆"
+    },
+    "rarity": "☆5"
+  },
   "JC04": {
     "name": {
       "jp": "クーリエ",
@@ -3332,6 +3348,14 @@
       "jp": "GALLUS²",
       "en": "GALLUS²",
       "ch": "GALLUS²"
+    },
+    "rarity": "☆1"
+  },
+  "MH04": {
+    "name": {
+      "jp": "ロドス隠密隊",
+      "en": "Rhodes Island Recon",
+      "ch": "罗德岛隐秘队"
     },
     "rarity": "☆1"
   }
