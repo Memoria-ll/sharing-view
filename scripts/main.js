@@ -11,7 +11,7 @@ let characterData = {};
 let currentDataId = null;
 
 // 選択中の言語
-let currentLanguage = 'jp'; // デフォルトは日本語
+let currentLanguage = 'ja'; // デフォルトは日本語
 
 document.addEventListener('DOMContentLoaded', () => {
     // 各種DOM要素の取得
@@ -148,7 +148,7 @@ function fallbackCopyToClipboard(text) {
 // キャラクター静的データを読み込む関数
 async function loadCharacterData() {
     try {
-        const response = await fetch('data/operators.json');
+        const response = await fetch('https://data.memoria-ll.link/arknights-data/operator_master_data_shareview.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -208,7 +208,7 @@ function displayOperators(operators) {
         const tr = document.createElement('tr');
         
         // キャラクター基本情報を取得
-        const charInfo = characterData[operator.code] || { name: { jp: 'Unknown', en: 'Unknown', ch: 'Unknown' } };
+        const charInfo = characterData[operator.code] || { name: { ja: 'Unknown', en: 'Unknown', ch: 'Unknown' } };
         
         // コード
         const tdCode = document.createElement('td');
@@ -295,7 +295,7 @@ function getOperatorName(operatorData) {
     
     // 選択された言語で名前を返す
     return operatorData.name[currentLanguage] || 
-           operatorData.name.jp || 
+           operatorData.name.ja ||
            operatorData.name.en || 
            operatorData.name.ch || 
            'Unknown';
