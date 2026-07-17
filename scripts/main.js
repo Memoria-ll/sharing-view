@@ -197,14 +197,46 @@ function processInputData(data) {
     }).filter(item => item !== null); // nullの項目を除外
 }
 
+// 共有データに含まれないオペレーターの初期値
+const DEFAULT_OPERATOR_VALUES = {
+    potential: 0,
+    elite: 0,
+    level: 1,
+    skill: 1,
+    skill1: 0,
+    skill2: 0,
+    skill3: 0,
+    moduleX: 0,
+    moduleY: 0,
+    moduleD: 0,
+    moduleA: 0
+};
+
+// マスターデータの全オペレーターを行にする。共有データがあればその値、なければ初期値
+function buildDisplayRows(operators) {
+    const operatorsByCode = new Map(operators.map(op => [op.code, op]));
+    const rows = Object.keys(characterData).map(code =>
+        Object.assign({ code: code }, DEFAULT_OPERATOR_VALUES, operatorsByCode.get(code))
+    );
+
+    // マスターデータに無いコードの共有データも末尾に表示する
+    operators.forEach(operator => {
+        if (!characterData[operator.code]) {
+            rows.push(Object.assign({}, DEFAULT_OPERATOR_VALUES, operator));
+        }
+    });
+
+    return rows;
+}
+
 // オペレーターデータをテーブルに表示する関数
 function displayOperators(operators) {
     // テーブルの内容をクリア
     const operatorsBody = document.getElementById('operators-body');
     operatorsBody.innerHTML = '';
-    
+
     // 各オペレーターの行を生成
-    operators.forEach(operator => {
+    buildDisplayRows(operators).forEach(operator => {
         const tr = document.createElement('tr');
         
         // キャラクター基本情報を取得
@@ -231,57 +263,57 @@ function displayOperators(operators) {
         
         // 潜在
         const tdPotential = document.createElement('td');
-        tdPotential.textContent = operator.potential || 1;
+        tdPotential.textContent = operator.potential;
         tr.appendChild(tdPotential);
-        
+
         // 昇進
         const tdElite = document.createElement('td');
-        tdElite.textContent = operator.elite || 0;
+        tdElite.textContent = operator.elite;
         tr.appendChild(tdElite);
-        
+
         // レベル
         const tdLevel = document.createElement('td');
-        tdLevel.textContent = operator.level || 1;
+        tdLevel.textContent = operator.level;
         tr.appendChild(tdLevel);
-        
+
         // スキル
         const tdSkill = document.createElement('td');
-        tdSkill.textContent = operator.skill || 7;
+        tdSkill.textContent = operator.skill;
         tr.appendChild(tdSkill);
-        
+
         // スキル1特化
         const tdSkill1 = document.createElement('td');
-        tdSkill1.textContent = operator.skill1 || 0;
+        tdSkill1.textContent = operator.skill1;
         tr.appendChild(tdSkill1);
-        
+
         // スキル2特化
         const tdSkill2 = document.createElement('td');
-        tdSkill2.textContent = operator.skill2 || 0;
+        tdSkill2.textContent = operator.skill2;
         tr.appendChild(tdSkill2);
-        
+
         // スキル3特化
         const tdSkill3 = document.createElement('td');
-        tdSkill3.textContent = operator.skill3 || 0;
+        tdSkill3.textContent = operator.skill3;
         tr.appendChild(tdSkill3);
-        
+
         // モジュールX
         const tdModuleX = document.createElement('td');
-        tdModuleX.textContent = operator.moduleX || 0;
+        tdModuleX.textContent = operator.moduleX;
         tr.appendChild(tdModuleX);
-        
+
         // モジュールY
         const tdModuleY = document.createElement('td');
-        tdModuleY.textContent = operator.moduleY || 0;
+        tdModuleY.textContent = operator.moduleY;
         tr.appendChild(tdModuleY);
-        
+
         // モジュールD
         const tdModuleD = document.createElement('td');
-        tdModuleD.textContent = operator.moduleD || 0;
+        tdModuleD.textContent = operator.moduleD;
         tr.appendChild(tdModuleD);
-        
+
         // モジュールA
         const tdModuleA = document.createElement('td');
-        tdModuleA.textContent = operator.moduleA || 0;
+        tdModuleA.textContent = operator.moduleA;
         tr.appendChild(tdModuleA);
         
         // 行をテーブルに追加
