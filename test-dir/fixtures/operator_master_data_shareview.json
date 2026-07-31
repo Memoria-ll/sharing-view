@@ -1,0 +1,4684 @@
+{
+  "modules": [
+    "X",
+    "Y",
+    "D",
+    "A",
+    "B"
+  ],
+  "operators": {
+    "LM04": {
+      "name": {
+        "ja": "チェン",
+        "en": "Ch'en",
+        "ch": "陈"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "GG01": {
+      "name": {
+        "ja": "シージ",
+        "en": "Siege",
+        "ch": "推进之王"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "FO01": {
+      "name": {
+        "ja": "シャイニング",
+        "en": "Shining",
+        "ch": "闪灵"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "FO03": {
+      "name": {
+        "ja": "ナイチンゲール",
+        "en": "Nightingale",
+        "ch": "夜莺"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RL03": {
+      "name": {
+        "ja": "イフリータ",
+        "en": "Ifrit",
+        "ch": "伊芙利特"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "D": true
+      }
+    },
+    "LN02": {
+      "name": {
+        "ja": "エイヤフィヤトラ",
+        "en": "Eyjafjalla",
+        "ch": "艾雅法拉"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "PL03": {
+      "name": {
+        "ja": "エクシア",
+        "en": "Exusiai",
+        "ch": "能天使"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SR02": {
+      "name": {
+        "ja": "アンジェリーナ",
+        "en": "Angelina",
+        "ch": "安洁莉娜"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "JC01": {
+      "name": {
+        "ja": "シルバーアッシュ",
+        "en": "SilverAsh",
+        "ch": "银灰"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "LM05": {
+      "name": {
+        "ja": "ホシグマ",
+        "en": "Hoshiguma",
+        "ch": "星熊"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RL02": {
+      "name": {
+        "ja": "サリア",
+        "en": "Saria",
+        "ch": "塞雷娅"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "AA01": {
+      "name": {
+        "ja": "スカジ",
+        "en": "Skadi",
+        "ch": "斯卡蒂"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SS02": {
+      "name": {
+        "ja": "シュヴァルツ",
+        "en": "Schwarz",
+        "ch": "黑"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "AZ01": {
+      "name": {
+        "ja": "ヘラグ",
+        "en": "Hellagur",
+        "ch": "赫拉格"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RL06": {
+      "name": {
+        "ja": "マゼラン",
+        "en": "Magallan",
+        "ch": "麦哲伦"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LT77": {
+      "name": {
+        "ja": "モスティマ",
+        "en": "Mostima",
+        "ch": "莫斯提马"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RE41": {
+      "name": {
+        "ja": "ブレイズ",
+        "en": "Blaze",
+        "ch": "煌"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LM20": {
+      "name": {
+        "ja": "ア",
+        "en": "Aak",
+        "ch": "阿"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "NM01": {
+      "name": {
+        "ja": "ニェン",
+        "en": "Nian",
+        "ch": "年"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "R155": {
+      "name": {
+        "ja": "ケオベ",
+        "en": "Ceobe",
+        "ch": "刻俄柏"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RV02": {
+      "name": {
+        "ja": "バグパイプ",
+        "en": "Bagpipe",
+        "ch": "风笛"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "R109": {
+      "name": {
+        "ja": "ファントム",
+        "en": "Phantom",
+        "ch": "傀影"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "B214": {
+      "name": {
+        "ja": "W",
+        "en": "W",
+        "ch": "W"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "R117": {
+      "name": {
+        "ja": "ウィーディ",
+        "en": "Weedy",
+        "ch": "温蒂"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "USS4": {
+      "name": {
+        "ja": "ロサ",
+        "en": "Rosa",
+        "ch": "早露"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "R172": {
+      "name": {
+        "ja": "スズラン",
+        "en": "Suzuran",
+        "ch": "铃兰"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "II01": {
+      "name": {
+        "ja": "ソーンズ",
+        "en": "Thorns",
+        "ch": "棘刺"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "D": true
+      }
+    },
+    "SG03": {
+      "name": {
+        "ja": "ユーネクテス",
+        "en": "Eunectes",
+        "ch": "森蚺"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "R111": {
+      "name": {
+        "ja": "スルト",
+        "en": "Surtr",
+        "ch": "史尔特尔"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "KZ09": {
+      "name": {
+        "ja": "ブレミシャイン",
+        "en": "Blemishine",
+        "ch": "瑕光"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RE45": {
+      "name": {
+        "ja": "ロスモンティス",
+        "en": "Rosmontis",
+        "ch": "迷迭香"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "A": true
+      }
+    },
+    "R159": {
+      "name": {
+        "ja": "マドロック",
+        "en": "Mudrock",
+        "ch": "泥岩"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "CB05": {
+      "name": {
+        "ja": "マウンテン",
+        "en": "Mountain",
+        "ch": "山"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LT08": {
+      "name": {
+        "ja": "アルケット",
+        "en": "Archetto",
+        "ch": "空弦"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "NM02": {
+      "name": {
+        "ja": "シー",
+        "en": "Dusk",
+        "ch": "夕"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "HK13": {
+      "name": {
+        "ja": "サガ",
+        "en": "Saga",
+        "ch": "嵯峨"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RS01": {
+      "name": {
+        "ja": "Ash",
+        "en": "Ash",
+        "ch": "灰烬"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SG07": {
+      "name": {
+        "ja": "パッセンジャー",
+        "en": "Passenger",
+        "ch": "异客"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "CR01": {
+      "name": {
+        "ja": "濁心スカジ",
+        "en": "Skadi C.H.",
+        "ch": "浊心斯卡蒂"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "B003": {
+      "name": {
+        "ja": "ケルシー",
+        "en": "kal'tsit",
+        "ch": "凯尔希"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "AA05": {
+      "name": {
+        "ja": "グレイディーア",
+        "en": "Gladiia",
+        "ch": "歌蕾蒂娅"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LN04": {
+      "name": {
+        "ja": "カーネリアン",
+        "en": "Carnelian",
+        "ch": "卡涅利安"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "MN04": {
+      "name": {
+        "ja": "パラス",
+        "en": "Pallas",
+        "ch": "帕拉斯"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "R112": {
+      "name": {
+        "ja": "遊龍チェン",
+        "en": "Ch'en H.D.",
+        "ch": "假日威龙陈"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "HK07": {
+      "name": {
+        "ja": "ミヅキ",
+        "en": "Mizuki",
+        "ch": "水月"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "VC10": {
+      "name": {
+        "ja": "サイラッハ",
+        "en": "Saileach",
+        "ch": "琴柳"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "KZ13": {
+      "name": {
+        "ja": "ファートゥース",
+        "en": "Fartooth",
+        "ch": "远牙"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "KZ01": {
+      "name": {
+        "ja": "耀騎士ニアール",
+        "en": "Nearl R.K.",
+        "ch": "耀骑士临光"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "KZ11": {
+      "name": {
+        "ja": "フレイムテイル",
+        "en": "Flametail",
+        "ch": "焰尾"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "JC02": {
+      "name": {
+        "ja": "ノーシス",
+        "en": "Gnosis",
+        "ch": "灵知"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "NM03": {
+      "name": {
+        "ja": "リィン",
+        "en": "Ling",
+        "ch": "令"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LM18": {
+      "name": {
+        "ja": "リー",
+        "en": "Lee",
+        "ch": "老鲤"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "VC09": {
+      "name": {
+        "ja": "ゴールデングロー",
+        "en": "Goldenglow",
+        "ch": "澄闪"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LT11": {
+      "name": {
+        "ja": "フィアメッタ",
+        "en": "Fiammetta",
+        "ch": "菲亚梅塔"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "VC16": {
+      "name": {
+        "ja": "ホルン",
+        "en": "Horn",
+        "ch": "号角"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "II07": {
+      "name": {
+        "ja": "アイリーニ",
+        "en": "Irene",
+        "ch": "艾丽妮"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "CR02": {
+      "name": {
+        "ja": "帰溟スペクター",
+        "en": "Specter U.C.",
+        "ch": "归溟幽灵鲨"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "II09": {
+      "name": {
+        "ja": "ルーメン",
+        "en": "Lumen",
+        "ch": "流明"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LN05": {
+      "name": {
+        "ja": "エーベンホルツ",
+        "en": "Ebenholz",
+        "ch": "黑键"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "D": true
+      }
+    },
+    "RL07": {
+      "name": {
+        "ja": "ドロシー",
+        "en": "Dorothy",
+        "ch": "多萝西"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RF22": {
+      "name": {
+        "ja": "百錬ガヴィル",
+        "en": "Gavial I.V.",
+        "ch": "百炼嘉维尔"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "R145": {
+      "name": {
+        "ja": "パゼオンカ",
+        "en": "Pozemka",
+        "ch": "鸿雪"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "KZ08": {
+      "name": {
+        "ja": "ムリナール",
+        "en": "Mlynar",
+        "ch": "玛恩纳"
+      },
+      "rarity": "☆6",
+      "modules": {}
+    },
+    "VC17": {
+      "name": {
+        "ja": "ステインレス",
+        "en": "Stainless",
+        "ch": "白铁"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "PL07": {
+      "name": {
+        "ja": "血掟テキサス",
+        "en": "Texas T.O.",
+        "ch": "缄默德克萨斯"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SR35": {
+      "name": {
+        "ja": "ペナンス",
+        "en": "Penance",
+        "ch": "斥罪"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SR36": {
+      "name": {
+        "ja": "ヴィジェル",
+        "en": "Vigil",
+        "ch": "伺夜"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "DB02": {
+      "name": {
+        "ja": "焰影リード",
+        "en": "Reed F.S.",
+        "ch": "焰影苇草"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "NM04": {
+      "name": {
+        "ja": "チョンユエ",
+        "en": "Chongyue",
+        "ch": "重岳"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LM21": {
+      "name": {
+        "ja": "リン",
+        "en": "Lin",
+        "ch": "林"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "YD20": {
+      "name": {
+        "ja": "チューバイ",
+        "en": "Qiu Bai",
+        "ch": "仇白"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "MH02": {
+      "name": {
+        "ja": "キリンRヤトウ",
+        "en": "Yato K.R",
+        "ch": "麒麟R夜刀"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "B215": {
+      "name": {
+        "ja": "イネス",
+        "en": "Ines",
+        "ch": "伊内丝"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RL09": {
+      "name": {
+        "ja": "ミュルジス",
+        "en": "Muelsyse",
+        "ch": "缪尔赛思"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "CB88": {
+      "name": {
+        "ja": "ホルハイヤ",
+        "en": "Ho’olheyak",
+        "ch": "霍尔海雅"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "RL10": {
+      "name": {
+        "ja": "淬羽サイレンス",
+        "en": "Silence T.P.",
+        "ch": "淬羽赫默"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LT40": {
+      "name": {
+        "ja": "聖約イグゼキュター",
+        "en": "Executor E.F.",
+        "ch": "圣约送葬人"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SI07": {
+      "name": {
+        "ja": "ティフォン",
+        "en": "Typhon",
+        "ch": "提丰"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "LN10": {
+      "name": {
+        "ja": "純燼エイヤフィヤトラ",
+        "en": "Eyjafjalla H.A.",
+        "ch": "纯烬艾雅法拉"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LM22": {
+      "name": {
+        "ja": "琳琅スワイヤー",
+        "en": "Swire E.W.",
+        "ch": "琳琅诗怀雅"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true,
+        "A": true
+      }
+    },
+    "BS30": {
+      "name": {
+        "ja": "滌火ジェシカ",
+        "en": "Jessica T.L.",
+        "ch": "涤火杰西卡"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "B216": {
+      "name": {
+        "ja": "ヘドリー",
+        "en": "Hoederer",
+        "ch": "赫德雷"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LT22": {
+      "name": {
+        "ja": "ヴィルトゥオーサ",
+        "en": "Virtuosa",
+        "ch": "塑心"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "LN11": {
+      "name": {
+        "ja": "ヴィヴィアナ",
+        "en": "Viviana",
+        "ch": "薇薇安娜"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true,
+        "D": true
+      }
+    },
+    "LN07": {
+      "name": {
+        "ja": "レッシング",
+        "en": "Lessing",
+        "ch": "止颂"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "JC07": {
+      "name": {
+        "ja": "デーゲンブレヒャー",
+        "en": "Degenbrecher",
+        "ch": "锏"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RB15": {
+      "name": {
+        "ja": "レイ",
+        "en": "Ray",
+        "ch": "莱伊"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "NM05": {
+      "name": {
+        "ja": "シュウ",
+        "en": "Shu",
+        "ch": "黍"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD06": {
+      "name": {
+        "ja": "ズオ・ラウ",
+        "en": "Zuo Le",
+        "ch": "左乐"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "RS05": {
+      "name": {
+        "ja": "Ela",
+        "en": "Ela",
+        "ch": "艾拉"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "D": true
+      }
+    },
+    "SW00": {
+      "name": {
+        "ja": "アスカロン",
+        "en": "Ascalon",
+        "ch": "阿斯卡纶"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "B00W": {
+      "name": {
+        "ja": "ウィシャデル",
+        "en": "Wiš’adel",
+        "ch": "维什戴尔"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "RE03": {
+      "name": {
+        "ja": "ロゴス",
+        "en": "Logos",
+        "ch": "逻各斯"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true,
+        "D": true
+      }
+    },
+    "DWDB": {
+      "name": {
+        "ja": "シヴィライト・エテルナ",
+        "en": "Civilight Eterna",
+        "ch": "魔王"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "AA00": {
+      "name": {
+        "ja": "ウルピアヌス",
+        "en": "Ulpianus",
+        "ch": "乌尔比安"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "R182": {
+      "name": {
+        "ja": "ニンフ",
+        "en": "Nymph",
+        "ch": "妮芙"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SG14": {
+      "name": {
+        "ja": "ペペ",
+        "en": "Pepe",
+        "ch": "佩佩"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "A": true
+      }
+    },
+    "SG17": {
+      "name": {
+        "ja": "ナラントゥヤ",
+        "en": "Narantuya",
+        "ch": "娜仁图亚"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "DD02": {
+      "name": {
+        "ja": "マルシル",
+        "en": "Marcile",
+        "ch": "玛露西尔"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC00": {
+      "name": {
+        "ja": "ヴィーナ・ヴィクトリア",
+        "en": "Vina Victoria",
+        "ch": "维娜・维多利亚"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "SR04": {
+      "name": {
+        "ja": "荒蕪ラップランド",
+        "en": "Lappland T.D.",
+        "ch": "荒芜拉普兰德"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "SR40": {
+      "name": {
+        "ja": "ウルピスフォリア",
+        "en": "Vulpisfoglia",
+        "ch": "忍冬"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "R315": {
+      "name": {
+        "ja": "クラウンスレイヤー",
+        "en": "CrownSlayer",
+        "ch": "弑君者"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "II02": {
+      "name": {
+        "ja": "引星ソーンズ",
+        "en": "Thorns T.L.",
+        "ch": "引星棘刺"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "NM06": {
+      "name": {
+        "ja": "ユー",
+        "en": "Yu",
+        "ch": "余"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "REX1": {
+      "name": {
+        "ja": "熾炎ブレイズ",
+        "en": "Blaze I.S.",
+        "ch": "烛煌"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "R169": {
+      "name": {
+        "ja": "エンテレケイア",
+        "en": "Entelechia",
+        "ch": "隐德来希"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "DB01": {
+      "name": {
+        "ja": "ネクラス",
+        "en": "Necrass",
+        "ch": "死芒"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "R003": {
+      "name": {
+        "ja": "Mon3tr",
+        "en": "Mon3tr",
+        "ch": "Mon3tr"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "PL08": {
+      "name": {
+        "ja": "新約エクシア",
+        "en": "Exusiai N.C.",
+        "ch": "新约能天使"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "LT17": {
+      "name": {
+        "ja": "レミュアン",
+        "en": "Lemuen",
+        "ch": "蕾缪安"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LT32": {
+      "name": {
+        "ja": "サンクタ・ミキサー",
+        "en": "Sankta Miksaparato",
+        "ch": "信仰搅拌机"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true,
+        "Y": true
+      }
+    },
+    "CT01": {
+      "name": {
+        "ja": "トラゴーディア",
+        "en": "Tragodia",
+        "ch": "酒神"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD25": {
+      "name": {
+        "ja": "司霆レイズ",
+        "en": "Leizi T.T.",
+        "ch": "司霆惊蛰"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "RE10": {
+      "name": {
+        "ja": "レイディアン",
+        "en": "Raidian",
+        "ch": "电弧"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "A": true,
+        "B": true
+      }
+    },
+    "LM23": {
+      "name": {
+        "ja": "斬業ホシグマ",
+        "en": "Hoshiguma T.B.",
+        "ch": "斩业星熊"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "HK15": {
+      "name": {
+        "ja": "ハルカ",
+        "en": "Haruka",
+        "ch": "遥"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "AM01": {
+      "name": {
+        "ja": "豊川祥子",
+        "en": "Sakiko Togawa",
+        "ch": "丰川祥子"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RE06": {
+      "name": {
+        "ja": "マントラ",
+        "en": "Mantra",
+        "ch": "真言"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "KJ01": {
+      "name": {
+        "ja": "凛御シルバーアッシュ",
+        "en": "SilverAsh T.R.",
+        "ch": "凛御银灰"
+      },
+      "rarity": "☆6",
+      "modules": {}
+    },
+    "KJ02": {
+      "name": {
+        "ja": "聖聆プラマニクス",
+        "en": "Pramanix T.P.",
+        "ch": "圣聆初雪"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RL12": {
+      "name": {
+        "ja": "遡光アステジーニ",
+        "en": "Astgenne T.L.",
+        "ch": "溯光星源"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RL11": {
+      "name": {
+        "ja": "ナスティ",
+        "en": "Nasti",
+        "ch": "娜斯提"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG15": {
+      "name": {
+        "ja": "ティティ",
+        "en": "Titi",
+        "ch": "缇缇"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "NM07": {
+      "name": {
+        "ja": "ウァン",
+        "en": "Wang",
+        "ch": "望"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD30": {
+      "name": {
+        "ja": "赤刃明霄チェン",
+        "en": "Ch'en T.D.",
+        "ch": "赤刃明霄陈"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "SR42": {
+      "name": {
+        "ja": "ベッローネ",
+        "en": "Bellone",
+        "ch": "贝洛内"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "USS0": {
+      "name": {
+        "ja": "怒潮ズィマー",
+        "en": "Zima R.T.",
+        "ch": "怒潮凛冬"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "R002": {
+      "name": {
+        "ja": "ケルシー・エスペランタ",
+        "en": "Kal'tsit·Esperanta",
+        "ch": "凯尔希·思衡托"
+      },
+      "rarity": "☆6",
+      "modules": {}
+    },
+    "R00A": {
+      "name": {
+        "ja": "クロージャ",
+        "en": "Closure",
+        "ch": "可露希尔"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "US53": {
+      "name": {
+        "ja": "ヴィイ",
+        "en": "Вий",
+        "ch": "维伊"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "MH05": {
+      "name": {
+        "ja": "焔狐竜オーキッド",
+        "en": "Orchid V.M.",
+        "ch": "焰狐龙梓兰"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB35": {
+      "name": {
+        "ja": "アフリッサ",
+        "en": "Aphrissa",
+        "ch": "谬因"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RE21": {
+      "name": {
+        "ja": "メカニスト",
+        "en": "Mechanist",
+        "ch": "机械师"
+      },
+      "rarity": "☆6",
+      "modules": {
+        "A": true
+      }
+    },
+    "RB01": {
+      "name": {
+        "ja": "サベージ",
+        "en": "Savage",
+        "ch": "暴行"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "PL02": {
+      "name": {
+        "ja": "テキサス",
+        "en": "Texas",
+        "ch": "德克萨斯"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "USS1": {
+      "name": {
+        "ja": "ズィマー",
+        "en": "Zima",
+        "ch": "凛冬"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RL04": {
+      "name": {
+        "ja": "フィリオプシス",
+        "en": "Ptilopsis",
+        "ch": "白面鸮"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RL01": {
+      "name": {
+        "ja": "サイレンス",
+        "en": "Silence",
+        "ch": "赫默"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R106": {
+      "name": {
+        "ja": "ワルファリン",
+        "en": "Warfarin",
+        "ch": "华法琳"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R001": {
+      "name": {
+        "ja": "アーミヤ",
+        "en": "Amiya",
+        "ch": "阿米娅"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R001_2": {
+      "name": {
+        "ja": "昇格アーミヤ(前衛)",
+        "en": "Amiya Alter(Guard)",
+        "ch": "阿米娅(近卫)"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R001_3": {
+      "name": {
+        "ja": "昇格アーミヤ(医療)",
+        "en": "Amiya Alter(Medic)",
+        "ch": "阿米娅(医疗)"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC03": {
+      "name": {
+        "ja": "ナイトメア",
+        "en": "Nightmare",
+        "ch": "夜魔"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SK01": {
+      "name": {
+        "ja": "スカイフレア",
+        "en": "Skyfire",
+        "ch": "天火"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SW01": {
+      "name": {
+        "ja": "レッド",
+        "en": "Projekt Red",
+        "ch": "红"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SG01": {
+      "name": {
+        "ja": "マンティコア",
+        "en": "Manticore",
+        "ch": "狮蝎"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "JC06": {
+      "name": {
+        "ja": "クリフハート",
+        "en": "Cliffheart",
+        "ch": "崖心"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD01": {
+      "name": {
+        "ja": "エフイーター",
+        "en": "FEater",
+        "ch": "食铁兽"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SR03": {
+      "name": {
+        "ja": "プロヴァンス",
+        "en": "Provence",
+        "ch": "普罗旺斯"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "AA03": {
+      "name": {
+        "ja": "アズリウス",
+        "en": "Blue Poison",
+        "ch": "蓝毒"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "ST01": {
+      "name": {
+        "ja": "ファイヤーウォッチ",
+        "en": "Firewatch",
+        "ch": "守林人"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "ST03": {
+      "name": {
+        "ja": "メテオリーテ",
+        "en": "Meteorite",
+        "ch": "陨星"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "KZ03": {
+      "name": {
+        "ja": "プラチナ",
+        "en": "Platinum",
+        "ch": "白金"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "JC05": {
+      "name": {
+        "ja": "プラマニクス",
+        "en": "Pramanix",
+        "ch": "初雪"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "USS2": {
+      "name": {
+        "ja": "イースチナ",
+        "en": "Istina",
+        "ch": "真理"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RL05": {
+      "name": {
+        "ja": "メイヤー",
+        "en": "Mayer",
+        "ch": "梅尔"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "PL05": {
+      "name": {
+        "ja": "ソラ",
+        "en": "Sora",
+        "ch": "空"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BS01": {
+      "name": {
+        "ja": "フランカ",
+        "en": "Franka",
+        "ch": "芙兰卡"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "AA02": {
+      "name": {
+        "ja": "スペクター",
+        "en": "Specter",
+        "ch": "幽灵鲨"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "GG03": {
+      "name": {
+        "ja": "インドラ",
+        "en": "Indra",
+        "ch": "因陀罗"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SR01": {
+      "name": {
+        "ja": "ラップランド",
+        "en": "Lappland",
+        "ch": "拉普兰德"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "FO02": {
+      "name": {
+        "ja": "ニアール",
+        "en": "Nearl",
+        "ch": "临光"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BS02": {
+      "name": {
+        "ja": "リスカム",
+        "en": "Liskarm",
+        "ch": "雷蛇"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "MN02": {
+      "name": {
+        "ja": "ヴァルカン",
+        "en": "Vulcan",
+        "ch": "火神"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "PL04": {
+      "name": {
+        "ja": "クロワッサン",
+        "en": "Croissant",
+        "ch": "可颂"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC05": {
+      "name": {
+        "ja": "グラニ",
+        "en": "Grani",
+        "ch": "格拉尼"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LM08": {
+      "name": {
+        "ja": "スワイヤー",
+        "en": "Swire",
+        "ch": "诗怀雅"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R128": {
+      "name": {
+        "ja": "グラウコス",
+        "en": "Glaucus",
+        "ch": "格劳克斯"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SS01": {
+      "name": {
+        "ja": "セイロン",
+        "en": "Ceylon",
+        "ch": "锡兰"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RR01": {
+      "name": {
+        "ja": "アステシア",
+        "en": "Astesia",
+        "ch": "星极"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R137": {
+      "name": {
+        "ja": "エンカク",
+        "en": "Flamebringer",
+        "ch": "炎客"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LT01": {
+      "name": {
+        "ja": "イグゼキュター",
+        "en": "Executor",
+        "ch": "送葬人"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R132": {
+      "name": {
+        "ja": "ブリーズ",
+        "en": "Breeze",
+        "ch": "微风"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LM12": {
+      "name": {
+        "ja": "ワイフー",
+        "en": "Waai Fu",
+        "ch": "槐琥"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LM15": {
+      "name": {
+        "ja": "バイソン",
+        "en": "Bison",
+        "ch": "拜松"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "HT03": {
+      "name": {
+        "ja": "リード",
+        "en": "Reed",
+        "ch": "苇草"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SR27": {
+      "name": {
+        "ja": "ブローカ",
+        "en": "Broca",
+        "ch": "布洛卡"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R110": {
+      "name": {
+        "ja": "グレースロート",
+        "en": "GreyThroat",
+        "ch": "灰喉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LM16": {
+      "name": {
+        "ja": "スノーズント",
+        "en": "Snowsant",
+        "ch": "雪雉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LM19": {
+      "name": {
+        "ja": "ウン",
+        "en": "Hung",
+        "ch": "吽"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "YD05": {
+      "name": {
+        "ja": "レイズ",
+        "en": "Leizi",
+        "ch": "惊蛰"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R138": {
+      "name": {
+        "ja": "バイビーク",
+        "en": "Bibeak",
+        "ch": "柏喙"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R158": {
+      "name": {
+        "ja": "シェーシャ",
+        "en": "Sesa",
+        "ch": "慑砂"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R148": {
+      "name": {
+        "ja": "シャマレ",
+        "en": "Shamare",
+        "ch": "巫恋"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R126": {
+      "name": {
+        "ja": "シデロカ",
+        "en": "Sideroca",
+        "ch": "铸铁"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R131": {
+      "name": {
+        "ja": "エリジウム",
+        "en": "Elysium",
+        "ch": "极境"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB05": {
+      "name": {
+        "ja": "アスベストス",
+        "en": "Asbestos",
+        "ch": "石棉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R129": {
+      "name": {
+        "ja": "ツキノギ",
+        "en": "Tsukinogi",
+        "ch": "月禾"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "US11": {
+      "name": {
+        "ja": "アブサント",
+        "en": "Absinthe",
+        "ch": "苦艾"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB03": {
+      "name": {
+        "ja": "レオンハルト",
+        "en": "Leonhardt",
+        "ch": "莱恩哈特"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB04": {
+      "name": {
+        "ja": "エアースカーペ",
+        "en": "Ayerscarpe",
+        "ch": "断崖"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R133": {
+      "name": {
+        "ja": "フォリニック",
+        "en": "Folinic",
+        "ch": "亚叶"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R147": {
+      "name": {
+        "ja": "ビーズワクス",
+        "en": "Beeswax",
+        "ch": "蜜蜡"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SR26": {
+      "name": {
+        "ja": "キアーベ",
+        "en": "Chiave",
+        "ch": "贾维"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R162": {
+      "name": {
+        "ja": "シーン",
+        "en": "Scene",
+        "ch": "稀音"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "II04": {
+      "name": {
+        "ja": "アンドレアナ",
+        "en": "Andreana",
+        "ch": "安哲拉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG05": {
+      "name": {
+        "ja": "トミミ",
+        "en": "Tomimi",
+        "ch": "特米米"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SG06": {
+      "name": {
+        "ja": "フリント",
+        "en": "Flint",
+        "ch": "燧石"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC08": {
+      "name": {
+        "ja": "ミント",
+        "en": "Mint",
+        "ch": "薄绿"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB07": {
+      "name": {
+        "ja": "エイプリル",
+        "en": "April",
+        "ch": "四月"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SR28": {
+      "name": {
+        "ja": "アオスタ",
+        "en": "Aosta",
+        "ch": "奥斯塔"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "KZ07": {
+      "name": {
+        "ja": "ウィスラッシュ",
+        "en": "Whislash",
+        "ch": "鞭刃"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R163": {
+      "name": {
+        "ja": "ウィスパーレイン",
+        "en": "Whisperain",
+        "ch": "絮雨"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB06": {
+      "name": {
+        "ja": "カフカ",
+        "en": "Kafka",
+        "ch": "卡夫卡"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "CB08": {
+      "name": {
+        "ja": "ロビン",
+        "en": "Robin",
+        "ch": "罗宾"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC12": {
+      "name": {
+        "ja": "アイリス",
+        "en": "Iris",
+        "ch": "爱丽丝"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG08": {
+      "name": {
+        "ja": "トゥイエ",
+        "en": "Tuye",
+        "ch": "图耶"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RF01": {
+      "name": {
+        "ja": "炎獄ラヴァ",
+        "en": "Purgatory",
+        "ch": "炎狱炎熔"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD11": {
+      "name": {
+        "ja": "ウユウ",
+        "en": "Mr.Nothing",
+        "ch": "乌有"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RS03": {
+      "name": {
+        "ja": "Frost",
+        "en": "Frost",
+        "ch": "霜华"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RS02": {
+      "name": {
+        "ja": "Blitz",
+        "en": "Blitz",
+        "ch": "闪击"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RS04": {
+      "name": {
+        "ja": "Tachanka",
+        "en": "Tachanka",
+        "ch": "战车"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC11": {
+      "name": {
+        "ja": "トギフォンス",
+        "en": "Toddifons",
+        "ch": "熔泉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R164": {
+      "name": {
+        "ja": "ヘビーレイン",
+        "en": "Heavyrain",
+        "ch": "暴雨"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "HK04": {
+      "name": {
+        "ja": "アカフユ",
+        "en": "Akafuyu",
+        "ch": "赤冬"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "HK05": {
+      "name": {
+        "ja": "キララ",
+        "en": "Kirara",
+        "ch": "绮良"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC14": {
+      "name": {
+        "ja": "ベナ",
+        "en": "Bena",
+        "ch": "贝娜"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "BV13": {
+      "name": {
+        "ja": "ラ・プルマ",
+        "en": "La Pluma",
+        "ch": "羽毛笔"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BV12": {
+      "name": {
+        "ja": "テキーラ",
+        "en": "Tequila",
+        "ch": "龙舌兰"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD03": {
+      "name": {
+        "ja": "マルベリー",
+        "en": "Mulberry",
+        "ch": "桑葚"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "KZ12": {
+      "name": {
+        "ja": "アッシュロック",
+        "en": "Ashlock",
+        "ch": "灰毫"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB12": {
+      "name": {
+        "ja": "コロセラム",
+        "en": "Corroserum",
+        "ch": "蚀清"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB06": {
+      "name": {
+        "ja": "ハニーベリー",
+        "en": "Honeyberry",
+        "ch": "蜜莓"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "KZ14": {
+      "name": {
+        "ja": "ワイルドメイン",
+        "en": "Wild Mane",
+        "ch": "野鬃"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "JC09": {
+      "name": {
+        "ja": "オーロラ",
+        "en": "Aurora",
+        "ch": "极光"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "JC00": {
+      "name": {
+        "ja": "イェラ",
+        "en": "Kjera",
+        "ch": "耶拉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC07": {
+      "name": {
+        "ja": "シャレム",
+        "en": "Shalem",
+        "ch": "暮落"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD09": {
+      "name": {
+        "ja": "クシキロク",
+        "en": "9-Colored Deer",
+        "ch": "九色鹿"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB12": {
+      "name": {
+        "ja": "ブラックナイト",
+        "en": "Blacknight",
+        "ch": "夜半"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RF02": {
+      "name": {
+        "ja": "寒芒クルース",
+        "en": "Kroos K.G.",
+        "ch": "寒芒克洛丝"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R121": {
+      "name": {
+        "ja": "クエルクス",
+        "en": "Quercus",
+        "ch": "夏栎"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LT10": {
+      "name": {
+        "ja": "エンフォーサー",
+        "en": "Enforcer",
+        "ch": "见行者"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "HK09": {
+      "name": {
+        "ja": "カゼマル",
+        "en": "Kazemaru",
+        "ch": "风丸"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC18": {
+      "name": {
+        "ja": "ロックロック",
+        "en": "Rockrock",
+        "ch": "洛洛"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC19": {
+      "name": {
+        "ja": "ハイディ",
+        "en": "Heidi",
+        "ch": "海蒂"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB19": {
+      "name": {
+        "ja": "ウィンドフリット",
+        "en": "Windflit",
+        "ch": "掠风"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "MN07": {
+      "name": {
+        "ja": "エラト",
+        "en": "Erato",
+        "ch": "埃拉托"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LN06": {
+      "name": {
+        "ja": "ツェルニー",
+        "en": "Czerny",
+        "ch": "车尔尼"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RF03": {
+      "name": {
+        "ja": "濯塵ハイビスカス",
+        "en": "Hibiscus P.F.",
+        "ch": "濯尘芙蓉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RL08": {
+      "name": {
+        "ja": "アステジーニ",
+        "en": "Astgenne",
+        "ch": "星源"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RF23": {
+      "name": {
+        "ja": "承曦グレイ",
+        "en": "Greyy L.B.",
+        "ch": "承曦格雷伊"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R143": {
+      "name": {
+        "ja": "カンタービレ",
+        "en": "Cantabile",
+        "ch": "晓歌"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SG09": {
+      "name": {
+        "ja": "ミニマリスト",
+        "en": "Minimalist",
+        "ch": "至简"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "KZ10": {
+      "name": {
+        "ja": "プロヴァイゾ",
+        "en": "Proviso",
+        "ch": "但书"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "II10": {
+      "name": {
+        "ja": "ハイモア",
+        "en": "Highmore",
+        "ch": "海沫"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R175": {
+      "name": {
+        "ja": "パプリカ",
+        "en": "Paprika",
+        "ch": "明椒"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "GG04": {
+      "name": {
+        "ja": "ダグザ",
+        "en": "Dagda",
+        "ch": "达格达"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SR37": {
+      "name": {
+        "ja": "ルナカブ",
+        "en": "Lunacub",
+        "ch": "子月"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SI03": {
+      "name": {
+        "ja": "カニパラート",
+        "en": "Qanipalaat",
+        "ch": "雪绒"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "DB03": {
+      "name": {
+        "ja": "ハーモニー",
+        "en": "Harmonie",
+        "ch": "和弦"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC21": {
+      "name": {
+        "ja": "パズル",
+        "en": "Pazzle",
+        "ch": "谜图"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB09": {
+      "name": {
+        "ja": "ファイヤーホイッスル",
+        "en": "Firewhistle",
+        "ch": "火哨"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD15": {
+      "name": {
+        "ja": "ジエユン",
+        "en": "Jieyun",
+        "ch": "截云"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "YD17": {
+      "name": {
+        "ja": "ウィンドチャイム",
+        "en": "Wind Chimes",
+        "ch": "铎铃"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "MH03": {
+      "name": {
+        "ja": "レウスSノイルホーン",
+        "en": "Noir Corne R.S",
+        "ch": "火龙S黑角"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB11": {
+      "name": {
+        "ja": "セメント",
+        "en": "Cement",
+        "ch": "洋灰"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "GG02": {
+      "name": {
+        "ja": "モーガン",
+        "en": "Morgan",
+        "ch": "摩根"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB22": {
+      "name": {
+        "ja": "メラナイト",
+        "en": "Melanite",
+        "ch": "玫拉"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LT12": {
+      "name": {
+        "ja": "スプリア",
+        "en": "Spuria",
+        "ch": "空构"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LT13": {
+      "name": {
+        "ja": "インサイダー",
+        "en": "Insider",
+        "ch": "隐现"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SI02": {
+      "name": {
+        "ja": "サンタラ",
+        "en": "Santalla",
+        "ch": "寒檀"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SI06": {
+      "name": {
+        "ja": "ヴァラルクビン",
+        "en": "Valarqvin",
+        "ch": "凛视"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SS04": {
+      "name": {
+        "ja": "ポンシラス",
+        "en": "Poncirus",
+        "ch": "青枳"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SS03": {
+      "name": {
+        "ja": "ブライオファイタ",
+        "en": "Bryophyta",
+        "ch": "苍苔"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BS05": {
+      "name": {
+        "ja": "アーモンド",
+        "en": "Almond",
+        "ch": "杏仁"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB28": {
+      "name": {
+        "ja": "コールドショット",
+        "en": "Coldshot",
+        "ch": "冰酿"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC23": {
+      "name": {
+        "ja": "ヴァンデラ",
+        "en": "Vendela",
+        "ch": "刺玫"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC24": {
+      "name": {
+        "ja": "デルフィーン",
+        "en": "Delphine",
+        "ch": "戴菲恩"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LN21": {
+      "name": {
+        "ja": "ディアマンテ",
+        "en": "Diamante",
+        "ch": "折光"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "LN13": {
+      "name": {
+        "ja": "ベースライン",
+        "en": "Bassline",
+        "ch": "深律"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "USS5": {
+      "name": {
+        "ja": "リェータ",
+        "en": "Лето",
+        "ch": "烈夏"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC27": {
+      "name": {
+        "ja": "ハロルド",
+        "en": "Harold",
+        "ch": "哈洛德"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB14": {
+      "name": {
+        "ja": "ウォーミー",
+        "en": "Warmy",
+        "ch": "温米"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD13": {
+      "name": {
+        "ja": "ワンチィン",
+        "en": "Wanqing",
+        "ch": "万顷"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD14": {
+      "name": {
+        "ja": "グレインバッズ",
+        "en": "Grainbuds",
+        "ch": "小满"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG12": {
+      "name": {
+        "ja": "ケストレル",
+        "en": "Kestrel",
+        "ch": "红隼"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RS06": {
+      "name": {
+        "ja": "Doc",
+        "en": "Doc",
+        "ch": "医生"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "RS07": {
+      "name": {
+        "ja": "Iana",
+        "en": "Iana",
+        "ch": "双月"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RS08": {
+      "name": {
+        "ja": "Fuze",
+        "en": "Fuze",
+        "ch": "导火索"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SR39": {
+      "name": {
+        "ja": "アロマ",
+        "en": "Aroma",
+        "ch": "阿罗玛"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R167": {
+      "name": {
+        "ja": "オッダ",
+        "en": "Odda",
+        "ch": "奥达"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RF04": {
+      "name": {
+        "ja": "歴陣鋭槍フェン",
+        "en": "Fang F.S.",
+        "ch": "历阵锐枪芬"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "AE03": {
+      "name": {
+        "ja": "アンダーフロー",
+        "en": "Underflow",
+        "ch": "深巡"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "AE05": {
+      "name": {
+        "ja": "ルシーラ",
+        "en": "Lucilla",
+        "ch": "海霓"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "R184": {
+      "name": {
+        "ja": "ミトム",
+        "en": "Mitm",
+        "ch": "渡桥"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "CB30": {
+      "name": {
+        "ja": "ブリキ",
+        "en": "Tin Man",
+        "ch": "锡人"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG23": {
+      "name": {
+        "ja": "サンドレコナー",
+        "en": "Sandreckoner",
+        "ch": "衡沙"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG19": {
+      "name": {
+        "ja": "パピルス",
+        "en": "Papyrus",
+        "ch": "莎草"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "DD01": {
+      "name": {
+        "ja": "ライオス",
+        "en": "Laios",
+        "ch": "莱欧斯"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "DD03": {
+      "name": {
+        "ja": "チルチャック",
+        "en": "Chilchuck",
+        "ch": "齐尔查克"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "DD04": {
+      "name": {
+        "ja": "センシ",
+        "en": "Senshi",
+        "ch": "森西"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC20": {
+      "name": {
+        "ja": "キャサリン",
+        "en": "Catherine",
+        "ch": "凯瑟琳"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB32": {
+      "name": {
+        "ja": "ボビング",
+        "en": "Bobbing",
+        "ch": "波卜"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SR41": {
+      "name": {
+        "ja": "フィグリーノ",
+        "en": "Figurino",
+        "ch": "裁度"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG10": {
+      "name": {
+        "ja": "フィラエ",
+        "en": "Philae",
+        "ch": "菲莱"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BV23": {
+      "name": {
+        "ja": "テクノ",
+        "en": "Tecno",
+        "ch": "特克诺"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "II11": {
+      "name": {
+        "ja": "ローズソルト",
+        "en": "Rose Salt",
+        "ch": "瑰盐"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "YD18": {
+      "name": {
+        "ja": "シィンズゥ",
+        "en": "Xingzhu",
+        "ch": "行箸"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BS07": {
+      "name": {
+        "ja": "サーファー",
+        "en": "Surfer",
+        "ch": "寻澜"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC29": {
+      "name": {
+        "ja": "ノウエル",
+        "en": "Nowell",
+        "ch": "诺威尔"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG27": {
+      "name": {
+        "ja": "ウルフェナイト",
+        "en": "Wulfenite",
+        "ch": "钼铅"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "DB04": {
+      "name": {
+        "ja": "ブリギッド",
+        "en": "Brigid",
+        "ch": "水灯心"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB17": {
+      "name": {
+        "ja": "アランナ",
+        "en": "Alanna",
+        "ch": "阿兰娜"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BV27": {
+      "name": {
+        "ja": "グレースベアラー",
+        "en": "Gracebearer",
+        "ch": "聆音"
+      },
+      "rarity": "☆5",
+      "modules": {}
+    },
+    "MEOW": {
+      "name": {
+        "ja": "ミス・クリスティーン",
+        "en": "Miss.Christine",
+        "ch": "Miss.Christine"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB25": {
+      "name": {
+        "ja": "ティッピ",
+        "en": "Tippi",
+        "ch": "蒂比"
+      },
+      "rarity": "☆5",
+      "modules": {}
+    },
+    "YD26": {
+      "name": {
+        "ja": "レコードキーパー",
+        "en": "Record Keeper",
+        "ch": "录武官"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "HK16": {
+      "name": {
+        "ja": "キチセイ",
+        "en": "Kichisei",
+        "ch": "吉星"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "HK17": {
+      "name": {
+        "ja": "マツキリ",
+        "en": "Matsukiri",
+        "ch": "松桐"
+      },
+      "rarity": "☆5",
+      "modules": {}
+    },
+    "AM02": {
+      "name": {
+        "ja": "八幡海鈴",
+        "en": "Umiri Yahata",
+        "ch": "八幡海铃"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "AM03": {
+      "name": {
+        "ja": "三角初華",
+        "en": "Uika Misumi",
+        "ch": "三角初华"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "AM04": {
+      "name": {
+        "ja": "祐天寺にゃむ",
+        "en": "Nyamu Yutenji",
+        "ch": "祐天寺若麦"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "AM05": {
+      "name": {
+        "ja": "若葉睦",
+        "en": "Mutsumi Wakaba",
+        "ch": "若叶睦"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "US35": {
+      "name": {
+        "ja": "ヴェトチキ",
+        "en": "Vyetochki",
+        "ch": "折桠"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "KJ07": {
+      "name": {
+        "ja": "スノーハンター",
+        "en": "SnowHunter",
+        "ch": "雪猎"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "SG28": {
+      "name": {
+        "ja": "ハディヤ",
+        "en": "Hadiya",
+        "ch": "哈蒂娅"
+      },
+      "rarity": "☆5",
+      "modules": {}
+    },
+    "CB31": {
+      "name": {
+        "ja": "ケルン",
+        "en": "Cairn",
+        "ch": "响石"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB54": {
+      "name": {
+        "ja": "スカイボックス",
+        "en": "Skybox",
+        "ch": "天空盒"
+      },
+      "rarity": "☆5",
+      "modules": {}
+    },
+    "RF31": {
+      "name": {
+        "ja": "摘英パフューマー",
+        "en": "Perfumer T.D.",
+        "ch": "撷英调香师"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "MN08": {
+      "name": {
+        "ja": "ヴァルカリス",
+        "en": "Varkáris",
+        "ch": "摆渡人"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "YD29": {
+      "name": {
+        "ja": "タラクサカム",
+        "en": "Taraxacum",
+        "ch": "风絮"
+      },
+      "rarity": "☆5",
+      "modules": {}
+    },
+    "YD28": {
+      "name": {
+        "ja": "ジュー",
+        "en": "Ju",
+        "ch": "矩"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SR43": {
+      "name": {
+        "ja": "リプレーザ",
+        "en": "Ripresa",
+        "ch": "复奏"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "Y": true
+      }
+    },
+    "US39": {
+      "name": {
+        "ja": "ウクシク",
+        "en": "Укусик",
+        "ch": "乌啾"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "US40": {
+      "name": {
+        "ja": "ボタニ",
+        "en": "Ботани",
+        "ch": "伯塔尼"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "US42": {
+      "name": {
+        "ja": "クラックボーン",
+        "en": "Crackborne",
+        "ch": "裂响"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "MH06": {
+      "name": {
+        "ja": "ジンオウSカタパルト",
+        "en": "Catapult Z.S.",
+        "ch": "雷狼龙S空爆"
+      },
+      "rarity": "☆5",
+      "modules": {
+        "X": true
+      }
+    },
+    "BV02": {
+      "name": {
+        "ja": "ペドロ",
+        "en": "Pedro",
+        "ch": "佩德洛"
+      },
+      "rarity": "☆5",
+      "modules": {}
+    },
+    "JC04": {
+      "name": {
+        "ja": "クーリエ",
+        "en": "Courier",
+        "ch": "讯使"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "SW02": {
+      "name": {
+        "ja": "スカベンジャー",
+        "en": "Scavenger",
+        "ch": "清道夫"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R105": {
+      "name": {
+        "ja": "ヴィグナ",
+        "en": "Vigna",
+        "ch": "红豆"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R104": {
+      "name": {
+        "ja": "ミルラ",
+        "en": "Myrrh",
+        "ch": "末药"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "IU07": {
+      "name": {
+        "ja": "ガヴィル",
+        "en": "Gavial",
+        "ch": "嘉维尔"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "MN03": {
+      "name": {
+        "ja": "パフューマー",
+        "en": "Perfumer",
+        "ch": "调香师"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC02": {
+      "name": {
+        "ja": "ヘイズ",
+        "en": "Haze",
+        "ch": "夜烟"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "SI01": {
+      "name": {
+        "ja": "ギターノ",
+        "en": "Gitano",
+        "ch": "远山"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "KZ04": {
+      "name": {
+        "ja": "グラベル",
+        "en": "Gravel",
+        "ch": "砾"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "RB02": {
+      "name": {
+        "ja": "ロープ",
+        "en": "Rope",
+        "ch": "暗索"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "LM11": {
+      "name": {
+        "ja": "ショウ",
+        "en": "Shaw",
+        "ch": "阿消"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LM10": {
+      "name": {
+        "ja": "シラユキ",
+        "en": "ShiraYuki",
+        "ch": "白雪"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "ST02": {
+      "name": {
+        "ja": "メテオ",
+        "en": "Meteor",
+        "ch": "流星"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "BS03": {
+      "name": {
+        "ja": "ジェシカ",
+        "en": "Jessica",
+        "ch": "杰西卡"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "AA04": {
+      "name": {
+        "ja": "ディピカ",
+        "en": "Deepcolor",
+        "ch": "深海色"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LN01": {
+      "name": {
+        "ja": "アーススピリット",
+        "en": "Earthspirit",
+        "ch": "地灵"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R100": {
+      "name": {
+        "ja": "ドーベルマン",
+        "en": "Dobermann",
+        "ch": "杜宾"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "IU04": {
+      "name": {
+        "ja": "エステル",
+        "en": "Estelle",
+        "ch": "艾丝黛尔"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "US10": {
+      "name": {
+        "ja": "ビーハンター",
+        "en": "Beehunter",
+        "ch": "猎蜂"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "VC04": {
+      "name": {
+        "ja": "ムース",
+        "en": "Mousse",
+        "ch": "慕斯"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R123": {
+      "name": {
+        "ja": "フロストリーフ",
+        "en": "Frostleaf",
+        "ch": "霜叶"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "HK01": {
+      "name": {
+        "ja": "マトイマル",
+        "en": "Matoimaru",
+        "ch": "缠丸"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "IU05": {
+      "name": {
+        "ja": "クオーラ",
+        "en": "Cuora",
+        "ch": "蛇屠箱"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "USS3": {
+      "name": {
+        "ja": "グム",
+        "en": "Gummy",
+        "ch": "古米"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "JC03": {
+      "name": {
+        "ja": "マッターホルン",
+        "en": "Matterhorn",
+        "ch": "角峰"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R119": {
+      "name": {
+        "ja": "グレイ",
+        "en": "Greyy",
+        "ch": "格雷伊"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R107": {
+      "name": {
+        "ja": "ススーロ",
+        "en": "Sussurro",
+        "ch": "苏苏洛"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R108": {
+      "name": {
+        "ja": "テンニンカ",
+        "en": "Myrtle",
+        "ch": "桃金娘"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R124": {
+      "name": {
+        "ja": "ジュナー",
+        "en": "Dur-nar",
+        "ch": "坚雷"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R122": {
+      "name": {
+        "ja": "ヴァーミル",
+        "en": "Vermeil",
+        "ch": "红云"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R130": {
+      "name": {
+        "ja": "イーサン",
+        "en": "Ethan",
+        "ch": "伊桑"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC01": {
+      "name": {
+        "ja": "メイ",
+        "en": "May",
+        "ch": "梅"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "LT02": {
+      "name": {
+        "ja": "アンブリエル",
+        "en": "Ambriel",
+        "ch": "安比尔"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R160": {
+      "name": {
+        "ja": "セイリュウ",
+        "en": "Purestream",
+        "ch": "清流"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "HK03": {
+      "name": {
+        "ja": "ウタゲ",
+        "en": "Utage",
+        "ch": "宴"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "MN01": {
+      "name": {
+        "ja": "コンビクション",
+        "en": "Conviction",
+        "ch": "断罪者"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R144": {
+      "name": {
+        "ja": "カッター",
+        "en": "Cutter",
+        "ch": "刻刀"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R157": {
+      "name": {
+        "ja": "ポデンコ",
+        "en": "Podenco",
+        "ch": "波登可"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R140": {
+      "name": {
+        "ja": "カシャ",
+        "en": "Click",
+        "ch": "卡达"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "LM14": {
+      "name": {
+        "ja": "ジェイ",
+        "en": "Jaye",
+        "ch": "孑"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R139": {
+      "name": {
+        "ja": "アシッドドロップ",
+        "en": "Aciddrop",
+        "ch": "酸糖"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "LT06": {
+      "name": {
+        "ja": "アレーン",
+        "en": "Arene",
+        "ch": "芳汀"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R146": {
+      "name": {
+        "ja": "バブル",
+        "en": "Bubble",
+        "ch": "泡泡"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R166": {
+      "name": {
+        "ja": "ジャッキー",
+        "en": "Jackie",
+        "ch": "杰克"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB09": {
+      "name": {
+        "ja": "パインコーン",
+        "en": "Pinecone",
+        "ch": "松果"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB16": {
+      "name": {
+        "ja": "ビーンストーク",
+        "en": "Beanstalk",
+        "ch": "豆苗"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "II05": {
+      "name": {
+        "ja": "インディゴ",
+        "en": "Indigo",
+        "ch": "深靛"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB11": {
+      "name": {
+        "ja": "ロベルタ",
+        "en": "Roberta",
+        "ch": "罗比菈塔"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB03": {
+      "name": {
+        "ja": "プリン",
+        "en": "Pudding",
+        "ch": "布丁"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "R134": {
+      "name": {
+        "ja": "チェストナット",
+        "en": "Chestnut",
+        "ch": "褐果"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R161": {
+      "name": {
+        "ja": "羅小黒",
+        "en": "Luo Xiaiohei",
+        "ch": "罗小黑"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "SG11": {
+      "name": {
+        "ja": "トター",
+        "en": "Totter",
+        "ch": "铅踝"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB18": {
+      "name": {
+        "ja": "クォーツ",
+        "en": "Quartz",
+        "ch": "石英"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "R171": {
+      "name": {
+        "ja": "ヒューマス",
+        "en": "Humus",
+        "ch": "休谟斯"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "VC25": {
+      "name": {
+        "ja": "ヴァーダント",
+        "en": "Verdant",
+        "ch": "维荻"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "Y": true
+      }
+    },
+    "BV32": {
+      "name": {
+        "ja": "ケイパー",
+        "en": "Caper",
+        "ch": "跃跃"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "BV33": {
+      "name": {
+        "ja": "ルトナダ",
+        "en": "Lutonada",
+        "ch": "露托"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "CB33": {
+      "name": {
+        "ja": "コントレイル",
+        "en": "Contrail",
+        "ch": "云迹"
+      },
+      "rarity": "☆4",
+      "modules": {}
+    },
+    "YD22": {
+      "name": {
+        "ja": "ウィンドスクート",
+        "en": "Windscoot",
+        "ch": "骋风"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "US38": {
+      "name": {
+        "ja": "スネグラーチカ",
+        "en": "Snegurochka",
+        "ch": "冬时"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "LN22": {
+      "name": {
+        "ja": "アコルト",
+        "en": "Akkord",
+        "ch": "协律"
+      },
+      "rarity": "☆4",
+      "modules": {
+        "X": true
+      }
+    },
+    "PA11": {
+      "name": {
+        "ja": "フェン",
+        "en": "Fang",
+        "ch": "芬"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "BS04": {
+      "name": {
+        "ja": "バニラ",
+        "en": "Vanilla",
+        "ch": "香草"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "LT05": {
+      "name": {
+        "ja": "プリュム",
+        "en": "Plume",
+        "ch": "翎羽"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA13": {
+      "name": {
+        "ja": "ハイビスカス",
+        "en": "Hibiscus",
+        "ch": "芙蓉"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA43": {
+      "name": {
+        "ja": "アンセル",
+        "en": "Ansel",
+        "ch": "安赛尔"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA15": {
+      "name": {
+        "ja": "ラヴァ",
+        "en": "Lava",
+        "ch": "炎熔"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA42": {
+      "name": {
+        "ja": "スチュワード",
+        "en": "Steward",
+        "ch": "史都华德"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA12": {
+      "name": {
+        "ja": "クルース",
+        "en": "Kroos",
+        "ch": "克洛丝"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA44": {
+      "name": {
+        "ja": "アドナキエル",
+        "en": "Adnachiel",
+        "ch": "安德切尔"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA61": {
+      "name": {
+        "ja": "オーキッド",
+        "en": "Orchid",
+        "ch": "梓兰"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA41": {
+      "name": {
+        "ja": "メランサ",
+        "en": "Melantha",
+        "ch": "玫兰莎"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA14": {
+      "name": {
+        "ja": "ビーグル",
+        "en": "Beagle",
+        "ch": "米格鲁"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA45": {
+      "name": {
+        "ja": "カーディ",
+        "en": "Cardigan",
+        "ch": "卡缇"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA63": {
+      "name": {
+        "ja": "カタパルト",
+        "en": "Catapult",
+        "ch": "空爆"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA62": {
+      "name": {
+        "ja": "ミッドナイト",
+        "en": "Midnight",
+        "ch": "月见夜"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA65": {
+      "name": {
+        "ja": "ポプカル",
+        "en": "Popukar",
+        "ch": "泡普卡"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "PA64": {
+      "name": {
+        "ja": "スポット",
+        "en": "Spot",
+        "ch": "斑点"
+      },
+      "rarity": "☆3",
+      "modules": {}
+    },
+    "A41": {
+      "name": {
+        "ja": "ヤトウ",
+        "en": "Yato",
+        "ch": "夜刀"
+      },
+      "rarity": "☆2",
+      "modules": {}
+    },
+    "A44": {
+      "name": {
+        "ja": "ドゥリン",
+        "en": "Durin",
+        "ch": "杜林"
+      },
+      "rarity": "☆2",
+      "modules": {}
+    },
+    "R303": {
+      "name": {
+        "ja": "12F",
+        "en": "12F",
+        "ch": "12F"
+      },
+      "rarity": "☆2",
+      "modules": {}
+    },
+    "A42": {
+      "name": {
+        "ja": "レンジャー",
+        "en": "Rangers",
+        "ch": "巡林者"
+      },
+      "rarity": "☆2",
+      "modules": {}
+    },
+    "A43": {
+      "name": {
+        "ja": "ノイルホーン",
+        "en": "Noir Corne",
+        "ch": "黑角"
+      },
+      "rarity": "☆2",
+      "modules": {}
+    },
+    "RCX2": {
+      "name": {
+        "ja": "Lancet-2",
+        "en": "Lancet-2",
+        "ch": "Lancet-2"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "RCX3": {
+      "name": {
+        "ja": "Castle-3",
+        "en": "Castle-3",
+        "ch": "Castle-3"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "RCX4": {
+      "name": {
+        "ja": "Thermal-EX",
+        "en": "Thermal-EX",
+        "ch": "Thermal-EX"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "KZ15": {
+      "name": {
+        "ja": "Justice Knight",
+        "en": "Justice Knight",
+        "ch": "正义骑士号"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "MH01": {
+      "name": {
+        "ja": "テラ大陸調査団",
+        "en": "Terra Research Commission",
+        "ch": "泰拉大陆调查团"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "U007": {
+      "name": {
+        "ja": "U-Official",
+        "en": "U-Official",
+        "ch": "U-Official"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "RCX5": {
+      "name": {
+        "ja": "Friston-3",
+        "en": "Friston-3",
+        "ch": "Friston-3"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "RCX6": {
+      "name": {
+        "ja": "PhonoR-0",
+        "en": "PhonoR-0",
+        "ch": "PhonoR-0"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "LT47": {
+      "name": {
+        "ja": "CONFESS-47",
+        "en": "CONFESS-47",
+        "ch": "CONFESS-47"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "RCX7": {
+      "name": {
+        "ja": "GALLUS²",
+        "en": "GALLUS²",
+        "ch": "GALLUS²"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    },
+    "MH04": {
+      "name": {
+        "ja": "ロドス隠密隊",
+        "en": "Rhodes Island Recon",
+        "ch": "罗德岛隐秘队"
+      },
+      "rarity": "☆1",
+      "modules": {}
+    }
+  }
+}
