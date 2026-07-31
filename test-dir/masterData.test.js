@@ -1,4 +1,7 @@
 // masterData.test.js - 実マスターデータを入力に純粋ロジック(masterData.js)のビヘイビアを固定する
+//
+// マスターの内容（オペレーター件数・モジュール種別・所持情報）は随時更新されるため、
+// 期待値はフィクスチャから導出する。モジュールが増えたときにこのファイルの編集が要る形にしないこと。
 'use strict';
 
 const assert = require('node:assert/strict');
@@ -17,19 +20,36 @@ const rawMaster = require('./fixtures/operator_master_data_shareview.json');
 const legacyMasterSubset = require('./fixtures/legacy-master-subset.json');
 
 const master = parseMasterData(rawMaster);
+const operatorCount = Object.keys(rawMaster.operators).length;
+const STATIC_TH_COUNT = 9;
+
+// マスター上でそのオペレーターが所持しているモジュールID（moduleIds の順）
+function ownedIds(code) {
+    const modules = master.operators[code].modules;
+    return master.moduleIds.filter(id => modules[id] === true);
+}
+
+// 条件を満たすオペレーターをフィクスチャから選ぶ。該当が無ければテストが空振りするので失敗させる
+function findOperator(predicate, description) {
+    const code = Object.keys(master.operators).find(predicate);
+    assert.ok(code, `フィクスチャに「${description}」オペレーターが存在しない`);
+    return code;
+}
 
 // g. parseMasterData と罠1
-test('g1: moduleIds はトップレベルmodules配列の順序どおり', () => {
-    assert.deepEqual(master.moduleIds, ['X', 'Y', 'D', 'A', 'B']);
+test('g1: moduleIds はトップレベルmodules配列をそのままの順序で通す', () => {
+    assert.ok(master.moduleIds.length > 0);
+    assert.deepEqual(master.moduleIds, rawMaster.modules);
 });
 
 test('g2: operators はマスター全件を保持する', () => {
-    assert.equal(Object.keys(master.operators).length, 423);
+    assert.ok(operatorCount > 0);
+    assert.equal(Object.keys(master.operators).length, operatorCount);
 });
 
-test('g3: buildDisplayRows([], master) は423行。codeに modules/operators を含まない', () => {
+test('g3: buildDisplayRows([], master) はマスター全件。codeに modules/operators を含まない', () => {
     const rows = buildDisplayRows([], master);
-    assert.equal(rows.length, 423);
+    assert.equal(rows.length, operatorCount);
     const codes = rows.map(row => row.code);
     assert.ok(!codes.includes('modules'));
     assert.ok(!codes.includes('operators'));
@@ -41,87 +61,104 @@ test('g4: parseMasterData は不正/旧形式入力でも例外を投げず空�
 });
 
 // h. 列
-test('h1: moduleColumnLabels は moduleIds をそのままラベル化する', () => {
-    assert.deepEqual(
-        moduleColumnLabels(master.moduleIds),
-        ['Module X', 'Module Y', 'Module D', 'Module A', 'Module B']
-    );
+test('h1: moduleColumnLabels は "Module " + ID の形にする', () => {
+    assert.deepEqual(moduleColumnLabels(['X', 'ZZ']), ['Module X', 'Module ZZ']);
+    assert.equal(moduleColumnLabels(master.moduleIds).length, master.moduleIds.length);
 });
 
-test('h2: index.html の静的theadは9本、動的モジュール列を足すと14本になる', () => {
+test('h2: index.html の thead は非モジュール9本のみ。モジュール列は静的HTMLに残っていない', () => {
     const fs = require('node:fs');
     const path = require('node:path');
     const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
     const theadMatch = html.match(/<thead>[\s\S]*?<\/thead>/);
     assert.ok(theadMatch, 'index.html に <thead> が見つからない');
     const thCount = (theadMatch[0].match(/<th\b/g) || []).length;
-    assert.equal(thCount, 9);
-    assert.equal(thCount + moduleColumnLabels(master.moduleIds).length, 14);
+    assert.equal(thCount, STATIC_TH_COUNT);
+    assert.ok(!/Module\s/.test(theadMatch[0]), 'thead にモジュール列が静的に残っている');
 });
 
 // i. resolveModuleCell（罠4）
-test('i1: KZ08（所持0件）は全モジュール列が非所持', () => {
-    const charInfo = getOperatorInfo(master, 'KZ08');
-    const row = { code: 'KZ08' };
-    const cells = master.moduleIds.map(id => resolveModuleCell(charInfo, row, id));
-    assert.deepEqual(cells, ['-', '-', '-', '-', '-']);
+test('i1: 所持0件のオペレーターは全モジュール列が非所持', () => {
+    const code = findOperator(c => ownedIds(c).length === 0, 'モジュールを1つも所持しない');
+    const charInfo = getOperatorInfo(master, code);
+    const cells = master.moduleIds.map(id => resolveModuleCell(charInfo, { code: code }, id));
+    assert.deepEqual(cells, master.moduleIds.map(() => '-'));
 });
 
-test('i2: RL03（X,D所持）はX/D列が数値、Y/A/B列が非所持', () => {
-    const charInfo = getOperatorInfo(master, 'RL03');
-    const row = { code: 'RL03', moduleX: 3, moduleD: 2 };
-    const cells = {};
-    master.moduleIds.forEach(id => { cells[id] = resolveModuleCell(charInfo, row, id); });
-    assert.equal(cells.X, '3');
-    assert.equal(cells.D, '2');
-    assert.equal(cells.Y, '-');
-    assert.equal(cells.A, '-');
-    assert.equal(cells.B, '-');
+test('i2: 一部だけ所持するオペレーターは所持列が数値、非所持列が非所持', () => {
+    const code = findOperator(
+        c => ownedIds(c).length > 0 && ownedIds(c).length < master.moduleIds.length,
+        '一部のモジュールだけを所持する'
+    );
+    const owned = ownedIds(code);
+    const charInfo = getOperatorInfo(master, code);
+    const row = { code: code };
+    owned.forEach((id, index) => { row['module' + id] = (index % 3) + 1; });
+
+    master.moduleIds.forEach(id => {
+        const cell = resolveModuleCell(charInfo, row, id);
+        if (owned.includes(id)) {
+            assert.equal(cell, String(row['module' + id]), `${code} の ${id} 列`);
+        } else {
+            assert.equal(cell, '-', `${code} の ${id} 列`);
+        }
+    });
 });
 
-test('i3: RE10 + moduleBキーなしの旧共有データ行 → A列は共有データの値、B列は0（罠4）', () => {
-    const charInfo = getOperatorInfo(master, 'RE10');
-    const row = {
-        code: 'RE10', potential: 6, elite: 2, level: 90, skill: 7,
-        skill1: 3, skill2: 0, skill3: 0, moduleX: 0, moduleY: 0, moduleD: 0, moduleA: 3
-    };
-    assert.equal(resolveModuleCell(charInfo, row, 'A'), '3');
-    assert.equal(resolveModuleCell(charInfo, row, 'B'), '0');
+test('i3: 所持モジュールのキーが共有データに無くても非所持ではなく0（罠4）', () => {
+    const code = findOperator(c => ownedIds(c).length >= 2, '2つ以上のモジュールを所持する');
+    const owned = ownedIds(code);
+    const present = owned[0];
+    const missing = owned[owned.length - 1];
+    const charInfo = getOperatorInfo(master, code);
+    // 旧共有データ = 新しいモジュールのキーがそもそも保存されていない状態
+    const row = { code: code, ['module' + present]: 3 };
+
+    assert.equal(resolveModuleCell(charInfo, row, present), '3');
+    assert.equal(resolveModuleCell(charInfo, row, missing), '0');
 });
 
-test('i4: RL03の行にmoduleA(マスター上非所持)の値が入っていてもマスター優先で非所持表示', () => {
-    const charInfo = getOperatorInfo(master, 'RL03');
-    const row = { code: 'RL03', moduleA: 3 };
-    assert.equal(resolveModuleCell(charInfo, row, 'A'), '-');
+test('i4: マスター上非所持のモジュールは共有データに値があってもマスター優先で非所持', () => {
+    const code = findOperator(
+        c => ownedIds(c).length > 0 && ownedIds(c).length < master.moduleIds.length,
+        '非所持のモジュールがある'
+    );
+    const notOwned = master.moduleIds.find(id => !ownedIds(code).includes(id));
+    const charInfo = getOperatorInfo(master, code);
+
+    assert.equal(resolveModuleCell(charInfo, { code: code, ['module' + notOwned]: 3 }, notOwned), '-');
 });
 
 test('i5: マスターに無いコードはモジュール列に数値を出す(非所持扱いにしない)', () => {
+    assert.ok(master.moduleIds.length >= 2);
+    const valued = master.moduleIds[0];
+    const empty = master.moduleIds[master.moduleIds.length - 1];
     const charInfo = getOperatorInfo(master, 'ZZ99');
-    const row = { code: 'ZZ99', moduleX: 2 };
-    assert.equal(resolveModuleCell(charInfo, row, 'X'), '2');
-    assert.equal(resolveModuleCell(charInfo, row, 'Y'), '0');
+    const row = { code: 'ZZ99', ['module' + valued]: 2 };
+
+    assert.equal(resolveModuleCell(charInfo, row, valued), '2');
+    assert.equal(resolveModuleCell(charInfo, row, empty), '0');
 });
 
-test('i6: 全行×全moduleIdsの `-`/数値セル数がフィクスチャから導出した値と一致する', () => {
+test('i6: 全行×全moduleIdsの 非所持/数値 セル数がフィクスチャから導出した値と一致する', () => {
     const rows = buildDisplayRows([], master);
 
     let ownedFromFixture = 0;
     for (const code of Object.keys(master.operators)) {
-        const modules = master.operators[code].modules;
-        if (modules && typeof modules === 'object') {
-            ownedFromFixture += Object.values(modules).filter(v => v === true).length;
-        }
+        ownedFromFixture += ownedIds(code).length;
     }
-    const expectedDash = rows.length * master.moduleIds.length - ownedFromFixture;
     const expectedNum = ownedFromFixture;
+    const expectedDash = rows.length * master.moduleIds.length - ownedFromFixture;
+
+    // どちらかが0だと「全部 - 」「全部数値」の実装でも通ってしまう
+    assert.ok(expectedNum > 0 && expectedDash > 0);
 
     let dashCount = 0;
     let numCount = 0;
     rows.forEach(row => {
         const charInfo = getOperatorInfo(master, row.code);
         master.moduleIds.forEach(id => {
-            const cell = resolveModuleCell(charInfo, row, id);
-            if (cell === '-') {
+            if (resolveModuleCell(charInfo, row, id) === '-') {
                 dashCount += 1;
             } else {
                 numCount += 1;
@@ -131,24 +168,23 @@ test('i6: 全行×全moduleIdsの `-`/数値セル数がフィクスチャから
 
     assert.equal(dashCount, expectedDash);
     assert.equal(numCount, expectedNum);
-    assert.equal(dashCount, 1628);
-    assert.equal(numCount, 487);
 });
 
 // j. buildDisplayRows
 test('j1: 共有データ1件を渡すと該当行は共有値、他行は既定値になる', () => {
+    const sharedCode = Object.keys(master.operators)[0];
     const shared = [{
-        code: 'LM04', potential: 5, elite: 2, level: 80,
+        code: sharedCode, potential: 5, elite: 2, level: 80,
         skill: 7, skill1: 3, skill2: 3, skill3: 0
     }];
     const rows = buildDisplayRows(shared, master);
-    assert.equal(rows.length, 423);
+    assert.equal(rows.length, operatorCount);
 
-    const lm04Row = rows.find(row => row.code === 'LM04');
-    assert.equal(lm04Row.potential, 5);
-    assert.equal(lm04Row.skill1, 3);
+    const sharedRow = rows.find(row => row.code === sharedCode);
+    assert.equal(sharedRow.potential, 5);
+    assert.equal(sharedRow.skill1, 3);
 
-    const otherRow = rows.find(row => row.code !== 'LM04');
+    const otherRow = rows.find(row => row.code !== sharedCode);
     assert.deepEqual(
         {
             potential: otherRow.potential,
@@ -163,14 +199,14 @@ test('j1: 共有データ1件を渡すと該当行は共有値、他行は既定
     );
 });
 
-test('j2: マスターに無いコードの共有データは末尾に追加され行数が424になる', () => {
+test('j2: マスターに無いコードの共有データは末尾に追加される', () => {
     const rows = buildDisplayRows([{ code: 'ZZ99', moduleX: 2 }], master);
-    assert.equal(rows.length, 424);
+    assert.equal(rows.length, operatorCount + 1);
     assert.equal(rows[rows.length - 1].code, 'ZZ99');
 });
 
-test('j3: コード toString の共有データも末尾に追加され行数が424になる(prototype誤判定なし)', () => {
+test('j3: コード toString の共有データも末尾に追加される(prototype誤判定なし)', () => {
     const rows = buildDisplayRows([{ code: 'toString', moduleX: 1 }], master);
-    assert.equal(rows.length, 424);
+    assert.equal(rows.length, operatorCount + 1);
     assert.equal(rows[rows.length - 1].code, 'toString');
 });

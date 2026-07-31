@@ -768,7 +768,9 @@
         "ch": "玛恩纳"
       },
       "rarity": "☆6",
-      "modules": {}
+      "modules": {
+        "X": true
+      }
     },
     "VC17": {
       "name": {
@@ -826,7 +828,8 @@
       },
       "rarity": "☆6",
       "modules": {
-        "X": true
+        "X": true,
+        "Y": true
       }
     },
     "NM04": {
@@ -1273,7 +1276,8 @@
       },
       "rarity": "☆6",
       "modules": {
-        "X": true
+        "X": true,
+        "Y": true
       }
     },
     "R169": {
@@ -3417,7 +3421,7 @@
       },
       "rarity": "☆5",
       "modules": {
-        "X": true
+        "Y": true
       }
     },
     "SG27": {
@@ -3647,7 +3651,7 @@
       },
       "rarity": "☆5",
       "modules": {
-        "Y": true
+        "X": true
       }
     },
     "SR43": {
