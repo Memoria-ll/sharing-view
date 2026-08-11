@@ -323,16 +323,19 @@ function renderFacetEditor(container, key) {
     if (key === 'faction') return renderFactionEditor(container);
     if (key === 'date') return renderDateEditor(container);
     if (key === 'ownership') return renderOwnershipEditor(container);
-    renderMultiValueEditor(container, key, filterOptionCatalog[key], draftFilterCriteria[key]);
+    renderMultiValueEditor(container, filterOptionCatalog[key], draftFilterCriteria[key], values => {
+        const next = normalizeFilterCriteria(draftFilterCriteria);
+        next[key] = values;
+        updateDraftCriteria(next);
+    });
 }
 
-function renderMultiValueEditor(container, key, options, selected) {
+function renderMultiValueEditor(container, options, selected, updateSelected) {
     const list = document.createElement('div');
     list.className = 'filter-option-list';
     options.forEach(option => list.appendChild(createCheckOption(optionLabel(option), selected.includes(option.value), checked => {
-        const next = normalizeFilterCriteria(draftFilterCriteria);
-        next[key] = checked ? [...selected, option.value] : selected.filter(value => value !== option.value);
-        updateDraftCriteria(next);
+        const values = checked ? [...selected, option.value] : selected.filter(value => value !== option.value);
+        updateSelected(values);
     })));
     container.appendChild(list);
 }
@@ -388,7 +391,11 @@ function renderFactionEditor(container) {
         flags.appendChild(wrapper);
     });
     container.appendChild(flags);
-    renderMultiValueEditor(container, 'faction', filterOptionCatalog.faction, value.ids);
+    renderMultiValueEditor(container, filterOptionCatalog.faction, value.ids, ids => {
+        const next = normalizeFilterCriteria(draftFilterCriteria);
+        next.faction.ids = ids;
+        updateDraftCriteria(next);
+    });
 }
 
 function renderDateEditor(container) {

@@ -34,6 +34,7 @@ Arknights オペレーター育成状況の共有ビュー（静的サイト）�
 - `?d=` が無いとき `displayOperators` は一度も呼ばれず `<tbody>` は空。「マスター全件表示」は共有 URL を開いたときの挙動であって、素の表示ではない。
 - 非所持セルの判定を「共有データにキーが無い」で行うと誤る。判定の正はマスターの per-operator `modules`。旧共有データの `RE10` はマスター上 B を所持しているので `-` ではなく `0`。
 - `scripts/masterData.js` は DOM を参照しないこと。Node の単体テストが require するため、`document` / `window` に触れた時点でテストから到達できなくなる。
+- フィルタ UI の汎用複数選択 renderer は選択値の配列だけを facet 固有 callback へ渡す。criteria への格納先は facet ごとに異なり、陣営 ID は `faction.ids`（`faction` 自体は include flag を含む object）なので、renderer が `criteria[key]` へ直接代入すると陣営条件が正規化で消える。
 - `renderModuleHeaders` は冪等（`th[data-module-id]` を除去してから追加）にし、`displayOperators` からは呼ばない。言語ラジオ切替で再描画が走るので、呼ぶと切替のたびに列が増える。
 - `node --test test-dir/` は Node 24 でディレクトリを require しようとして exit 1 で失敗する。引数なしの `node --test` を使う。
 
