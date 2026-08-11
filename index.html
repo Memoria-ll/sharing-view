@@ -24,6 +24,34 @@
         </header>
 
         <main>
+            <section id="filter-toolbar" class="filter-toolbar" hidden aria-label="Operator filters">
+                <button id="open-filter-button" type="button">フィルター</button>
+                <div id="applied-filter-chips" class="applied-filter-chips"></div>
+                <output id="filter-result-count" aria-live="polite"></output>
+            </section>
+
+            <dialog id="operator-filter-dialog" class="filter-dialog" aria-labelledby="filter-dialog-title">
+                <form id="filter-form" method="dialog">
+                    <header class="filter-dialog-header">
+                        <h2 id="filter-dialog-title">オペレーターフィルター</h2>
+                        <button id="filter-close-button" type="button">閉じる</button>
+                    </header>
+                    <div class="filter-dialog-body filter-area">
+                        <nav id="filter-category-list" class="filter-category-list" aria-label="Filter categories"></nav>
+                        <section id="filter-editor" class="filter-editor"></section>
+                        <aside class="filter-draft-summary">
+                            <div id="draft-filter-cards" class="filter-condition-cards"></div>
+                        </aside>
+                    </div>
+                    <footer class="filter-dialog-footer">
+                        <button id="filter-clear-button" type="button">すべて解除</button>
+                        <output id="filter-preview-count" aria-live="polite"></output>
+                        <button id="filter-cancel-button" type="button">キャンセル</button>
+                        <button id="filter-apply-button" type="submit">適用</button>
+                    </footer>
+                </form>
+            </dialog>
+
             <!-- テーブル表示エリア -->
             <div class="table-container">
                 <table id="operators-table">

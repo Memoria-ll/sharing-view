@@ -62,14 +62,7 @@ tr.has-data {
     border: 1px solid var(--border-color);
 }
 
-.filter-area select {
-    padding: 8px;
-    margin-right: 10px;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-}/* main.css */
+/* main.css */
 :root {
     --bg-primary: #1a1a1a;
     --bg-secondary: #252525;
@@ -200,6 +193,206 @@ button:hover {
 .table-container {
     overflow-x: auto;
     margin-bottom: 20px;
+}
+
+.filter-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.filter-toolbar[hidden] {
+    display: none;
+}
+
+.applied-filter-chips,
+.filter-condition-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.filter-condition-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 7px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-secondary);
+}
+
+.filter-condition-card strong {
+    color: var(--text-primary);
+}
+
+.filter-condition-card button {
+    padding: 3px 6px;
+}
+
+.filter-condition-empty {
+    color: var(--text-secondary);
+}
+
+.filter-dialog {
+    width: min(1100px, calc(100vw - 48px));
+    max-width: none;
+    max-height: calc(100vh - 48px);
+    padding: 0;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.filter-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.filter-dialog form {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 48px);
+}
+
+.filter-dialog-header,
+.filter-dialog-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg-secondary);
+}
+
+.filter-dialog-header h2 {
+    flex: 1;
+    font-size: 1.15rem;
+}
+
+.filter-dialog-body {
+    display: grid;
+    grid-template-columns: 180px minmax(280px, 1fr) minmax(220px, 0.75fr);
+    gap: 12px;
+    min-height: 300px;
+    margin: 0;
+    overflow: auto;
+}
+
+.filter-category-list,
+.filter-editor,
+.filter-draft-summary {
+    min-width: 0;
+}
+
+.filter-category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-category-list button[aria-pressed="true"] {
+    background: #0056b3;
+}
+
+.filter-editor {
+    padding: 0 12px;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.filter-editor h3,
+.filter-editor h4 {
+    margin-bottom: 8px;
+}
+
+.filter-editor > label,
+.filter-editor > div,
+.filter-editor > h4 {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.filter-editor input[type="date"] {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 6px;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.filter-option-list {
+    display: grid;
+    gap: 5px;
+    max-height: 420px;
+    overflow: auto;
+}
+
+.filter-profession-groups {
+    display: grid;
+    gap: 10px;
+    max-height: 420px;
+    overflow: auto;
+}
+
+.filter-profession-group {
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.filter-profession-group legend {
+    padding: 0 4px;
+    color: var(--text-primary);
+}
+
+.filter-subclass-list {
+    display: grid;
+    gap: 4px;
+    margin-left: 14px;
+}
+
+.filter-option,
+.filter-flag-list label,
+.filter-editor > div > label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px;
+    color: var(--text-secondary);
+}
+
+.filter-flag-list {
+    display: grid;
+    gap: 4px;
+}
+
+.filter-dialog-footer {
+    justify-content: flex-end;
+}
+
+.filter-dialog-footer output {
+    margin-right: auto;
+}
+
+button:disabled,
+input:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid #7ec8ff;
+    outline-offset: 2px;
 }
 
 #operators-table {
