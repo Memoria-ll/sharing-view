@@ -4,8 +4,10 @@
 // インポートされたオペレーターデータ
 let importedOperators = [];
 
-// マスターデータ（モジュール列定義 + オペレーター情報）
-let masterData = { moduleIds: [], operators: {} };
+// マスターデータ（モジュール列定義 + オペレーター情報）。空マスタの唯一の生成元を
+// parseMasterData に寄せる（リテラルで初期値を書くと operators がプレーンオブジェクトの
+// ままになり、Map を期待する getOperatorInfo / buildDisplayRows と型は通るが意味が違う状態になる）
+let masterData = parseMasterData(null, null);
 
 // 現在のデータID
 let currentDataId = null;
@@ -37,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 静的データの読み込み
-    loadCharacterData()
-        .then(data => {
-            masterData = parseMasterData(data);
+    fetchMasterData()
+        .then(raw => {
+            masterData = parseMasterData(raw.operator, raw.gameData);
             renderModuleHeaders(masterData.moduleIds);
 
             // URLにデータIDがある場合、APIからデータを取得して表示
@@ -144,20 +146,6 @@ function fallbackCopyToClipboard(text) {
     }
     
     document.body.removeChild(textArea);
-}
-
-// キャラクター静的データを読み込む関数
-async function loadCharacterData() {
-    try {
-        const response = await fetch('https://data.memoria-ll.link/arknights-data/operator_master_data_shareview.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('オペレータデータの読み込みに失敗しました:', error);
-        return {};
-    }
 }
 
 // theadの動的モジュール列を再構築する。除去→追加は対称ペアで、再入しても列が増えないよう冪等にする

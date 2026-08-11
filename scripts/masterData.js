@@ -8,13 +8,29 @@ function isPlainObject(value) {
     return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-// マスター生JSON（{ modules: string[], operators: object }）を解釈する
-function parseMasterData(raw) {
-    const moduleIds = Array.isArray(raw && raw.modules)
-        ? raw.modules.filter(id => typeof id === 'string')
+// operator マスター生JSON（{ version, operators: array }）と gamedata マスター生JSON
+// （{ version, gameData: { module: string[], ... } }）を解釈する
+function parseMasterData(rawOperator, rawGameData) {
+    const gameDataTable = rawGameData && rawGameData.gameData;
+    const moduleIds = Array.isArray(gameDataTable && gameDataTable.module)
+        ? gameDataTable.module.filter(id => typeof id === 'string')
         : [];
-    const operators = isPlainObject(raw && raw.operators) ? raw.operators : {};
-    return { moduleIds: moduleIds, operators: operators };
+
+    // 行順の正は配信配列の出現順。プレーンオブジェクト辞書だと整数様キーが先頭へ
+    // 繰り上がり行順が静かに狂うため、挿入順が保証される Map に詰める
+    const operators = new Map();
+    if (Array.isArray(rawOperator && rawOperator.operators)) {
+        rawOperator.operators.forEach(operator => {
+            if (operator && typeof operator.code === 'string' && !operators.has(operator.code)) {
+                operators.set(operator.code, operator);
+            }
+        });
+    }
+
+    // #2（フィルタ）が読む gameData のテーブル。ここで捨てると #2 が parse の契約から作り直しになる
+    const gameData = isPlainObject(gameDataTable) ? gameDataTable : {};
+
+    return { moduleIds: moduleIds, operators: operators, gameData: gameData };
 }
 
 // モジュール列のヘッダラベルを moduleIds の順序で生成する
@@ -29,8 +45,8 @@ function moduleValueKey(moduleId) {
 
 // マスター上のオペレーター情報を取得する。マスターに無いコードは Unknown 表示用のフォールバックを返す
 function getOperatorInfo(master, code) {
-    if (Object.prototype.hasOwnProperty.call(master.operators, code)) {
-        return master.operators[code];
+    if (master.operators.has(code)) {
+        return master.operators.get(code);
     }
     return { name: { ja: 'Unknown', en: 'Unknown', ch: 'Unknown' } };
 }
@@ -43,8 +59,9 @@ function resolveModuleCell(charInfo, row, moduleId) {
     if (!isPlainObject(charInfo.modules)) {
         return String(row[key] ?? 0);
     }
-    // 所持判定は厳密に true のみ。false/undefined はすべて非所持として扱う
-    if (charInfo.modules[moduleId] !== true) {
+    // 所持判定は値が配列であること。キー存在だけで判定すると、配信側が非所持を
+    // null/false/[] で表し始めた瞬間に静かに所持扱いになる。配列判定なら非所持側に倒れる
+    if (!Array.isArray(charInfo.modules[moduleId])) {
         return '-';
     }
     const value = row[key];
@@ -66,12 +83,12 @@ const DEFAULT_OPERATOR_VALUES = {
 // マスターに無いコードの共有データも末尾に追加する
 function buildDisplayRows(sharedOperators, master) {
     const byCode = new Map(sharedOperators.map(op => [op.code, op]));
-    const rows = Object.keys(master.operators).map(code =>
+    const rows = [...master.operators.keys()].map(code =>
         Object.assign({ code: code }, DEFAULT_OPERATOR_VALUES, byCode.get(code))
     );
 
     sharedOperators.forEach(operator => {
-        if (!Object.prototype.hasOwnProperty.call(master.operators, operator.code)) {
+        if (!master.operators.has(operator.code)) {
             rows.push(Object.assign({}, DEFAULT_OPERATOR_VALUES, operator));
         }
     });
