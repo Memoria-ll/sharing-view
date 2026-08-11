@@ -234,8 +234,34 @@ function cleanupFilterDialog() {
 }
 
 function updateDraftCriteria(nextCriteria) {
+    const viewState = captureFilterEditorViewState();
     draftFilterCriteria = normalizeFilterCriteria(nextCriteria);
     renderFilterDialog();
+    restoreFilterEditorViewState(viewState);
+}
+
+function captureFilterEditorViewState() {
+    const editor = document.getElementById('filter-editor');
+    const controls = [...editor.querySelectorAll('input, button')];
+    const focusIndex = editor.contains(document.activeElement) ? controls.indexOf(document.activeElement) : -1;
+    const scrollContainers = [editor, ...editor.querySelectorAll('.filter-option-list, .filter-profession-groups')];
+    return {
+        focusIndex: focusIndex,
+        scrollPositions: scrollContainers.map(element => ({ top: element.scrollTop, left: element.scrollLeft }))
+    };
+}
+
+function restoreFilterEditorViewState(viewState) {
+    const editor = document.getElementById('filter-editor');
+    if (viewState.focusIndex >= 0) {
+        const control = editor.querySelectorAll('input, button')[viewState.focusIndex];
+        if (control) control.focus({ preventScroll: true });
+    }
+    const scrollContainers = [editor, ...editor.querySelectorAll('.filter-option-list, .filter-profession-groups')];
+    scrollContainers.forEach((element, index) => {
+        const position = viewState.scrollPositions[index];
+        if (position) element.scrollTo(position.left, position.top);
+    });
 }
 
 function renderFilterDialog() {

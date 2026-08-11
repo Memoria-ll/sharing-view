@@ -207,6 +207,10 @@ button:hover {
     border-radius: 8px;
 }
 
+.filter-toolbar[hidden] {
+    display: none;
+}
+
 .applied-filter-chips,
 .filter-condition-cards {
     display: flex;
