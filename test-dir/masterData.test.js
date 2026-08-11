@@ -20,7 +20,11 @@ const {
     normalizeFilterCriteria,
     isFilterCriteriaEmpty,
     buildFilterOptionCatalog,
-    buildOperatorView
+    buildOperatorView,
+    createEmptySortState,
+    initialSortDirection,
+    cycleSortState,
+    sortTieBreakKeys
 } = require('../scripts/masterData.js');
 
 const rawOperator = require('./fixtures/operator_master_data.json');
@@ -429,4 +433,171 @@ test('f10: master外 shared code は empty/row facets では残り、metadata fa
     assert.ok(codes(buildOperatorView(shared, master, { potential: [3] })).includes('ZZ98'));
     const knownSex = master.operators.values().next().value.sex;
     assert.ok(!codes(buildOperatorView(shared, master, { sex: [knownSex] })).includes('ZZ99'));
+});
+
+function makeSortMaster(operators, moduleIds = ['M']) {
+    return parseMasterData({ operators: operators }, { gameData: { module: moduleIds } });
+}
+
+function sortCodes(sortMaster, shared, state, language = 'ja', criteria = createEmptyFilterCriteria()) {
+    return codes(buildOperatorView(shared, sortMaster, criteria, state, language));
+}
+
+function sortOperator(code, name, rarity, classId, modules = { M: [] }) {
+    return { code: code, name: name, rarity: rarity, class: classId, modules: modules };
+}
+
+// Issue 4: 列ソートは filter 後の公開 view pipeline で確定する
+test('s1: 列ごとの初回方向と3状態 cycle は純粋で、同列解除・別列移動を守る', () => {
+    ['code', 'name'].forEach(key => assert.equal(initialSortDirection(key), 'ascending'));
+    ['potential', 'elite', 'level', 'skill', 'skill1', 'skill2', 'skill3', 'module:M'].forEach(key => assert.equal(initialSortDirection(key), 'descending'));
+
+    const none = createEmptySortState();
+    const first = cycleSortState(none, 'potential');
+    const reverse = cycleSortState(first, 'potential');
+    const cleared = cycleSortState(reverse, 'potential');
+    const other = cycleSortState(reverse, 'code');
+    assert.deepEqual(none, { key: null, direction: null });
+    assert.deepEqual(first, { key: 'potential', direction: 'descending' });
+    assert.deepEqual(reverse, { key: 'potential', direction: 'ascending' });
+    assert.deepEqual(cleared, { key: null, direction: null });
+    assert.deepEqual(other, { key: 'code', direction: 'ascending' });
+});
+
+test('s2: 全固定列と動的module列は数値比較し、elite/level は常に複合比較する', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('A', { ja: 'Alpha', en: 'Alpha', ch: 'Alpha' }, '☆4', 2),
+        sortOperator('B', { ja: 'Zulu', en: 'Zulu', ch: 'Zulu' }, '☆5', 1)
+    ]);
+    const shared = [
+        { code: 'A', potential: 2, elite: 2, level: 1, skill: 2, skill1: 2, skill2: 2, skill3: 2, moduleM: 2 },
+        { code: 'B', potential: 10, elite: 1, level: 99, skill: 10, skill1: 10, skill2: 10, skill3: 10, moduleM: 10 }
+    ];
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'code', direction: 'ascending' }), ['A', 'B']);
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'name', direction: 'ascending' }, 'en'), ['A', 'B']);
+    ['potential', 'skill', 'skill1', 'skill2', 'skill3', 'module:M'].forEach(key => {
+        assert.deepEqual(sortCodes(sortMaster, shared, { key: key, direction: 'descending' }), ['B', 'A'], key);
+    });
+    ['elite', 'level'].forEach(key => {
+        assert.deepEqual(sortCodes(sortMaster, shared, { key: key, direction: 'descending' }), ['A', 'B'], key);
+    });
+});
+
+test('s3: module の非所持は resolver 経由で昇降とも末尾に置く', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('A', { ja: 'A', en: 'A', ch: 'A' }, '☆4', 1),
+        sortOperator('B', { ja: 'B', en: 'B', ch: 'B' }, '☆4', 1, {}),
+        sortOperator('C', { ja: 'C', en: 'C', ch: 'C' }, '☆4', 1)
+    ]);
+    const shared = [{ code: 'A', moduleM: 2 }, { code: 'B', moduleM: 999 }, { code: 'C', moduleM: 10 }];
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'module:M', direction: 'ascending' }), ['A', 'C', 'B']);
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'module:M', direction: 'descending' }), ['C', 'A', 'B']);
+});
+
+test('s4: 数値列の無値は 0 と混同せず昇降とも末尾に置く', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('zero', { ja: 'Zero', en: 'Zero', ch: 'Zero' }, '☆4', 1),
+        sortOperator('value', { ja: 'Value', en: 'Value', ch: 'Value' }, '☆4', 1),
+        sortOperator('missing', { ja: 'Missing', en: 'Missing', ch: 'Missing' }, '☆4', 1)
+    ]);
+    const shared = [
+        { code: 'zero', potential: 0, skill: 0, skill1: 0, skill2: 0, skill3: 0 },
+        { code: 'value', potential: 2, skill: 2, skill1: 2, skill2: 2, skill3: 2 },
+        { code: 'missing', potential: null, skill: null, skill1: null, skill2: null, skill3: null }
+    ];
+    ['potential', 'skill', 'skill1', 'skill2', 'skill3'].forEach(key => {
+        assert.deepEqual(sortCodes(sortMaster, shared, { key: key, direction: 'ascending' }), ['zero', 'value', 'missing'], key);
+        assert.deepEqual(sortCodes(sortMaster, shared, { key: key, direction: 'descending' }), ['value', 'zero', 'missing'], key);
+    });
+});
+
+test('s5: 名前は字種バケット、かな日本語照合、漢字中国語照合で言語切替時に再適用される', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('latin', { ja: 'Alpha', en: 'Mike', ch: '中' }, '☆4', 1),
+        sortOperator('kata', { ja: 'ア', en: 'Zulu', ch: '阿' }, '☆4', 1),
+        sortOperator('hira', { ja: 'あ', en: 'Alpha', ch: '八' }, '☆4', 1),
+        sortOperator('han-middle', { ja: '中', en: 'Beta', ch: '中' }, '☆4', 1),
+        sortOperator('han-eight', { ja: '八', en: 'Gamma', ch: '八' }, '☆4', 1)
+    ]);
+    const state = { key: 'name', direction: 'ascending' };
+    assert.deepEqual(sortCodes(sortMaster, [], state, 'ja'), ['latin', 'kata', 'hira', 'han-eight', 'han-middle']);
+    assert.deepEqual(sortCodes(sortMaster, [], state, 'en'), ['hira', 'han-middle', 'han-eight', 'latin', 'kata']);
+    assert.deepEqual(sortCodes(sortMaster, [], state, 'ch'), ['kata', 'hira', 'han-eight', 'latin', 'han-middle']);
+});
+
+test('s6: 名前は選択言語が空なら中国語だけで補完し、全言語欠損は昇降とも末尾に置く', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('selected', { ja: 'ア', en: 'Alpha', ch: '阿' }, '☆4', 1),
+        sortOperator('china-fallback', { ja: '', en: '', ch: '中' }, '☆4', 1),
+        sortOperator('missing', { ja: null, en: null, ch: null }, '☆4', 1)
+    ]);
+    assert.deepEqual(sortCodes(sortMaster, [], { key: 'name', direction: 'ascending' }, 'en'), ['selected', 'china-fallback', 'missing']);
+    assert.deepEqual(sortCodes(sortMaster, [], { key: 'name', direction: 'descending' }, 'en'), ['china-fallback', 'selected', 'missing']);
+});
+
+test('s7: 同値時は固定 tie-break 鎖を使い、主キーに含まれる要素は鎖から除外する', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('training', { ja: 'Z', en: 'Z', ch: 'Z' }, '☆1', 9),
+        sortOperator('rarity', { ja: 'Z', en: 'Z', ch: 'Z' }, '☆6', 9),
+        sortOperator('class', { ja: 'Z', en: 'Z', ch: 'Z' }, '☆4', 1),
+        sortOperator('name-a', { ja: 'A', en: 'A', ch: 'A' }, '☆4', 1),
+        sortOperator('name-z', { ja: 'Z', en: 'Z', ch: 'Z' }, '☆4', 1)
+    ]);
+    const shared = [
+        { code: 'training', potential: 1, elite: 2, level: 1 },
+        { code: 'rarity', potential: 1, elite: 1, level: 1 },
+        { code: 'class', potential: 1, elite: 1, level: 1 },
+        { code: 'name-a', potential: 1, elite: 1, level: 1 },
+        { code: 'name-z', potential: 1, elite: 1, level: 1 }
+    ];
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'potential', direction: 'descending' }, 'en'), ['training', 'rarity', 'name-a', 'class', 'name-z']);
+    assert.deepEqual(sortTieBreakKeys('elite'), ['rarity', 'class', 'name']);
+    assert.deepEqual(sortTieBreakKeys('level'), ['rarity', 'class', 'name']);
+    assert.deepEqual(sortTieBreakKeys('name'), ['training', 'rarity', 'class']);
+
+    const primaryMaster = makeSortMaster([
+        sortOperator('high-training', { ja: 'Z', en: 'Z', ch: 'Z' }, '☆4', 1),
+        sortOperator('low-training', { ja: 'A', en: 'A', ch: 'A' }, '☆6', 9)
+    ]);
+    const primaryShared = [
+        { code: 'high-training', elite: 2, level: 1 },
+        { code: 'low-training', elite: 1, level: 99 }
+    ];
+    assert.deepEqual(sortCodes(primaryMaster, primaryShared, { key: 'elite', direction: 'ascending' }, 'en'), ['low-training', 'high-training']);
+    assert.deepEqual(sortCodes(primaryMaster, primaryShared, { key: 'level', direction: 'ascending' }, 'en'), ['low-training', 'high-training']);
+    assert.deepEqual(sortCodes(primaryMaster, primaryShared, { key: 'name', direction: 'ascending' }, 'en'), ['low-training', 'high-training']);
+});
+
+test('s8: tie-break の rarity/class 欠損は既定数値と混同せず常に末尾に置く', () => {
+    const minimalMaster = makeSortMaster([
+        sortOperator('known', { ja: 'K', en: 'K', ch: 'K' }, null, 1)
+    ]);
+    assert.deepEqual(
+        sortCodes(minimalMaster, [{ code: 'known', potential: 1 }, { code: 'unknown', potential: 1 }], { key: 'potential', direction: 'descending' }, 'en'),
+        ['known', 'unknown']
+    );
+
+    const sortMaster = makeSortMaster([
+        sortOperator('rarity-known', { ja: 'R', en: 'R', ch: 'R' }, '☆4', null),
+        sortOperator('class-known', { ja: 'C', en: 'C', ch: 'C' }, null, 1)
+    ]);
+    const shared = [
+        { code: 'rarity-known', potential: 1 },
+        { code: 'class-known', potential: 1 },
+        { code: 'unknown', potential: 1 }
+    ];
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'potential', direction: 'descending' }, 'en'), ['rarity-known', 'class-known', 'unknown']);
+});
+
+test('s9: none・未知keyは入力順を維持し、filter 後のソートと解除は同じ view pipeline で戻る', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('B', { ja: 'B', en: 'B', ch: 'B' }, '☆4', 1),
+        sortOperator('A', { ja: 'A', en: 'A', ch: 'A' }, '☆4', 1),
+        sortOperator('C', { ja: 'C', en: 'C', ch: 'C' }, '☆4', 1)
+    ]);
+    const shared = [{ code: 'B', potential: 1 }, { code: 'A', potential: 1 }, { code: 'C', potential: 0 }];
+    assert.deepEqual(sortCodes(sortMaster, shared, createEmptySortState()), ['B', 'A', 'C']);
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'missing', direction: 'ascending' }), ['B', 'A', 'C']);
+    assert.deepEqual(sortCodes(sortMaster, shared, { key: 'code', direction: 'ascending' }, 'ja', { potential: [1] }), ['A', 'B']);
+    assert.deepEqual(sortCodes(sortMaster, shared, createEmptySortState(), 'ja', { potential: [1] }), ['B', 'A']);
 });
