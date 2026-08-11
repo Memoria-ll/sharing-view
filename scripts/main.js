@@ -1,68 +1,102 @@
 ﻿// main.js - メイン機能
-// 言語設定
 
-// インポートされたオペレーターデータ
-let importedOperators = [];
-
-// マスターデータ（モジュール列定義 + オペレーター情報）。空マスタの唯一の生成元を
-// parseMasterData に寄せる（リテラルで初期値を書くと operators がプレーンオブジェクトの
-// ままになり、Map を期待する getOperatorInfo / buildDisplayRows と型は通るが意味が違う状態になる）
+let importedOperators = null;
 let masterData = parseMasterData(null, null);
-
-// 現在のデータID
 let currentDataId = null;
+let currentLanguage = 'ja';
+let appliedFilterCriteria = createEmptyFilterCriteria();
+let draftFilterCriteria = null;
+let activeFilterFacet = null;
+let filterOptionCatalog = null;
 
-// 選択中の言語
-let currentLanguage = 'ja'; // デフォルトは日本語
+const FILTER_TEXT = {
+    ja: {
+        open: 'フィルター', title: 'オペレーターフィルター', clear: 'すべて解除', apply: '適用', cancel: 'キャンセル', close: '閉じる',
+        none: '条件なし', result: '一致', total: '全件', preview: 'プレビュー', includeHidden: '隠し陣営を含む', includeSub: '副陣営を含む',
+        since: '開始日', to: '終了日', profession: '職業・職分', sex: '性別', place: '出身', rarity: 'レアリティ', race: '種族', faction: '陣営', date: '実装日', ownership: '所持/未所持', potential: '潜在'
+    },
+    en: {
+        open: 'Filter', title: 'Operator filters', clear: 'Clear all', apply: 'Apply', cancel: 'Cancel', close: 'Close',
+        none: 'No conditions', result: 'Matched', total: 'Total', preview: 'Preview', includeHidden: 'Include hidden factions', includeSub: 'Include subfactions',
+        since: 'Since', to: 'To', profession: 'Class / subclass', sex: 'Sex', place: 'Place', rarity: 'Rarity', race: 'Race', faction: 'Faction', date: 'Release date', ownership: 'Ownership', potential: 'Potential'
+    },
+    ch: {
+        open: '筛选', title: '干员筛选', clear: '清除全部', apply: '应用', cancel: '取消', close: '关闭',
+        none: '无条件', result: '匹配', total: '全部', preview: '预览', includeHidden: '包含隐藏阵营', includeSub: '包含子阵营',
+        since: '开始日期', to: '结束日期', profession: '职业 / 分支', sex: '性别', place: '出身', rarity: '稀有度', race: '种族', faction: '阵营', date: '实装日期', ownership: '持有', potential: '潜能'
+    }
+};
+
+function filterText(key) {
+    return FILTER_TEXT[currentLanguage][key] || FILTER_TEXT.ja[key] || key;
+}
+
+function optionLabel(option) {
+    return resolveLocalizedName(option.names, currentLanguage, option.value);
+}
+
+function pairIdentity(pair) {
+    return `${pair.classId}/${pair.subClassId}`;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 各種DOM要素の取得
     const copyUrlButton = document.getElementById('copy-url-button');
     const tweetButton = document.getElementById('tweet-button');
-    const operatorsBody = document.getElementById('operators-body');
+    const dialog = document.getElementById('operator-filter-dialog');
+    const openButton = document.getElementById('open-filter-button');
 
+    dialog.addEventListener('cancel', event => {
+        event.preventDefault();
+        finishFilterDialog('cancel');
+    });
+    dialog.addEventListener('close', () => {
+        if (draftFilterCriteria !== null) cleanupFilterDialog();
+    });
+    document.getElementById('filter-close-button').addEventListener('click', () => finishFilterDialog('cancel'));
+    document.getElementById('filter-cancel-button').addEventListener('click', () => finishFilterDialog('cancel'));
+    document.getElementById('filter-clear-button').addEventListener('click', () => updateDraftCriteria(createEmptyFilterCriteria()));
+    document.getElementById('filter-form').addEventListener('submit', event => {
+        event.preventDefault();
+        finishFilterDialog('apply');
+    });
+    openButton.addEventListener('click', openFilterDialog);
 
-    // URLからデータIDを取得
     const urlParams = new URLSearchParams(window.location.search);
     const dataId = urlParams.get('d');
 
-    // 言語選択ラジオボタンのイベントリスナー
     document.querySelectorAll('input[name="language"]').forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            currentLanguage = e.target.value;
-            
-            // 言語変更時にテーブルを再描画
-            if (importedOperators.length > 0) {
-                displayOperators(importedOperators);
-            }
+        radio.addEventListener('change', event => {
+            currentLanguage = event.target.value;
+            renderFilterToolbar();
+            if (dialog.open) renderFilterDialog();
+            if (importedOperators !== null) displayOperators(importedOperators);
         });
     });
 
-    // 静的データの読み込み
     fetchMasterData()
         .then(raw => {
             masterData = parseMasterData(raw.operator, raw.gameData);
+            filterOptionCatalog = buildFilterOptionCatalog(masterData);
             renderModuleHeaders(masterData.moduleIds);
-
-            // URLにデータIDがある場合、APIからデータを取得して表示
             if (dataId) {
                 currentDataId = dataId;
                 return fetchOperatorData(dataId);
             }
+            return null;
         })
         .then(operatorData => {
-            if (operatorData) {
+            if (Array.isArray(operatorData)) {
                 importedOperators = operatorData;
-                displayOperators(operatorData);
+                document.getElementById('filter-toolbar').hidden = false;
+                displayOperators(importedOperators);
             }
         })
         .catch(error => {
             console.error('初期化エラー:', error);
-            // エラーの表示
             const operatorsBody = document.getElementById('operators-body');
             const errorRow = document.createElement('tr');
             const errorCell = document.createElement('td');
-            errorCell.colSpan = document.getElementById('operators-head-row').children.length; // theadの実列数に合わせる
+            errorCell.colSpan = document.getElementById('operators-head-row').children.length;
             errorCell.textContent = 'データの読み込みに失敗しました。';
             errorCell.style.textAlign = 'center';
             errorCell.style.padding = '20px';
@@ -71,47 +105,30 @@ document.addEventListener('DOMContentLoaded', () => {
             operatorsBody.appendChild(errorRow);
         });
 
-    // URLコピーボタンのイベントリスナー
     copyUrlButton.addEventListener('click', () => {
         if (!currentDataId) {
             alert('表示するデータがありません。');
             return;
         }
-        
         const url = `${window.location.origin}${window.location.pathname}?d=${currentDataId}`;
         copyToClipboard(url);
-        
-        // ボタンのテキストを一時的に変更
         const originalText = copyUrlButton.textContent;
         copyUrlButton.textContent = 'コピーしました！';
-        setTimeout(() => {
-            copyUrlButton.textContent = originalText;
-        }, 2000);
+        setTimeout(() => { copyUrlButton.textContent = originalText; }, 2000);
     });
 
-    // Xツイートボタンのイベントリスナー
     tweetButton.addEventListener('click', () => {
         if (!currentDataId) {
             alert('表示するデータがありません。');
             return;
         }
-        
-        // オペレーター数を取得
-        const operatorCount = document.querySelectorAll('#operators-body tr').length;
-        
-        // ツイート用テキストとURLを生成
         const shareUrl = `${window.location.origin}${window.location.pathname}?d=${currentDataId}`;
         const tweetText = `私のオペレーターの育成状況を共有します！ ${shareUrl} #Arknights #アークナイツ #ANManager`;
-        
-        // Xの投稿画面を開く（ポップアップ）
-        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
-        window.open(twitterUrl, '_blank', 'width=550,height=420');
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`, '_blank', 'width=550,height=420');
     });
 });
 
-// クリップボードにコピーする関数
 function copyToClipboard(text) {
-    // navigator.clipboard APIが利用可能な場合はそちらを使用
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text).catch(err => {
             console.error('クリップボードへのコピーに失敗しました:', err);
@@ -122,33 +139,23 @@ function copyToClipboard(text) {
     }
 }
 
-// フォールバックコピー方法
 function fallbackCopyToClipboard(text) {
     const textArea = document.createElement('textarea');
     textArea.value = text;
-    
-    // オフスクリーンに配置
     textArea.style.position = 'fixed';
     textArea.style.left = '-999999px';
     textArea.style.top = '-999999px';
     document.body.appendChild(textArea);
-    
     textArea.focus();
     textArea.select();
-    
     try {
-        const successful = document.execCommand('copy');
-        if (!successful) {
-            console.error('クリップボードへのコピーに失敗しました');
-        }
+        if (!document.execCommand('copy')) console.error('クリップボードへのコピーに失敗しました');
     } catch (err) {
         console.error('クリップボードへのコピーに失敗しました:', err);
     }
-    
     document.body.removeChild(textArea);
 }
 
-// theadの動的モジュール列を再構築する。除去→追加は対称ペアで、再入しても列が増えないよう冪等にする
 function renderModuleHeaders(moduleIds) {
     const headRow = document.getElementById('operators-head-row');
     headRow.querySelectorAll('th[data-module-id]').forEach(th => th.remove());
@@ -160,93 +167,290 @@ function renderModuleHeaders(moduleIds) {
     });
 }
 
-// オペレーターデータをテーブルに表示する関数
+function renderFilterToolbar() {
+    const toolbar = document.getElementById('filter-toolbar');
+    if (toolbar.hidden) return;
+    const openButton = document.getElementById('open-filter-button');
+    openButton.textContent = filterText('open');
+    const chips = document.getElementById('applied-filter-chips');
+    chips.replaceChildren(...createConditionNodes(appliedFilterCriteria));
+}
+
 function displayOperators(operators) {
-    // テーブルの内容をクリア
+    const view = buildOperatorView(operators, masterData, appliedFilterCriteria);
     const operatorsBody = document.getElementById('operators-body');
     operatorsBody.innerHTML = '';
-
-    // 各オペレーターの行を生成
-    buildDisplayRows(operators, masterData).forEach(operator => {
+    view.rows.forEach(operator => {
         const tr = document.createElement('tr');
-
-        // キャラクター基本情報を取得
         const charInfo = getOperatorInfo(masterData, operator.code);
-        
-        // コード
-        const tdCode = document.createElement('td');
-        tdCode.textContent = operator.code;
-        tr.appendChild(tdCode);
-        
-        // オペレータ名 - 現在選択されている言語で表示
-        const tdName = document.createElement('td');
-        tdName.textContent = getOperatorName(charInfo);
-        
-        // レアリティに基づいてクラスを追加（例：☆6 → rarity-6）
+        appendCell(tr, operator.code);
+        const tdName = appendCell(tr, resolveLocalizedName(charInfo.name, currentLanguage, 'Unknown'));
         if (charInfo.rarity) {
             const rarityNum = charInfo.rarity.replace(/\D/g, '');
-            if (rarityNum) {
-                tdName.classList.add(`rarity-${rarityNum}`);
-            }
+            if (rarityNum) tdName.classList.add(`rarity-${rarityNum}`);
         }
-        
-        tr.appendChild(tdName);
-        
-        // 潜在
-        const tdPotential = document.createElement('td');
-        tdPotential.textContent = operator.potential;
-        tr.appendChild(tdPotential);
-
-        // 昇進
-        const tdElite = document.createElement('td');
-        tdElite.textContent = operator.elite;
-        tr.appendChild(tdElite);
-
-        // レベル
-        const tdLevel = document.createElement('td');
-        tdLevel.textContent = operator.level;
-        tr.appendChild(tdLevel);
-
-        // スキル
-        const tdSkill = document.createElement('td');
-        tdSkill.textContent = operator.skill;
-        tr.appendChild(tdSkill);
-
-        // スキル1特化
-        const tdSkill1 = document.createElement('td');
-        tdSkill1.textContent = operator.skill1;
-        tr.appendChild(tdSkill1);
-
-        // スキル2特化
-        const tdSkill2 = document.createElement('td');
-        tdSkill2.textContent = operator.skill2;
-        tr.appendChild(tdSkill2);
-
-        // スキル3特化
-        const tdSkill3 = document.createElement('td');
-        tdSkill3.textContent = operator.skill3;
-        tr.appendChild(tdSkill3);
-
-        // モジュール列（マスターのmoduleIds順に動的生成）
-        masterData.moduleIds.forEach(moduleId => {
-            const tdModule = document.createElement('td');
-            tdModule.textContent = resolveModuleCell(charInfo, operator, moduleId);
-            tr.appendChild(tdModule);
-        });
-
-        // 行をテーブルに追加
+        ['potential', 'elite', 'level', 'skill', 'skill1', 'skill2', 'skill3'].forEach(key => appendCell(tr, operator[key]));
+        masterData.moduleIds.forEach(moduleId => appendCell(tr, resolveModuleCell(charInfo, operator, moduleId)));
         operatorsBody.appendChild(tr);
+    });
+    const count = document.getElementById('filter-result-count');
+    count.textContent = `${filterText('result')}: ${view.rows.length} / ${filterText('total')}: ${view.totalCount}`;
+    renderFilterToolbar();
+}
+
+function appendCell(tr, value) {
+    const td = document.createElement('td');
+    td.textContent = value;
+    tr.appendChild(td);
+    return td;
+}
+
+function openFilterDialog() {
+    const dialog = document.getElementById('operator-filter-dialog');
+    if (importedOperators === null || dialog.open) return;
+    draftFilterCriteria = normalizeFilterCriteria(appliedFilterCriteria);
+    activeFilterFacet = FILTER_FACET_KEYS.find(key => !isFilterCriteriaEmpty({ [key]: draftFilterCriteria[key] })) || FILTER_FACET_KEYS[0];
+    renderFilterDialog();
+    dialog.showModal();
+    const activeButton = document.querySelector(`[data-filter-facet="${activeFilterFacet}"]`);
+    if (activeButton) activeButton.focus();
+}
+
+function finishFilterDialog(mode) {
+    const dialog = document.getElementById('operator-filter-dialog');
+    if (mode === 'apply' && draftFilterCriteria !== null) {
+        appliedFilterCriteria = normalizeFilterCriteria(draftFilterCriteria);
+        displayOperators(importedOperators);
+    }
+    if (dialog.open) dialog.close();
+    // modal 中は背景の opener が inert なので、閉じてから focus を戻す。
+    cleanupFilterDialog();
+}
+
+function cleanupFilterDialog() {
+    draftFilterCriteria = null;
+    activeFilterFacet = null;
+    document.getElementById('open-filter-button').focus();
+}
+
+function updateDraftCriteria(nextCriteria) {
+    draftFilterCriteria = normalizeFilterCriteria(nextCriteria);
+    renderFilterDialog();
+}
+
+function renderFilterDialog() {
+    if (draftFilterCriteria === null || !filterOptionCatalog) return;
+    const dialog = document.getElementById('operator-filter-dialog');
+    document.getElementById('filter-dialog-title').textContent = filterText('title');
+    document.getElementById('filter-close-button').textContent = filterText('close');
+    document.getElementById('filter-clear-button').textContent = filterText('clear');
+    document.getElementById('filter-cancel-button').textContent = filterText('cancel');
+    document.getElementById('filter-apply-button').textContent = filterText('apply');
+    const categories = document.getElementById('filter-category-list');
+    categories.replaceChildren();
+    FILTER_FACET_KEYS.forEach(key => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.filterFacet = key;
+        button.textContent = filterText(key);
+        button.setAttribute('aria-pressed', String(activeFilterFacet === key));
+        button.addEventListener('click', () => { activeFilterFacet = key; renderFilterDialog(); });
+        categories.appendChild(button);
+    });
+    const editor = document.getElementById('filter-editor');
+    editor.replaceChildren();
+    renderFacetEditor(editor, activeFilterFacet);
+    const cards = document.getElementById('draft-filter-cards');
+    const conditionNodes = createConditionNodes(draftFilterCriteria, true);
+    cards.replaceChildren(...conditionNodes);
+    const preview = buildOperatorView(importedOperators, masterData, draftFilterCriteria);
+    document.getElementById('filter-preview-count').textContent = `${filterText('preview')}: ${preview.rows.length} / ${preview.totalCount}`;
+    if (!dialog.open) return;
+}
+
+function createConditionNodes(criteria, draft) {
+    const nodes = [];
+    FILTER_FACET_KEYS.forEach(key => {
+        if (isFilterCriteriaEmpty({ [key]: criteria[key] })) return;
+        const card = document.createElement('div');
+        card.className = 'filter-condition-card';
+        const label = document.createElement('strong');
+        label.textContent = filterText(key);
+        const summary = document.createElement('span');
+        summary.textContent = summarizeFacet(key, criteria[key]);
+        card.append(label, summary);
+        if (draft) {
+            const clear = document.createElement('button');
+            clear.type = 'button';
+            clear.textContent = filterText('clear');
+            clear.addEventListener('click', () => updateDraftCriteria(clearFilterFacet(draftFilterCriteria, key)));
+            card.appendChild(clear);
+        }
+        nodes.push(card);
+    });
+    if (nodes.length === 0) {
+        const empty = document.createElement('span');
+        empty.className = 'filter-condition-empty';
+        empty.textContent = filterText('none');
+        nodes.push(empty);
+    }
+    return nodes;
+}
+
+function summarizeFacet(key, value) {
+    const catalog = filterOptionCatalog[key];
+    if (key === 'profession') {
+        const classes = catalog.classes.filter(option => value.classes.includes(option.value)).map(optionLabel);
+        const subClasses = catalog.subClasses.filter(option => value.subClasses.some(pair => pairIdentity(pair) === pairIdentity(option.value))).map(optionLabel);
+        return [...classes, ...subClasses].join(', ');
+    }
+    if (key === 'faction') {
+        const ids = catalog.filter(option => value.ids.includes(option.value)).map(optionLabel);
+        if (value.includeHidden) ids.push(filterText('includeHidden'));
+        if (value.includeSubFactions) ids.push(filterText('includeSub'));
+        return ids.join(', ');
+    }
+    if (key === 'date') return [catalog.find(option => option.value === value.region), value.since, value.to].filter(Boolean).map(item => typeof item === 'string' ? item : optionLabel(item)).join(' – ');
+    if (key === 'ownership') return optionLabel(catalog.find(option => option.value === value));
+    return catalog.filter(option => value.includes(option.value)).map(optionLabel).join(', ');
+}
+
+function renderFacetEditor(container, key) {
+    const heading = document.createElement('h3');
+    heading.textContent = filterText(key);
+    container.appendChild(heading);
+    if (key === 'profession') return renderProfessionEditor(container);
+    if (key === 'faction') return renderFactionEditor(container);
+    if (key === 'date') return renderDateEditor(container);
+    if (key === 'ownership') return renderOwnershipEditor(container);
+    renderMultiValueEditor(container, key, filterOptionCatalog[key], draftFilterCriteria[key]);
+}
+
+function renderMultiValueEditor(container, key, options, selected) {
+    const list = document.createElement('div');
+    list.className = 'filter-option-list';
+    options.forEach(option => list.appendChild(createCheckOption(optionLabel(option), selected.includes(option.value), checked => {
+        const next = normalizeFilterCriteria(draftFilterCriteria);
+        next[key] = checked ? [...selected, option.value] : selected.filter(value => value !== option.value);
+        updateDraftCriteria(next);
+    })));
+    container.appendChild(list);
+}
+
+function renderProfessionEditor(container) {
+    const value = draftFilterCriteria.profession;
+    const groups = document.createElement('div');
+    groups.className = 'filter-profession-groups';
+    filterOptionCatalog.profession.classes.forEach(classOption => {
+        const group = document.createElement('fieldset');
+        group.className = 'filter-profession-group';
+        const legend = document.createElement('legend');
+        legend.textContent = optionLabel(classOption);
+        group.appendChild(legend);
+        group.appendChild(createCheckOption(optionLabel(classOption), value.classes.includes(classOption.value), checked => {
+            const next = normalizeFilterCriteria(draftFilterCriteria);
+            next.profession.classes = checked ? [...value.classes, classOption.value] : value.classes.filter(id => id !== classOption.value);
+            if (checked) next.profession.subClasses = value.subClasses.filter(pair => pair.classId !== classOption.value);
+            updateDraftCriteria(next);
+        }));
+        const subClasses = document.createElement('div');
+        subClasses.className = 'filter-subclass-list';
+        filterOptionCatalog.profession.subClasses
+            .filter(option => option.value.classId === classOption.value)
+            .forEach(option => subClasses.appendChild(createCheckOption(optionLabel(option), value.subClasses.some(pair => pairIdentity(pair) === pairIdentity(option.value)), checked => {
+                const next = normalizeFilterCriteria(draftFilterCriteria);
+                next.profession.subClasses = checked ? [...value.subClasses, option.value] : value.subClasses.filter(pair => pairIdentity(pair) !== pairIdentity(option.value));
+                if (checked) next.profession.classes = value.classes.filter(classId => classId !== option.value.classId);
+                updateDraftCriteria(next);
+            })));
+        group.appendChild(subClasses);
+        groups.appendChild(group);
+    });
+    container.appendChild(groups);
+}
+
+function renderFactionEditor(container) {
+    const value = draftFilterCriteria.faction;
+    const flags = document.createElement('div');
+    flags.className = 'filter-flag-list';
+    [['includeHidden', 'includeHidden'], ['includeSubFactions', 'includeSub']].forEach(([field, label]) => {
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.checked = value[field];
+        input.disabled = value.ids.length === 0;
+        input.addEventListener('change', () => {
+            const next = normalizeFilterCriteria(draftFilterCriteria);
+            next.faction[field] = input.checked;
+            updateDraftCriteria(next);
+        });
+        const wrapper = document.createElement('label');
+        wrapper.append(input, document.createTextNode(filterText(label)));
+        flags.appendChild(wrapper);
+    });
+    container.appendChild(flags);
+    renderMultiValueEditor(container, 'faction', filterOptionCatalog.faction, value.ids);
+}
+
+function renderDateEditor(container) {
+    const value = draftFilterCriteria.date;
+    const regionList = document.createElement('div');
+    filterOptionCatalog.date.forEach(option => {
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'filter-date-region';
+        input.checked = value.region === option.value;
+        input.addEventListener('change', () => {
+            const next = normalizeFilterCriteria(draftFilterCriteria);
+            next.date.region = option.value;
+            updateDraftCriteria(next);
+        });
+        const label = document.createElement('label');
+        label.append(input, document.createTextNode(optionLabel(option)));
+        regionList.appendChild(label);
+    });
+    container.appendChild(regionList);
+    [['since', 'since'], ['to', 'to']].forEach(([field, labelKey]) => {
+        const label = document.createElement('label');
+        label.textContent = filterText(labelKey);
+        const input = document.createElement('input');
+        input.type = 'date';
+        input.value = value[field] || '';
+        input.disabled = value.region === null;
+        input.addEventListener('change', () => {
+            const next = normalizeFilterCriteria(draftFilterCriteria);
+            next.date[field] = input.value || null;
+            updateDraftCriteria(next);
+        });
+        label.appendChild(input);
+        container.appendChild(label);
     });
 }
 
-// オペレーター名を現在の言語に基づいて取得する関数
-function getOperatorName(operatorData) {
-    if (!operatorData || !operatorData.name) return 'Unknown';
-    
-    // 選択された言語で名前を返す
-    return operatorData.name[currentLanguage] || 
-           operatorData.name.ja ||
-           operatorData.name.en || 
-           operatorData.name.ch || 
-           'Unknown';
+function renderOwnershipEditor(container) {
+    const value = draftFilterCriteria.ownership;
+    filterOptionCatalog.ownership.forEach(option => {
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'filter-ownership';
+        input.checked = value === option.value;
+        input.addEventListener('change', () => {
+            const next = normalizeFilterCriteria(draftFilterCriteria);
+            next.ownership = option.value;
+            updateDraftCriteria(next);
+        });
+        const label = document.createElement('label');
+        label.append(input, document.createTextNode(optionLabel(option)));
+        container.appendChild(label);
+    });
+}
+
+function createCheckOption(text, checked, onChange) {
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.checked = checked;
+    input.addEventListener('change', () => onChange(input.checked));
+    const label = document.createElement('label');
+    label.className = 'filter-option';
+    label.append(input, document.createTextNode(text));
+    return label;
 }
