@@ -494,7 +494,24 @@ test('s3: module の非所持は resolver 経由で昇降とも末尾に置く',
     assert.deepEqual(sortCodes(sortMaster, shared, { key: 'module:M', direction: 'descending' }), ['C', 'A', 'B']);
 });
 
-test('s4: 名前は字種バケット、かな日本語照合、漢字中国語照合で言語切替時に再適用される', () => {
+test('s4: 数値列の無値は 0 と混同せず昇降とも末尾に置く', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('zero', { ja: 'Zero', en: 'Zero', ch: 'Zero' }, '☆4', 1),
+        sortOperator('value', { ja: 'Value', en: 'Value', ch: 'Value' }, '☆4', 1),
+        sortOperator('missing', { ja: 'Missing', en: 'Missing', ch: 'Missing' }, '☆4', 1)
+    ]);
+    const shared = [
+        { code: 'zero', potential: 0, skill: 0, skill1: 0, skill2: 0, skill3: 0 },
+        { code: 'value', potential: 2, skill: 2, skill1: 2, skill2: 2, skill3: 2 },
+        { code: 'missing', potential: null, skill: null, skill1: null, skill2: null, skill3: null }
+    ];
+    ['potential', 'skill', 'skill1', 'skill2', 'skill3'].forEach(key => {
+        assert.deepEqual(sortCodes(sortMaster, shared, { key: key, direction: 'ascending' }), ['zero', 'value', 'missing'], key);
+        assert.deepEqual(sortCodes(sortMaster, shared, { key: key, direction: 'descending' }), ['value', 'zero', 'missing'], key);
+    });
+});
+
+test('s5: 名前は字種バケット、かな日本語照合、漢字中国語照合で言語切替時に再適用される', () => {
     const sortMaster = makeSortMaster([
         sortOperator('latin', { ja: 'Alpha', en: 'Mike', ch: '中' }, '☆4', 1),
         sortOperator('kata', { ja: 'ア', en: 'Zulu', ch: '阿' }, '☆4', 1),
@@ -508,7 +525,17 @@ test('s4: 名前は字種バケット、かな日本語照合、漢字中国語�
     assert.deepEqual(sortCodes(sortMaster, [], state, 'ch'), ['kata', 'hira', 'han-eight', 'latin', 'han-middle']);
 });
 
-test('s5: 同値時は固定 tie-break 鎖を使い、主キーに含まれる要素は鎖から除外する', () => {
+test('s6: 名前は選択言語が空なら中国語だけで補完し、全言語欠損は昇降とも末尾に置く', () => {
+    const sortMaster = makeSortMaster([
+        sortOperator('selected', { ja: 'ア', en: 'Alpha', ch: '阿' }, '☆4', 1),
+        sortOperator('china-fallback', { ja: '', en: '', ch: '中' }, '☆4', 1),
+        sortOperator('missing', { ja: null, en: null, ch: null }, '☆4', 1)
+    ]);
+    assert.deepEqual(sortCodes(sortMaster, [], { key: 'name', direction: 'ascending' }, 'en'), ['selected', 'china-fallback', 'missing']);
+    assert.deepEqual(sortCodes(sortMaster, [], { key: 'name', direction: 'descending' }, 'en'), ['china-fallback', 'selected', 'missing']);
+});
+
+test('s7: 同値時は固定 tie-break 鎖を使い、主キーに含まれる要素は鎖から除外する', () => {
     const sortMaster = makeSortMaster([
         sortOperator('training', { ja: 'Z', en: 'Z', ch: 'Z' }, '☆1', 9),
         sortOperator('rarity', { ja: 'Z', en: 'Z', ch: 'Z' }, '☆6', 9),
@@ -541,7 +568,7 @@ test('s5: 同値時は固定 tie-break 鎖を使い、主キーに含まれる�
     assert.deepEqual(sortCodes(primaryMaster, primaryShared, { key: 'name', direction: 'ascending' }, 'en'), ['low-training', 'high-training']);
 });
 
-test('s6: tie-break の rarity/class 欠損は既定数値と混同せず常に末尾に置く', () => {
+test('s8: tie-break の rarity/class 欠損は既定数値と混同せず常に末尾に置く', () => {
     const minimalMaster = makeSortMaster([
         sortOperator('known', { ja: 'K', en: 'K', ch: 'K' }, null, 1)
     ]);
@@ -562,7 +589,7 @@ test('s6: tie-break の rarity/class 欠損は既定数値と混同せず常に�
     assert.deepEqual(sortCodes(sortMaster, shared, { key: 'potential', direction: 'descending' }, 'en'), ['rarity-known', 'class-known', 'unknown']);
 });
 
-test('s7: none・未知keyは入力順を維持し、filter 後のソートと解除は同じ view pipeline で戻る', () => {
+test('s9: none・未知keyは入力順を維持し、filter 後のソートと解除は同じ view pipeline で戻る', () => {
     const sortMaster = makeSortMaster([
         sortOperator('B', { ja: 'B', en: 'B', ch: 'B' }, '☆4', 1),
         sortOperator('A', { ja: 'A', en: 'A', ch: 'A' }, '☆4', 1),

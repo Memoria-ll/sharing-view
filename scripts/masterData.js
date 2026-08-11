@@ -346,28 +346,17 @@ function isKnownSortKey(key, master) {
     );
 }
 
-function compareNumbers(left, right) {
-    const leftNumber = Number(left);
-    const rightNumber = Number(right);
-    const normalizedLeft = Number.isFinite(leftNumber) ? leftNumber : 0;
-    const normalizedRight = Number.isFinite(rightNumber) ? rightNumber : 0;
-    return normalizedLeft - normalizedRight;
-}
-
-function compareNullableNumbers(left, right) {
-    const leftMissing = left === null || left === undefined || !Number.isFinite(left);
-    const rightMissing = right === null || right === undefined || !Number.isFinite(right);
+function compareNullableNumbers(left, right, direction) {
+    const leftMissing = !Number.isFinite(left);
+    const rightMissing = !Number.isFinite(right);
     if (leftMissing) return rightMissing ? 0 : 1;
     if (rightMissing) return -1;
-    return left - right;
+    const difference = left - right;
+    return direction === 'descending' ? -difference : difference;
 }
 
-function compareNullableNumbersDescending(left, right) {
-    const leftMissing = left === null || left === undefined || !Number.isFinite(left);
-    const rightMissing = right === null || right === undefined || !Number.isFinite(right);
-    if (leftMissing) return rightMissing ? 0 : 1;
-    if (rightMissing) return -1;
-    return right - left;
+function numericSortValue(value) {
+    return Number.isFinite(value) ? value : null;
 }
 
 function leadingScriptBucket(value) {
@@ -385,12 +374,26 @@ function compareDisplayText(left, right) {
     return (leadingScriptBucket(leftText) === 1 ? JA_COLLATOR : ZH_COLLATOR).compare(leftText, rightText);
 }
 
-function operatorDisplayName(master, row, language) {
-    return resolveLocalizedName(getOperatorInfo(master, row.code).name, language, 'Unknown');
+function compareStrings(left, right, direction) {
+    const leftMissing = typeof left !== 'string' || left.length === 0;
+    const rightMissing = typeof right !== 'string' || right.length === 0;
+    if (leftMissing) return rightMissing ? 0 : 1;
+    if (rightMissing) return -1;
+    const difference = compareDisplayText(left, right);
+    return direction === 'descending' ? -difference : difference;
 }
 
-function compareTraining(left, right) {
-    return compareNumbers(left.elite, right.elite) || compareNumbers(left.level, right.level);
+function operatorSortName(master, row, language) {
+    const names = getOperatorInfo(master, row.code).name;
+    if (!isPlainObject(names)) return null;
+    const picked = names[language];
+    if (typeof picked === 'string' && picked.length > 0) return picked;
+    return typeof names.ch === 'string' && names.ch.length > 0 ? names.ch : null;
+}
+
+function compareTraining(left, right, direction) {
+    return compareNullableNumbers(numericSortValue(left.elite), numericSortValue(right.elite), direction)
+        || compareNullableNumbers(numericSortValue(left.level), numericSortValue(right.level), direction);
 }
 
 function rarityNumber(master, row) {
@@ -414,45 +417,37 @@ function sortTieBreakKeys(key) {
 function compareTieBreakers(left, right, master, language, primaryKey) {
     for (const key of sortTieBreakKeys(primaryKey)) {
         let difference = 0;
-        if (key === 'training') difference = -compareTraining(left, right);
-        if (key === 'rarity') difference = compareNullableNumbersDescending(rarityNumber(master, left), rarityNumber(master, right));
-        if (key === 'class') difference = compareNullableNumbers(operatorClass(master, left), operatorClass(master, right));
-        if (key === 'name') difference = compareDisplayText(operatorDisplayName(master, left, language), operatorDisplayName(master, right, language));
+        if (key === 'training') difference = compareTraining(left, right, 'descending');
+        if (key === 'rarity') difference = compareNullableNumbers(rarityNumber(master, left), rarityNumber(master, right), 'descending');
+        if (key === 'class') difference = compareNullableNumbers(operatorClass(master, left), operatorClass(master, right), 'ascending');
+        if (key === 'name') difference = compareStrings(operatorSortName(master, left, language), operatorSortName(master, right, language), 'ascending');
         if (difference !== 0) return difference;
     }
     return 0;
 }
 
-function comparePrimarySortValue(left, right, master, key, language) {
-    if (key === 'code') return compareDisplayText(left.code, right.code);
-    if (key === 'name') return compareDisplayText(operatorDisplayName(master, left, language), operatorDisplayName(master, right, language));
-    if (key === 'elite' || key === 'level') return compareTraining(left, right);
+function comparePrimarySortValue(left, right, master, key, language, direction) {
+    if (key === 'code') return compareStrings(left.code, right.code, direction);
+    if (key === 'name') return compareStrings(operatorSortName(master, left, language), operatorSortName(master, right, language), direction);
+    if (key === 'elite' || key === 'level') return compareTraining(left, right, direction);
     if (key.startsWith('module:')) {
         const moduleId = key.slice('module:'.length);
         const leftValue = resolveModuleCell(getOperatorInfo(master, left.code), left, moduleId);
         const rightValue = resolveModuleCell(getOperatorInfo(master, right.code), right, moduleId);
-        if (leftValue === '-') return rightValue === '-' ? 0 : 1;
-        if (rightValue === '-') return -1;
-        return compareNumbers(leftValue, rightValue);
+        const leftNumber = leftValue === '-' ? null : Number(leftValue);
+        const rightNumber = rightValue === '-' ? null : Number(rightValue);
+        return compareNullableNumbers(numericSortValue(leftNumber), numericSortValue(rightNumber), direction);
     }
-    return compareNumbers(left[key], right[key]);
+    return compareNullableNumbers(numericSortValue(left[key]), numericSortValue(right[key]), direction);
 }
 
 function sortDisplayRows(rows, master, rawState, language) {
     const state = isPlainObject(rawState) ? rawState : createEmptySortState();
     if ((state.direction !== 'ascending' && state.direction !== 'descending') || !isKnownSortKey(state.key, master)) return rows.slice();
-    const direction = state.direction === 'ascending' ? 1 : -1;
     return rows
         .map((row, index) => ({ row: row, index: index }))
         .sort((left, right) => {
-            if (state.key.startsWith('module:')) {
-                const moduleId = state.key.slice('module:'.length);
-                const leftValue = resolveModuleCell(getOperatorInfo(master, left.row.code), left.row, moduleId);
-                const rightValue = resolveModuleCell(getOperatorInfo(master, right.row.code), right.row, moduleId);
-                if (leftValue === '-' && rightValue !== '-') return 1;
-                if (rightValue === '-' && leftValue !== '-') return -1;
-            }
-            const primaryDifference = comparePrimarySortValue(left.row, right.row, master, state.key, language) * direction;
+            const primaryDifference = comparePrimarySortValue(left.row, right.row, master, state.key, language, state.direction);
             if (primaryDifference !== 0) return primaryDifference;
             return compareTieBreakers(left.row, right.row, master, language, state.key) || left.index - right.index;
         })
