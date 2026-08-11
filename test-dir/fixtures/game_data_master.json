@@ -1,0 +1,1708 @@
+{
+  "version": "2.0.0",
+  "gameData": {
+    "sex": [
+      {
+        "id": 0,
+        "name": {
+          "ja": "男",
+          "en": "Male",
+          "ch": "Male"
+        }
+      },
+      {
+        "id": 1,
+        "name": {
+          "ja": "女",
+          "en": "Female",
+          "ch": "Female"
+        }
+      },
+      {
+        "id": 2,
+        "name": {
+          "ja": "断罪",
+          "en": "Conviction",
+          "ch": "Conviction"
+        }
+      },
+      {
+        "id": 3,
+        "name": {
+          "ja": "不明",
+          "en": "Unknown",
+          "ch": "Unknown"
+        }
+      }
+    ],
+    "class": [
+      {
+        "id": 0,
+        "name": {
+          "ja": "先鋒",
+          "en": "Vanguard",
+          "ch": "Vanguard"
+        }
+      },
+      {
+        "id": 1,
+        "name": {
+          "ja": "前衛",
+          "en": "Guard",
+          "ch": "Guard"
+        }
+      },
+      {
+        "id": 2,
+        "name": {
+          "ja": "重装",
+          "en": "Defender",
+          "ch": "Defender"
+        }
+      },
+      {
+        "id": 3,
+        "name": {
+          "ja": "狙撃",
+          "en": "Sniper",
+          "ch": "Sniper"
+        }
+      },
+      {
+        "id": 4,
+        "name": {
+          "ja": "術師",
+          "en": "Caster",
+          "ch": "Caster"
+        }
+      },
+      {
+        "id": 5,
+        "name": {
+          "ja": "医療",
+          "en": "Medic",
+          "ch": "Medic"
+        }
+      },
+      {
+        "id": 6,
+        "name": {
+          "ja": "補助",
+          "en": "Supporter",
+          "ch": "Supporter"
+        }
+      },
+      {
+        "id": 7,
+        "name": {
+          "ja": "特殊",
+          "en": "Specialist",
+          "ch": "Specialist"
+        }
+      }
+    ],
+    "race": [
+      {
+        "id": 0,
+        "name": {
+          "ja": "アスラン",
+          "en": "Aslan",
+          "ch": "Aslan"
+        }
+      },
+      {
+        "id": 1,
+        "name": {
+          "ja": "アダクリス",
+          "en": "Archosauria",
+          "ch": "Archosauria"
+        }
+      },
+      {
+        "id": 2,
+        "name": {
+          "ja": "アナティ",
+          "en": "Anaty",
+          "ch": "Anaty"
+        }
+      },
+      {
+        "id": 3,
+        "name": {
+          "ja": "アヌーラ",
+          "en": "Anura",
+          "ch": "Anura"
+        }
+      },
+      {
+        "id": 4,
+        "name": {
+          "ja": "イトラ",
+          "en": "Itra",
+          "ch": "Itra"
+        }
+      },
+      {
+        "id": 5,
+        "name": {
+          "ja": "ウルサス",
+          "en": "Ursus",
+          "ch": "Ursus"
+        }
+      },
+      {
+        "id": 6,
+        "name": {
+          "ja": "ヴァルポ",
+          "en": "Vulpo",
+          "ch": "Vulpo"
+        }
+      },
+      {
+        "id": 7,
+        "name": {
+          "ja": "ヴイーヴル",
+          "en": "Vouivre",
+          "ch": "Vouivre"
+        }
+      },
+      {
+        "id": 8,
+        "name": {
+          "ja": "エーギル",
+          "en": "Aegir",
+          "ch": "Aegir"
+        }
+      },
+      {
+        "id": 9,
+        "name": {
+          "ja": "エラフィア",
+          "en": "Elafia",
+          "ch": "Elafia"
+        }
+      },
+      {
+        "id": 10,
+        "name": {
+          "ja": "鬼",
+          "en": "Oni",
+          "ch": "Oni"
+        }
+      },
+      {
+        "id": 11,
+        "name": {
+          "ja": "キャプリニー",
+          "en": "Caprinae",
+          "ch": "Caprinae"
+        }
+      },
+      {
+        "id": 12,
+        "name": {
+          "ja": "麒麟",
+          "en": "Kylin",
+          "ch": "Kylin"
+        }
+      },
+      {
+        "id": 13,
+        "name": {
+          "ja": "クランタ",
+          "en": "Kuranta",
+          "ch": "Kuranta"
+        }
+      },
+      {
+        "id": 14,
+        "name": {
+          "ja": "コータス",
+          "en": "Cautus",
+          "ch": "Cautus"
+        }
+      },
+      {
+        "id": 15,
+        "name": {
+          "ja": "サルカズ",
+          "en": "Sarkaz",
+          "ch": "Sarkaz"
+        }
+      },
+      {
+        "id": 16,
+        "name": {
+          "ja": "サンクタ",
+          "en": "Sankta",
+          "ch": "Sankta"
+        }
+      },
+      {
+        "id": 17,
+        "name": {
+          "ja": "サヴラ",
+          "en": "Savra",
+          "ch": "Savra"
+        }
+      },
+      {
+        "id": 18,
+        "name": {
+          "ja": "ザラック",
+          "en": "Zalak",
+          "ch": "Zalak"
+        }
+      },
+      {
+        "id": 19,
+        "name": {
+          "ja": "ドゥリン",
+          "en": "Durin",
+          "ch": "Durin"
+        }
+      },
+      {
+        "id": 20,
+        "name": {
+          "ja": "ドラコ",
+          "en": "Draco",
+          "ch": "Draco"
+        }
+      },
+      {
+        "id": 21,
+        "name": {
+          "ja": "フェリーン",
+          "en": "Feline",
+          "ch": "Feline"
+        }
+      },
+      {
+        "id": 22,
+        "name": {
+          "ja": "フォルテ",
+          "en": "Forte",
+          "ch": "Forte"
+        }
+      },
+      {
+        "id": 23,
+        "name": {
+          "ja": "ペッロー",
+          "en": "Perro",
+          "ch": "Perro"
+        }
+      },
+      {
+        "id": 24,
+        "name": {
+          "ja": "ペートラム",
+          "en": "Petram",
+          "ch": "Petram"
+        }
+      },
+      {
+        "id": 25,
+        "name": {
+          "ja": "マンティコア",
+          "en": "Manticore",
+          "ch": "Manticore"
+        }
+      },
+      {
+        "id": 26,
+        "name": {
+          "ja": "リーベリ",
+          "en": "Liberi",
+          "ch": "Liberi"
+        }
+      },
+      {
+        "id": 27,
+        "name": {
+          "ja": "龍",
+          "en": "Lung",
+          "ch": "Lung"
+        }
+      },
+      {
+        "id": 28,
+        "name": {
+          "ja": "ループス",
+          "en": "Lupo",
+          "ch": "Lupo"
+        }
+      },
+      {
+        "id": 29,
+        "name": {
+          "ja": "レプロバ",
+          "en": "Rebbah",
+          "ch": "Rebbah"
+        }
+      },
+      {
+        "id": 30,
+        "name": {
+          "ja": "ロボット",
+          "en": "Robot",
+          "ch": "Robot"
+        }
+      },
+      {
+        "id": 31,
+        "name": {
+          "ja": "ピロサ",
+          "en": "Pillosa",
+          "ch": "Pillosa"
+        }
+      },
+      {
+        "id": 32,
+        "name": {
+          "ja": "フィディア",
+          "en": "Fidelity",
+          "ch": "Fidelity"
+        }
+      },
+      {
+        "id": 33,
+        "name": {
+          "ja": "セラト",
+          "en": "Cerrato",
+          "ch": "Cerrato"
+        }
+      },
+      {
+        "id": 34,
+        "name": {
+          "ja": "アナサ",
+          "en": "Anasa",
+          "ch": "Anasa"
+        }
+      },
+      {
+        "id": 35,
+        "name": {
+          "ja": "エルフ",
+          "en": "Elf",
+          "ch": "Elf"
+        }
+      },
+      {
+        "id": 99,
+        "name": {
+          "ja": "不明/未公開",
+          "en": "Unknown/Undisclosed",
+          "ch": "Unknown/Undisclosed"
+        }
+      },
+      {
+        "id": 100,
+        "name": {
+          "ja": "Rainbow Six Siege",
+          "en": "Rainbow Six Siege",
+          "ch": "Rainbow Six Siege"
+        }
+      },
+      {
+        "id": 101,
+        "name": {
+          "ja": "九色鹿",
+          "en": "Nine-Colored Deer",
+          "ch": "Nine-Colored Deer"
+        }
+      },
+      {
+        "id": 102,
+        "name": {
+          "ja": "羅小黒戦記",
+          "en": "The Legend of Hei",
+          "ch": "The Legend of Hei"
+        }
+      },
+      {
+        "id": 103,
+        "name": {
+          "ja": "モンスターハンター",
+          "en": "Monster Hunter",
+          "ch": "Monster Hunter"
+        }
+      },
+      {
+        "id": 104,
+        "name": {
+          "ja": "ダンジョン飯",
+          "en": "Delicious in Dungeon",
+          "ch": "Delicious in Dungeon"
+        }
+      },
+      {
+        "id": 105,
+        "name": {
+          "ja": "Bang Dream",
+          "en": "Bang Dream",
+          "ch": "Bang Dream"
+        }
+      }
+    ],
+    "faction": [
+      {
+        "id": 0,
+        "name": {
+          "ja": "ウルサス",
+          "en": "Ursus",
+          "ch": "Ursus"
+        },
+        "subFactions": [
+          1
+        ]
+      },
+      {
+        "id": 1,
+        "name": {
+          "ja": "ウルサス学生自治団",
+          "en": "Ursus Student Self-Gover. Gr.",
+          "ch": "Ursus Student Self-Gover. Gr."
+        },
+        "subFactions": []
+      },
+      {
+        "id": 2,
+        "name": {
+          "ja": "龍門",
+          "en": "Lungmen",
+          "ch": "Lungmen"
+        },
+        "subFactions": [
+          3,
+          5,
+          4
+        ]
+      },
+      {
+        "id": 3,
+        "name": {
+          "ja": "龍門近衛局",
+          "en": "Lungmen Guard Department",
+          "ch": "Lungmen Guard Department"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 4,
+        "name": {
+          "ja": "リー探偵事務所",
+          "en": "Lee's Detective Agency",
+          "ch": "Lee's Detective Agency"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 5,
+        "name": {
+          "ja": "ペンギン急便",
+          "en": "Penguin Logistics",
+          "ch": "Penguin Logistics"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 6,
+        "name": {
+          "ja": "炎国",
+          "en": "Yan",
+          "ch": "Yan"
+        },
+        "subFactions": [
+          2,
+          7,
+          3,
+          5,
+          4
+        ]
+      },
+      {
+        "id": 7,
+        "name": {
+          "ja": "歳",
+          "en": "Sui",
+          "ch": "Sui"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 8,
+        "name": {
+          "ja": "極東",
+          "en": "Higashi",
+          "ch": "Higashi"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 9,
+        "name": {
+          "ja": "ラテラーノ",
+          "en": "Laterano",
+          "ch": "Laterano"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 10,
+        "name": {
+          "ja": "リターニア",
+          "en": "Leithania",
+          "ch": "Leithania"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 11,
+        "name": {
+          "ja": "カランド貿易",
+          "en": "Karlan Trade",
+          "ch": "Karlan Trade"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 12,
+        "name": {
+          "ja": "ヴィクトリア",
+          "en": "Victoria",
+          "ch": "Victoria"
+        },
+        "subFactions": [
+          13,
+          40
+        ]
+      },
+      {
+        "id": 13,
+        "name": {
+          "ja": "グラスゴー",
+          "en": "Glasgow",
+          "ch": "Glasgow"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 14,
+        "name": {
+          "ja": "レム・ビリトン",
+          "en": "Rim Billiton",
+          "ch": "Rim Billiton"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 15,
+        "name": {
+          "ja": "カジミエーシュ",
+          "en": "Kazimierz",
+          "ch": "Kazimierz"
+        },
+        "subFactions": [
+          16
+        ]
+      },
+      {
+        "id": 16,
+        "name": {
+          "ja": "レッドパイン騎士団",
+          "en": "Pinus Sylvestris",
+          "ch": "Pinus Sylvestris"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 17,
+        "name": {
+          "ja": "シラクーザ",
+          "en": "Siracusa",
+          "ch": "Siracusa"
+        },
+        "subFactions": [
+          18
+        ]
+      },
+      {
+        "id": 18,
+        "name": {
+          "ja": "キアーベ一味",
+          "en": "Chiave's Gang",
+          "ch": "Chiave's Gang"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 19,
+        "name": {
+          "ja": "クルビア",
+          "en": "Columbia",
+          "ch": "Columbia"
+        },
+        "subFactions": [
+          21,
+          20,
+          24
+        ]
+      },
+      {
+        "id": 20,
+        "name": {
+          "ja": "BSW",
+          "en": "BSW",
+          "ch": "BSW"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 21,
+        "name": {
+          "ja": "ライン生命",
+          "en": "Rhine Lab",
+          "ch": "Rhine Lab"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 22,
+        "name": {
+          "ja": "サルゴン",
+          "en": "Sargon",
+          "ch": "Sargon"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 23,
+        "name": {
+          "ja": "サーミ",
+          "en": "Sami",
+          "ch": "Sami"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 24,
+        "name": {
+          "ja": "シエスタ",
+          "en": "Siesta",
+          "ch": "Siesta"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 25,
+        "name": {
+          "ja": "ボリバル",
+          "en": "Bolívar",
+          "ch": "Bolívar"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 26,
+        "name": {
+          "ja": "ミノス",
+          "en": "Minos",
+          "ch": "Minos"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 27,
+        "name": {
+          "ja": "エーギル",
+          "en": "Aegir",
+          "ch": "Aegir"
+        },
+        "subFactions": [
+          28
+        ]
+      },
+      {
+        "id": 28,
+        "name": {
+          "ja": "アビサル",
+          "en": "Abyssal",
+          "ch": "Abyssal"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 29,
+        "name": {
+          "ja": "イベリア",
+          "en": "Iberia",
+          "ch": "Iberia"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 30,
+        "name": {
+          "ja": "ロドス・アイランド",
+          "en": "Rhodes Island",
+          "ch": "Rhodes Island"
+        },
+        "subFactions": [
+          36,
+          37,
+          34,
+          31,
+          32,
+          33
+        ]
+      },
+      {
+        "id": 31,
+        "name": {
+          "ja": "行動予備隊A1",
+          "en": "Op Reserve A1",
+          "ch": "Op Reserve A1"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 32,
+        "name": {
+          "ja": "行動予備隊A4",
+          "en": "Op Reserve A4",
+          "ch": "Op Reserve A4"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 33,
+        "name": {
+          "ja": "行動予備隊A6",
+          "en": "Op Reserve A6",
+          "ch": "Op Reserve A6"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 34,
+        "name": {
+          "ja": "行動隊A4",
+          "en": "Op A4",
+          "ch": "Op A4"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 35,
+        "name": {
+          "ja": "使徒",
+          "en": "Followers",
+          "ch": "Followers"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 36,
+        "name": {
+          "ja": "エリートオペレーター",
+          "en": "Elite Op",
+          "ch": "Elite Op"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 37,
+        "name": {
+          "ja": "S.W.E.E.P.",
+          "en": "S.W.E.E.P.",
+          "ch": "S.W.E.E.P."
+        },
+        "subFactions": []
+      },
+      {
+        "id": 38,
+        "name": {
+          "ja": "バベル",
+          "en": "Babel",
+          "ch": "Babel"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 39,
+        "name": {
+          "ja": "レインボー小隊",
+          "en": "Team Rainbow",
+          "ch": "Team Rainbow"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 40,
+        "name": {
+          "ja": "ターラー",
+          "en": "Tara",
+          "ch": "Tara"
+        },
+        "subFactions": []
+      },
+      {
+        "id": 41,
+        "name": {
+          "ja": "イェラグ",
+          "en": "Kjerag",
+          "ch": "Kjerag"
+        },
+        "subFactions": [
+          11
+        ]
+      }
+    ],
+    "place": [
+      {
+        "id": 0,
+        "name": {
+          "ja": "ウルサス",
+          "en": "Ursus",
+          "ch": "Ursus"
+        }
+      },
+      {
+        "id": 1,
+        "name": {
+          "ja": "龍門",
+          "en": "Lungmen",
+          "ch": "Lungmen"
+        }
+      },
+      {
+        "id": 2,
+        "name": {
+          "ja": "炎国",
+          "en": "Yen",
+          "ch": "Yen"
+        }
+      },
+      {
+        "id": 3,
+        "name": {
+          "ja": "極東",
+          "en": "Far East",
+          "ch": "Far East"
+        }
+      },
+      {
+        "id": 4,
+        "name": {
+          "ja": "ラテラーノ",
+          "en": "Laterano",
+          "ch": "Laterano"
+        }
+      },
+      {
+        "id": 5,
+        "name": {
+          "ja": "リターニア",
+          "en": "Leithanien",
+          "ch": "Leithanien"
+        }
+      },
+      {
+        "id": 6,
+        "name": {
+          "ja": "イェラグ",
+          "en": "Kjerag",
+          "ch": "Kjerag"
+        }
+      },
+      {
+        "id": 7,
+        "name": {
+          "ja": "ヴィクトリア",
+          "en": "Victoria",
+          "ch": "Victoria"
+        }
+      },
+      {
+        "id": 8,
+        "name": {
+          "ja": "レム・ビリトン",
+          "en": "Rim Billiton",
+          "ch": "Rim Billiton"
+        }
+      },
+      {
+        "id": 9,
+        "name": {
+          "ja": "カジミエーシュ",
+          "en": "Kazimierz",
+          "ch": "Kazimierz"
+        }
+      },
+      {
+        "id": 10,
+        "name": {
+          "ja": "シラクーザ",
+          "en": "Siracusa",
+          "ch": "Siracusa"
+        }
+      },
+      {
+        "id": 11,
+        "name": {
+          "ja": "カズデル",
+          "en": "Kazdale",
+          "ch": "Kazdale"
+        }
+      },
+      {
+        "id": 12,
+        "name": {
+          "ja": "クルビア",
+          "en": "Columbia",
+          "ch": "Columbia"
+        }
+      },
+      {
+        "id": 13,
+        "name": {
+          "ja": "サルゴン",
+          "en": "Sargon",
+          "ch": "Sargon"
+        }
+      },
+      {
+        "id": 14,
+        "name": {
+          "ja": "サーミ",
+          "en": "Sami",
+          "ch": "Sami"
+        }
+      },
+      {
+        "id": 15,
+        "name": {
+          "ja": "シエスタ",
+          "en": "Siesta ",
+          "ch": "Siesta "
+        }
+      },
+      {
+        "id": 16,
+        "name": {
+          "ja": "ボリバル",
+          "en": "Bolívar",
+          "ch": "Bolívar"
+        }
+      },
+      {
+        "id": 17,
+        "name": {
+          "ja": "ミノス",
+          "en": "Minos",
+          "ch": "Minos"
+        }
+      },
+      {
+        "id": 18,
+        "name": {
+          "ja": "ヴイーヴル",
+          "en": "Vouivre",
+          "ch": "Vouivre"
+        }
+      },
+      {
+        "id": 19,
+        "name": {
+          "ja": "エーギル",
+          "en": "Aegir",
+          "ch": "Aegir"
+        }
+      },
+      {
+        "id": 20,
+        "name": {
+          "ja": "イベリア",
+          "en": "Iberia",
+          "ch": "Iberia"
+        }
+      },
+      {
+        "id": 21,
+        "name": {
+          "ja": "ロドス・アイランド",
+          "en": "Rhodes Island",
+          "ch": "Rhodes Island"
+        }
+      },
+      {
+        "id": 22,
+        "name": {
+          "ja": "ドゥリン",
+          "en": "Durin",
+          "ch": "Durin"
+        }
+      },
+      {
+        "id": 99,
+        "name": {
+          "ja": "不明/未公開",
+          "en": "Unknown/Undisclosed",
+          "ch": "Unknown/Undisclosed"
+        }
+      },
+      {
+        "id": 100,
+        "name": {
+          "ja": "Rainbow Six Siege",
+          "en": "Rainbow Six Siege",
+          "ch": "Rainbow Six Siege"
+        }
+      },
+      {
+        "id": 101,
+        "name": {
+          "ja": "九色鹿",
+          "en": "Nine-Colored Deer",
+          "ch": "Nine-Colored Deer"
+        }
+      },
+      {
+        "id": 102,
+        "name": {
+          "ja": "羅小黒戦記",
+          "en": "The Legend of Hei",
+          "ch": "The Legend of Hei"
+        }
+      },
+      {
+        "id": 103,
+        "name": {
+          "ja": "モンスターハンター",
+          "en": "Monster Hunter",
+          "ch": "Monster Hunter"
+        }
+      },
+      {
+        "id": 104,
+        "name": {
+          "ja": "ダンジョン飯",
+          "en": "Delicious in Dungeon",
+          "ch": "Delicious in Dungeon"
+        }
+      },
+      {
+        "id": 105,
+        "name": {
+          "ja": "Bang Dream",
+          "en": "Bang Dream",
+          "ch": "Bang Dream"
+        }
+      }
+    ],
+    "subClass": {
+      "vanguard": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "突撃兵",
+            "en": "Assault",
+            "ch": "冲锋手"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "先駆兵",
+            "en": "Pioneer",
+            "ch": "尖兵"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "戦術家",
+            "en": "Tactician",
+            "ch": "战术家"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "旗手",
+            "en": "Flagbearer",
+            "ch": "执旗手"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "偵察兵",
+            "en": "Intelligence",
+            "ch": "情报官"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "策士",
+            "en": "Strategist",
+            "ch": "策士"
+          }
+        }
+      ],
+      "guard": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "強襲者",
+            "en": "Centurion",
+            "ch": "强攻手"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "剣豪",
+            "en": "Dual-Strike",
+            "ch": "剑豪"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "闘士",
+            "en": "Brawler",
+            "ch": "斗士"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "武者",
+            "en": "Musha",
+            "ch": "武者"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "術戦士",
+            "en": "Spellblade",
+            "ch": "术战者"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "勇士",
+            "en": "Fearless",
+            "ch": "无畏者"
+          }
+        },
+        {
+          "id": 6,
+          "name": {
+            "ja": "教官",
+            "en": "Instructor",
+            "ch": "教官"
+          }
+        },
+        {
+          "id": 7,
+          "name": {
+            "ja": "鎌撃士",
+            "en": "Reaper",
+            "ch": "收割者"
+          }
+        },
+        {
+          "id": 8,
+          "name": {
+            "ja": "領主",
+            "en": "Lord",
+            "ch": "领主"
+          }
+        },
+        {
+          "id": 9,
+          "name": {
+            "ja": "解放者",
+            "en": "Liberator",
+            "ch": "解放者"
+          }
+        },
+        {
+          "id": 10,
+          "name": {
+            "ja": "重剣手",
+            "en": "Crusher",
+            "ch": "重剑手"
+          }
+        },
+        {
+          "id": 11,
+          "name": {
+            "ja": "槌撃士",
+            "en": "Earthshaker",
+            "ch": "撼地者"
+          }
+        },
+        {
+          "id": 12,
+          "name": {
+            "ja": "本源前衛",
+            "en": "Primal Guard",
+            "ch": "本源近卫"
+          }
+        },
+        {
+          "id": 13,
+          "name": {
+            "ja": "傭兵",
+            "en": "Mercenaries",
+            "ch": "佣兵"
+          }
+        }
+      ],
+      "defender": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "重盾衛士",
+            "en": "Protector",
+            "ch": "铁卫"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "術技衛士",
+            "en": "Arts Protector",
+            "ch": "驭法铁卫"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "庇護衛士",
+            "en": "Gurdian",
+            "ch": "守护者"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "決闘者",
+            "en": "Duelist",
+            "ch": "决战者"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "破壊者",
+            "en": "Unyielding",
+            "ch": "不屈者"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "堅城砲士",
+            "en": "Fortress",
+            "ch": "要塞"
+          }
+        },
+        {
+          "id": 6,
+          "name": {
+            "ja": "哨戒衛士",
+            "en": "Patrol",
+            "ch": "哨戒铁卫"
+          }
+        },
+        {
+          "id": 7,
+          "name": {
+            "ja": "本源衛士",
+            "en": "Primal Protector",
+            "ch": "本源铁卫"
+          }
+        }
+      ],
+      "sniper": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "速射手",
+            "en": "Rapid Fire",
+            "ch": "速射手"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "散弾射手",
+            "en": "Spreadshooter",
+            "ch": "散射手"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "戦術射手",
+            "en": "Close Range",
+            "ch": "重射手"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "破城射手",
+            "en": "Siege",
+            "ch": "攻城手"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "榴弾射手",
+            "en": "Splash",
+            "ch": "炮手"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "投擲手",
+            "en": "Bombardier",
+            "ch": "投掷手"
+          }
+        },
+        {
+          "id": 6,
+          "name": {
+            "ja": "精密射手",
+            "en": "Long Range",
+            "ch": "神射手"
+          }
+        },
+        {
+          "id": 7,
+          "name": {
+            "ja": "狩人",
+            "en": "Hunter",
+            "ch": "猎手"
+          }
+        },
+        {
+          "id": 8,
+          "name": {
+            "ja": "旋輪射手",
+            "en": "Loopshooter",
+            "ch": "回环射手"
+          }
+        },
+        {
+          "id": 9,
+          "name": {
+            "ja": "裂空砲手",
+            "en": "Skybreaker ",
+            "ch": "裂空炮手"
+          }
+        }
+      ],
+      "caster": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "中堅術師",
+            "en": "Core",
+            "ch": "中坚术士"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "法陣術師",
+            "en": "Phalanx",
+            "ch": "阵法术士"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "拡散術師",
+            "en": "Splash",
+            "ch": "扩散术士"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "秘術師",
+            "en": "Mystic",
+            "ch": "秘术士"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "爆撃術師",
+            "en": "Blast",
+            "ch": "轰击术士"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "操機術師",
+            "en": "Drone",
+            "ch": "驭械术士"
+          }
+        },
+        {
+          "id": 6,
+          "name": {
+            "ja": "連鎖術師",
+            "en": "Chain",
+            "ch": "链术士"
+          }
+        },
+        {
+          "id": 7,
+          "name": {
+            "ja": "本源術師",
+            "en": "Primal",
+            "ch": "本源术师"
+          }
+        },
+        {
+          "id": 8,
+          "name": {
+            "ja": "創霊術師",
+            "en": "Shaper",
+            "ch": "塑灵术师"
+          }
+        }
+      ],
+      "medic": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "医師",
+            "en": "Physician",
+            "ch": "医师"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "療養師",
+            "en": "Ring Healer",
+            "ch": "疗养师"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "群癒師",
+            "en": "Mender",
+            "ch": "群愈师"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "放浪医",
+            "en": "Wandering Medic",
+            "ch": "行医"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "呪癒師",
+            "en": "Incantation Medic",
+            "ch": "咒愈师"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "連鎖癒師",
+            "en": "Chain Medic",
+            "ch": "链愈师"
+          }
+        },
+        {
+          "id": 6,
+          "name": {
+            "ja": "空癒師",
+            "en": "Watchman",
+            "ch": "守望者"
+          }
+        }
+      ],
+      "supporter": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "緩速師",
+            "en": "Slower",
+            "ch": "凝滞师"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "祈祷師",
+            "en": "Blessing",
+            "ch": "护佑者"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "呪詛師",
+            "en": "Witherer",
+            "ch": "削弱者"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "召喚師",
+            "en": "Summoner",
+            "ch": "召唤师"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "吟遊者",
+            "en": "Bard",
+            "ch": "吟游者"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "工匠",
+            "en": "Artificer",
+            "ch": "工匠"
+          }
+        },
+        {
+          "id": 6,
+          "name": {
+            "ja": "祭儀師",
+            "en": "Ritualist",
+            "ch": "巫役"
+          }
+        },
+        {
+          "id": 7,
+          "name": {
+            "ja": "",
+            "en": "",
+            "ch": "游击手"
+          }
+        }
+      ],
+      "specialist": [
+        {
+          "id": 0,
+          "name": {
+            "ja": "執行者",
+            "en": "Executor",
+            "ch": "处决者"
+          }
+        },
+        {
+          "id": 1,
+          "name": {
+            "ja": "潜伏者",
+            "en": "Stalker",
+            "ch": "伏击客"
+          }
+        },
+        {
+          "id": 2,
+          "name": {
+            "ja": "罠師",
+            "en": "Trapper",
+            "ch": "陷阱师"
+          }
+        },
+        {
+          "id": 3,
+          "name": {
+            "ja": "行商人",
+            "en": "Merchant",
+            "ch": "行商"
+          }
+        },
+        {
+          "id": 4,
+          "name": {
+            "ja": "鉤縄師",
+            "en": "Puller",
+            "ch": "钩索师"
+          }
+        },
+        {
+          "id": 5,
+          "name": {
+            "ja": "傀儡師",
+            "en": "Puppeteer",
+            "ch": "傀儡师"
+          }
+        },
+        {
+          "id": 6,
+          "name": {
+            "ja": "推撃手",
+            "en": "Pusher",
+            "ch": "推击手"
+          }
+        },
+        {
+          "id": 7,
+          "name": {
+            "ja": "鬼才",
+            "en": "Geek",
+            "ch": "怪杰"
+          }
+        },
+        {
+          "id": 8,
+          "name": {
+            "ja": "錬金術師",
+            "en": "Alchemist",
+            "ch": "炼金师"
+          }
+        },
+        {
+          "id": 9,
+          "name": {
+            "ja": "巡空者",
+            "en": "Sky Ranger",
+            "ch": "巡空者"
+          }
+        }
+      ]
+    },
+    "module": [
+      "X",
+      "Y",
+      "D",
+      "A",
+      "B"
+    ]
+  }
+}

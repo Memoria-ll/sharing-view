@@ -16,48 +16,55 @@ const {
     DEFAULT_OPERATOR_VALUES
 } = require('../scripts/masterData.js');
 
-const rawMaster = require('./fixtures/operator_master_data_shareview.json');
+const rawOperator = require('./fixtures/operator_master_data.json');
+const rawGameData = require('./fixtures/game_data_master.json');
 const legacyMasterSubset = require('./fixtures/legacy-master-subset.json');
 
-const master = parseMasterData(rawMaster);
-const operatorCount = Object.keys(rawMaster.operators).length;
+const master = parseMasterData(rawOperator, rawGameData);
+const operatorCount = rawOperator.operators.length;
 const STATIC_TH_COUNT = 9;
 
-// マスター上でそのオペレーターが所持しているモジュールID（moduleIds の順）
+// マスター上でそのオペレーターが所持しているモジュールID（moduleIds の順）。
+// production の所持述語（Array.isArray）は呼ばず、キー存在という独立した基準で導出する
 function ownedIds(code) {
-    const modules = master.operators[code].modules;
-    return master.moduleIds.filter(id => modules[id] === true);
+    const modules = master.operators.get(code).modules;
+    return master.moduleIds.filter(id => Object.prototype.hasOwnProperty.call(modules, id));
 }
 
 // 条件を満たすオペレーターをフィクスチャから選ぶ。該当が無ければテストが空振りするので失敗させる
 function findOperator(predicate, description) {
-    const code = Object.keys(master.operators).find(predicate);
+    const code = [...master.operators.keys()].find(predicate);
     assert.ok(code, `フィクスチャに「${description}」オペレーターが存在しない`);
     return code;
 }
 
-// g. parseMasterData と罠1
-test('g1: moduleIds はトップレベルmodules配列をそのままの順序で通す', () => {
+// g. parseMasterData と罠1〜3（3通りの綴り・単数形/複数形）
+test('g1: moduleIds はgamedataマスターのgameData.module配列をそのままの順序で通す', () => {
     assert.ok(master.moduleIds.length > 0);
-    assert.deepEqual(master.moduleIds, rawMaster.modules);
+    assert.deepEqual(master.moduleIds, rawGameData.gameData.module);
 });
 
 test('g2: operators はマスター全件を保持する', () => {
     assert.ok(operatorCount > 0);
-    assert.equal(Object.keys(master.operators).length, operatorCount);
+    assert.equal(master.operators.size, operatorCount);
 });
 
-test('g3: buildDisplayRows([], master) はマスター全件。codeに modules/operators を含まない', () => {
+test('g3: buildDisplayRows([], master) はマスター全件', () => {
     const rows = buildDisplayRows([], master);
     assert.equal(rows.length, operatorCount);
-    const codes = rows.map(row => row.code);
-    assert.ok(!codes.includes('modules'));
-    assert.ok(!codes.includes('operators'));
 });
 
 test('g4: parseMasterData は不正/旧形式入力でも例外を投げず空に縮退する', () => {
-    assert.deepEqual(parseMasterData({}), { moduleIds: [], operators: {} });
-    assert.deepEqual(parseMasterData(legacyMasterSubset), { moduleIds: [], operators: {} });
+    [
+        parseMasterData(null, null),
+        parseMasterData({}, {}),
+        // 旧 shareview 形（トップレベル modules 配列 + operators 辞書）の operators は
+        // 配列ではないので、新形の解釈では拾われない
+        parseMasterData(legacyMasterSubset, legacyMasterSubset)
+    ].forEach(result => {
+        assert.equal(result.moduleIds.length, 0);
+        assert.equal(result.operators.size, 0);
+    });
 });
 
 // h. 列
@@ -144,7 +151,7 @@ test('i6: 全行×全moduleIdsの 非所持/数値 セル数がフィクスチ�
     const rows = buildDisplayRows([], master);
 
     let ownedFromFixture = 0;
-    for (const code of Object.keys(master.operators)) {
+    for (const code of master.operators.keys()) {
         ownedFromFixture += ownedIds(code).length;
     }
     const expectedNum = ownedFromFixture;
@@ -172,7 +179,7 @@ test('i6: 全行×全moduleIdsの 非所持/数値 セル数がフィクスチ�
 
 // j. buildDisplayRows
 test('j1: 共有データ1件を渡すと該当行は共有値、他行は既定値になる', () => {
-    const sharedCode = Object.keys(master.operators)[0];
+    const sharedCode = master.operators.keys().next().value;
     const shared = [{
         code: sharedCode, potential: 5, elite: 2, level: 80,
         skill: 7, skill1: 3, skill2: 3, skill3: 0
@@ -209,4 +216,36 @@ test('j3: コード toString の共有データも末尾に追加される(proto
     const rows = buildDisplayRows([{ code: 'toString', moduleX: 1 }], master);
     assert.equal(rows.length, operatorCount + 1);
     assert.equal(rows[rows.length - 1].code, 'toString');
+});
+
+// k. manifest経由の新形専用（罠5・所持判定・supply point・行順）
+test('k1: modules の値が true/null では所持と判定しない(罠5への出戻り検知)', () => {
+    const code = findOperator(c => ownedIds(c).length > 0, 'モジュールを1つ以上所持する');
+    const charInfo = getOperatorInfo(master, code);
+    const ownedId = ownedIds(code)[0];
+
+    const asTrue = { ...charInfo, modules: { ...charInfo.modules, [ownedId]: true } };
+    const asNull = { ...charInfo, modules: { ...charInfo.modules, [ownedId]: null } };
+
+    assert.equal(resolveModuleCell(asTrue, { code: code }, ownedId), '-');
+    assert.equal(resolveModuleCell(asNull, { code: code }, ownedId), '-');
+});
+
+test('k2: gameData は生gameDataのキー集合をそのまま保持する(#2 の supply point)', () => {
+    const keys = Object.keys(master.gameData).sort();
+    const rawKeys = Object.keys(rawGameData.gameData).sort();
+    assert.ok(keys.length > 0);
+    assert.deepEqual(keys, rawKeys);
+});
+
+test('k3: operators の要素は射影されず生の operator 要素をそのまま保持する', () => {
+    rawOperator.operators.forEach(raw => {
+        const keys = Object.keys(master.operators.get(raw.code)).sort();
+        assert.deepEqual(keys, Object.keys(raw).sort());
+    });
+});
+
+test('k4: buildDisplayRows の行順は operator マスターの配信配列順(行順の正)', () => {
+    const rows = buildDisplayRows([], master);
+    assert.deepEqual(rows.map(row => row.code), rawOperator.operators.map(op => op.code));
 });

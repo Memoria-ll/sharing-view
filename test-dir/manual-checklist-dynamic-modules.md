@@ -18,17 +18,21 @@
 `?d=<既存の共有ドキュメントID>` を開いた状態で、DevTools コンソールに貼る:
 
 ```js
-const url = 'https://data.memoria-ll.link/arknights-data/operator_master_data_shareview.json';
-const master = await (await fetch(url)).json();
-const ids = master.modules;
-const ops = master.operators;
+const manifestUrl = 'https://data.memoria-ll.link/arknights-data/master/manifest.json';
+const manifest = await (await fetch(manifestUrl)).json();
+const [operator, gameData] = await Promise.all([
+  fetch(manifest.files.operator.path).then(response => response.json()),
+  fetch(manifest.files.gamedata.path).then(response => response.json()),
+]);
+const ids = gameData.gameData.module;
+const ops = Object.fromEntries(operator.operators.map(o => [o.code, o]));
 const STATIC = 9;  // 非モジュール列（Code〜S3 Mastery）
 
 const head = [...document.querySelectorAll('#operators-head-row th')].map(th => th.textContent);
 const rows = [...document.querySelectorAll('#operators-body tr')];
 const codeOf = tr => tr.children[0].textContent;
 const moduleCells = tr => [...tr.children].slice(STATIC).map(td => td.textContent);
-const ownedOf = code => ids.filter(id => ops[code].modules[id] === true);
+const ownedOf = code => ids.filter(id => Array.isArray(ops[code].modules[id]));
 
 const check = (name, actual, expected) =>
   console.log(`${actual === expected ? 'PASS' : 'FAIL'}  ${name}: ${actual}  期待 ${expected}`);
