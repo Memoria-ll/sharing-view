@@ -317,6 +317,148 @@ const DEFAULT_OPERATOR_VALUES = {
     skill3: 0
 };
 
+const STATIC_SORT_KEYS = ['code', 'name', 'potential', 'elite', 'level', 'skill', 'skill1', 'skill2', 'skill3'];
+const JA_COLLATOR = new Intl.Collator('ja');
+const ZH_COLLATOR = new Intl.Collator('zh-CN');
+
+function createEmptySortState() {
+    return { key: null, direction: null };
+}
+
+function initialSortDirection(key) {
+    return key === 'code' || key === 'name' ? 'ascending' : 'descending';
+}
+
+function cycleSortState(rawState, key) {
+    if (typeof key !== 'string' || key.length === 0) return createEmptySortState();
+    const state = isPlainObject(rawState) ? rawState : createEmptySortState();
+    if (state.key !== key) return { key: key, direction: initialSortDirection(key) };
+    if (state.direction === initialSortDirection(key)) {
+        return { key: key, direction: state.direction === 'ascending' ? 'descending' : 'ascending' };
+    }
+    if (state.direction === 'ascending' || state.direction === 'descending') return createEmptySortState();
+    return { key: key, direction: initialSortDirection(key) };
+}
+
+function isKnownSortKey(key, master) {
+    return STATIC_SORT_KEYS.includes(key) || (
+        typeof key === 'string' && key.startsWith('module:') && master.moduleIds.includes(key.slice('module:'.length))
+    );
+}
+
+function compareNumbers(left, right) {
+    const leftNumber = Number(left);
+    const rightNumber = Number(right);
+    const normalizedLeft = Number.isFinite(leftNumber) ? leftNumber : 0;
+    const normalizedRight = Number.isFinite(rightNumber) ? rightNumber : 0;
+    return normalizedLeft - normalizedRight;
+}
+
+function compareNullableNumbers(left, right) {
+    const leftMissing = left === null || left === undefined || !Number.isFinite(left);
+    const rightMissing = right === null || right === undefined || !Number.isFinite(right);
+    if (leftMissing) return rightMissing ? 0 : 1;
+    if (rightMissing) return -1;
+    return left - right;
+}
+
+function compareNullableNumbersDescending(left, right) {
+    const leftMissing = left === null || left === undefined || !Number.isFinite(left);
+    const rightMissing = right === null || right === undefined || !Number.isFinite(right);
+    if (leftMissing) return rightMissing ? 0 : 1;
+    if (rightMissing) return -1;
+    return right - left;
+}
+
+function leadingScriptBucket(value) {
+    const character = Array.from(String(value ?? ''))[0] || '';
+    if (/^[\u3040-\u30ff\uff65-\uff9f]$/u.test(character)) return 1;
+    if (/^[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]$/u.test(character)) return 2;
+    return 0;
+}
+
+function compareDisplayText(left, right) {
+    const leftText = String(left ?? '');
+    const rightText = String(right ?? '');
+    const bucketDifference = leadingScriptBucket(leftText) - leadingScriptBucket(rightText);
+    if (bucketDifference !== 0) return bucketDifference;
+    return (leadingScriptBucket(leftText) === 1 ? JA_COLLATOR : ZH_COLLATOR).compare(leftText, rightText);
+}
+
+function operatorDisplayName(master, row, language) {
+    return resolveLocalizedName(getOperatorInfo(master, row.code).name, language, 'Unknown');
+}
+
+function compareTraining(left, right) {
+    return compareNumbers(left.elite, right.elite) || compareNumbers(left.level, right.level);
+}
+
+function rarityNumber(master, row) {
+    const rarity = getOperatorInfo(master, row.code).rarity;
+    const match = String(rarity ?? '').match(/\d+/);
+    return match ? Number(match[0]) : null;
+}
+
+function operatorClass(master, row) {
+    const value = getOperatorInfo(master, row.code).class;
+    return Number.isFinite(value) ? value : null;
+}
+
+function sortTieBreakKeys(key) {
+    const keys = ['training', 'rarity', 'class', 'name'];
+    if (key === 'elite' || key === 'level') return keys.filter(item => item !== 'training');
+    if (key === 'name') return keys.filter(item => item !== 'name');
+    return keys;
+}
+
+function compareTieBreakers(left, right, master, language, primaryKey) {
+    for (const key of sortTieBreakKeys(primaryKey)) {
+        let difference = 0;
+        if (key === 'training') difference = -compareTraining(left, right);
+        if (key === 'rarity') difference = compareNullableNumbersDescending(rarityNumber(master, left), rarityNumber(master, right));
+        if (key === 'class') difference = compareNullableNumbers(operatorClass(master, left), operatorClass(master, right));
+        if (key === 'name') difference = compareDisplayText(operatorDisplayName(master, left, language), operatorDisplayName(master, right, language));
+        if (difference !== 0) return difference;
+    }
+    return 0;
+}
+
+function comparePrimarySortValue(left, right, master, key, language) {
+    if (key === 'code') return compareDisplayText(left.code, right.code);
+    if (key === 'name') return compareDisplayText(operatorDisplayName(master, left, language), operatorDisplayName(master, right, language));
+    if (key === 'elite' || key === 'level') return compareTraining(left, right);
+    if (key.startsWith('module:')) {
+        const moduleId = key.slice('module:'.length);
+        const leftValue = resolveModuleCell(getOperatorInfo(master, left.code), left, moduleId);
+        const rightValue = resolveModuleCell(getOperatorInfo(master, right.code), right, moduleId);
+        if (leftValue === '-') return rightValue === '-' ? 0 : 1;
+        if (rightValue === '-') return -1;
+        return compareNumbers(leftValue, rightValue);
+    }
+    return compareNumbers(left[key], right[key]);
+}
+
+function sortDisplayRows(rows, master, rawState, language) {
+    const state = isPlainObject(rawState) ? rawState : createEmptySortState();
+    if ((state.direction !== 'ascending' && state.direction !== 'descending') || !isKnownSortKey(state.key, master)) return rows.slice();
+    const direction = state.direction === 'ascending' ? 1 : -1;
+    return rows
+        .map((row, index) => ({ row: row, index: index }))
+        .sort((left, right) => {
+            if (state.key.startsWith('module:')) {
+                const moduleId = state.key.slice('module:'.length);
+                const leftValue = resolveModuleCell(getOperatorInfo(master, left.row.code), left.row, moduleId);
+                const rightValue = resolveModuleCell(getOperatorInfo(master, right.row.code), right.row, moduleId);
+                if (leftValue === '-' && rightValue !== '-') return 1;
+                if (rightValue === '-' && leftValue !== '-') return -1;
+            }
+            const primaryDifference = comparePrimarySortValue(left.row, right.row, master, state.key, language) * direction;
+            if (primaryDifference !== 0) return primaryDifference;
+            return compareTieBreakers(left.row, right.row, master, language, state.key) || left.index - right.index;
+        })
+        .map(item => item.row);
+}
+
 // マスターの全オペレーターを行にする。共有データがあればその値、なければ初期値。
 // マスターに無いコードの共有データも末尾に追加する
 function buildDisplayRows(sharedOperators, master) {
@@ -336,13 +478,18 @@ function buildDisplayRows(sharedOperators, master) {
 }
 
 // 表示行の供給と filter 判定をここで直列化し、preview と product table を同じ入口にする。
-function buildOperatorView(sharedOperators, master, rawCriteria) {
+function buildOperatorView(sharedOperators, master, rawCriteria, rawSortState, language) {
     const criteria = normalizeFilterCriteria(rawCriteria);
     const rows = buildDisplayRows(sharedOperators, master);
     return {
         criteria: criteria,
         totalCount: rows.length,
-        rows: rows.filter(row => matchesOperatorFilter(master.operators.get(row.code), row, master, criteria))
+        rows: sortDisplayRows(
+            rows.filter(row => matchesOperatorFilter(master.operators.get(row.code), row, master, criteria)),
+            master,
+            rawSortState,
+            language || 'ja'
+        )
     };
 }
 
@@ -351,6 +498,7 @@ if (typeof module !== 'undefined' && module.exports) {
         parseMasterData, moduleColumnLabels, moduleValueKey, getOperatorInfo, resolveModuleCell, buildDisplayRows,
         DEFAULT_OPERATOR_VALUES, FILTER_FACETS, FILTER_FACET_KEYS, createEmptyFilterCriteria,
         normalizeFilterCriteria, isFilterCriteriaEmpty, matchesOperatorFilter, clearFilterFacet,
-        buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName
+        buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName,
+        createEmptySortState, initialSortDirection, cycleSortState, sortTieBreakKeys, sortDisplayRows
     };
 }

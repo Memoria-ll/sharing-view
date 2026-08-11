@@ -8,6 +8,7 @@ let appliedFilterCriteria = createEmptyFilterCriteria();
 let draftFilterCriteria = null;
 let activeFilterFacet = null;
 let filterOptionCatalog = null;
+let sortState = createEmptySortState();
 
 const FILTER_TEXT = {
     ja: {
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         finishFilterDialog('apply');
     });
     openButton.addEventListener('click', openFilterDialog);
+    initializeSortHeaders();
 
     const urlParams = new URLSearchParams(window.location.search);
     const dataId = urlParams.get('d');
@@ -163,7 +165,34 @@ function renderModuleHeaders(moduleIds) {
         const th = document.createElement('th');
         th.textContent = label;
         th.dataset.moduleId = moduleIds[index];
+        th.dataset.sortKey = `module:${moduleIds[index]}`;
+        configureSortableHeader(th);
         headRow.appendChild(th);
+    });
+    renderSortHeaderState();
+}
+
+function initializeSortHeaders() {
+    document.querySelectorAll('#operators-head-row th[data-sort-key]').forEach(configureSortableHeader);
+    renderSortHeaderState();
+}
+
+function configureSortableHeader(th) {
+    th.classList.add('sortable-header');
+    th.setAttribute('aria-sort', 'none');
+    th.addEventListener('click', () => {
+        sortState = cycleSortState(sortState, th.dataset.sortKey);
+        renderSortHeaderState();
+        if (importedOperators !== null) displayOperators(importedOperators);
+    });
+}
+
+function renderSortHeaderState() {
+    document.querySelectorAll('#operators-head-row th[data-sort-key]').forEach(th => {
+        const isActive = sortState.key === th.dataset.sortKey && sortState.direction !== null;
+        th.classList.toggle('sort-ascending', isActive && sortState.direction === 'ascending');
+        th.classList.toggle('sort-descending', isActive && sortState.direction === 'descending');
+        th.setAttribute('aria-sort', isActive ? sortState.direction : 'none');
     });
 }
 
@@ -177,7 +206,7 @@ function renderFilterToolbar() {
 }
 
 function displayOperators(operators) {
-    const view = buildOperatorView(operators, masterData, appliedFilterCriteria);
+    const view = buildOperatorView(operators, masterData, appliedFilterCriteria, sortState, currentLanguage);
     const operatorsBody = document.getElementById('operators-body');
     operatorsBody.innerHTML = '';
     view.rows.forEach(operator => {
@@ -196,6 +225,7 @@ function displayOperators(operators) {
     const count = document.getElementById('filter-result-count');
     count.textContent = `${filterText('result')}: ${view.rows.length} / ${filterText('total')}: ${view.totalCount}`;
     renderFilterToolbar();
+    renderSortHeaderState();
 }
 
 function appendCell(tr, value) {
