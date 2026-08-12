@@ -128,30 +128,35 @@ body {
     gap: 10px;
 }
 
-.language-selector {
+.language-selector,
+.operator-display-selector {
     display: grid;
     gap: 10px;
     padding: 18px;
     border: 0;
 }
 
-.language-selector legend {
+.language-selector legend,
+.operator-display-selector legend {
     padding: 18px 18px 0;
     font-weight: bold;
 }
 
-.language-selector label {
+.language-selector label,
+.operator-display-selector label {
     display: flex;
     align-items: center;
     cursor: pointer;
     color: var(--text-secondary);
 }
 
-.language-selector label:hover {
+.language-selector label:hover,
+.operator-display-selector label:hover {
     color: var(--text-primary);
 }
 
-.language-selector input[type="radio"] {
+.language-selector input[type="radio"],
+.operator-display-selector input[type="checkbox"] {
     margin-right: 5px;
 }
 

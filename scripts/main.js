@@ -9,25 +9,26 @@ let draftFilterCriteria = null;
 let activeFilterFacet = null;
 let filterOptionCatalog = null;
 let sortState = createEmptySortState();
+let includeChinaAhead = false;
 
 const FILTER_TEXT = {
     ja: {
         open: 'フィルター', title: 'オペレーターフィルター', clear: 'すべて解除', apply: '適用', cancel: 'キャンセル', close: '閉じる',
         none: '条件なし', result: '一致', total: '全件', preview: 'プレビュー', includeHidden: '隠し陣営を含む', includeSub: '副陣営を含む',
         since: '開始日', to: '終了日', profession: '職業・職分', sex: '性別', place: '出身', rarity: 'レアリティ', race: '種族', faction: '陣営', date: '実装日', ownership: '所持/未所持', potential: '潜在',
-        config: '設定', closeConfig: '閉じる', displayLanguage: '表示言語', copyUrl: 'URLをコピー', copied: 'コピーしました！', post: 'Xでポスト'
+        config: '設定', closeConfig: '閉じる', displayLanguage: '表示言語', displayOperators: '表示対象', includeChinaAhead: '大陸版先行オペレーターを表示', copyUrl: 'URLをコピー', copied: 'コピーしました！', post: 'Xでポスト'
     },
     en: {
         open: 'Filter', title: 'Operator filters', clear: 'Clear all', apply: 'Apply', cancel: 'Cancel', close: 'Close',
         none: 'No conditions', result: 'Matched', total: 'Total', preview: 'Preview', includeHidden: 'Include hidden factions', includeSub: 'Include subfactions',
         since: 'Since', to: 'To', profession: 'Class / subclass', sex: 'Sex', place: 'Place', rarity: 'Rarity', race: 'Race', faction: 'Faction', date: 'Release date', ownership: 'Ownership', potential: 'Potential',
-        config: 'Config', closeConfig: 'Close', displayLanguage: 'Display language', copyUrl: 'Copy URL', copied: 'Copied!', post: 'Post on X'
+        config: 'Config', closeConfig: 'Close', displayLanguage: 'Display language', displayOperators: 'Operators to display', includeChinaAhead: 'Show China-first operators', copyUrl: 'Copy URL', copied: 'Copied!', post: 'Post on X'
     },
     ch: {
         open: '筛选', title: '干员筛选', clear: '清除全部', apply: '应用', cancel: '取消', close: '关闭',
         none: '无条件', result: '匹配', total: '全部', preview: '预览', includeHidden: '包含隐藏阵营', includeSub: '包含子阵营',
         since: '开始日期', to: '结束日期', profession: '职业 / 分支', sex: '性别', place: '出身', rarity: '稀有度', race: '种族', faction: '阵营', date: '实装日期', ownership: '持有', potential: '潜能',
-        config: '设置', closeConfig: '关闭', displayLanguage: '显示语言', copyUrl: '复制链接', copied: '已复制！', post: '发布到 X'
+        config: '设置', closeConfig: '关闭', displayLanguage: '显示语言', displayOperators: '显示范围', includeChinaAhead: '显示中国大陆服先行干员', copyUrl: '复制链接', copied: '已复制！', post: '发布到 X'
     }
 };
 
@@ -68,6 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
     openButton.addEventListener('click', openFilterDialog);
     openConfigButton.addEventListener('click', () => configDialog.showModal());
     configDialog.addEventListener('close', () => openConfigButton.focus());
+    document.getElementById('include-china-ahead').addEventListener('change', event => {
+        includeChinaAhead = event.target.checked;
+        if (importedOperators !== null) displayOperators(importedOperators);
+        if (dialog.open) renderFilterDialog();
+    });
     initializeSortHeaders();
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -143,6 +149,8 @@ function renderLocalizedControls() {
     document.getElementById('config-dialog-title').textContent = filterText('config');
     document.getElementById('config-close-button').textContent = filterText('closeConfig');
     document.getElementById('language-selector-title').textContent = filterText('displayLanguage');
+    document.getElementById('operator-display-title').textContent = filterText('displayOperators');
+    document.getElementById('include-china-ahead-label').textContent = filterText('includeChinaAhead');
     document.getElementById('copy-url-button').textContent = filterText('copyUrl');
     document.getElementById('tweet-button').textContent = filterText('post');
     renderTableHeaders();
@@ -235,7 +243,7 @@ function renderFilterToolbar() {
 }
 
 function displayOperators(operators) {
-    const view = buildOperatorView(operators, masterData, appliedFilterCriteria, sortState, currentLanguage);
+    const view = buildOperatorView(operators, masterData, appliedFilterCriteria, sortState, currentLanguage, { includeChinaAhead: includeChinaAhead });
     const operatorsBody = document.getElementById('operators-body');
     operatorsBody.innerHTML = '';
     view.rows.forEach(operator => {
@@ -351,7 +359,7 @@ function renderFilterDialog() {
     const cards = document.getElementById('draft-filter-cards');
     const conditionNodes = createConditionNodes(draftFilterCriteria, true);
     cards.replaceChildren(...conditionNodes);
-    const preview = buildOperatorView(importedOperators, masterData, draftFilterCriteria);
+    const preview = buildOperatorView(importedOperators, masterData, draftFilterCriteria, null, currentLanguage, { includeChinaAhead: includeChinaAhead });
     document.getElementById('filter-preview-count').textContent = `${filterText('preview')}: ${preview.rows.length} / ${preview.totalCount}`;
     if (!dialog.open) return;
 }
