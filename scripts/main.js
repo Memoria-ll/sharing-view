@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function renderLocalizedControls() {
     document.documentElement.lang = currentLanguage === 'ch' ? 'zh' : currentLanguage;
-    document.getElementById('open-config-button').textContent = filterText('config');
+    document.getElementById('open-config-button').textContent = 'Config';
     document.getElementById('config-dialog-title').textContent = filterText('config');
     document.getElementById('config-close-button').textContent = filterText('closeConfig');
     document.getElementById('language-selector-title').textContent = filterText('displayLanguage');
