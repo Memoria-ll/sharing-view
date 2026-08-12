@@ -546,7 +546,7 @@ footer {
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .table-container {
-        max-height: calc(100vh - 288px);
+        max-height: max(240px, calc(100vh - 288px));
     }
 
     .header {

@@ -202,7 +202,7 @@ function renderTableHeaders() {
 }
 
 function initializeSortHeaders() {
-    document.querySelectorAll('#operators-head-row th[data-sort-key]').forEach(configureSortableHeader);
+    document.querySelectorAll('#operators-table thead th[data-sort-key]').forEach(configureSortableHeader);
     renderSortHeaderState();
 }
 
@@ -217,7 +217,7 @@ function configureSortableHeader(th) {
 }
 
 function renderSortHeaderState() {
-    document.querySelectorAll('#operators-head-row th[data-sort-key]').forEach(th => {
+    document.querySelectorAll('#operators-table thead th[data-sort-key]').forEach(th => {
         const isActive = sortState.key === th.dataset.sortKey && sortState.direction !== null;
         th.classList.toggle('sort-ascending', isActive && sortState.direction === 'ascending');
         th.classList.toggle('sort-descending', isActive && sortState.direction === 'descending');
