@@ -38,6 +38,24 @@ function parseCalendarDate(value, separator) {
     return `${match[1]}-${match[2]}-${match[3]}`;
 }
 
+function currentCalendarDate(now) {
+    const date = now instanceof Date ? now : new Date();
+    const year = String(date.getFullYear()).padStart(4, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function isChinaAheadOperator(operator, today) {
+    const chinaDate = parseCalendarDate(operator && operator.addDate && operator.addDate.china, '/');
+    if (chinaDate === null) return false;
+    if (!Object.prototype.hasOwnProperty.call(operator.addDate, 'global')) return true;
+    const globalDate = parseCalendarDate(operator.addDate.global, '/');
+    if (globalDate === null) return false;
+    const comparisonDate = parseCalendarDate(today, '-') || currentCalendarDate();
+    return globalDate > comparisonDate;
+}
+
 function emptyCriteria() {
     return {
         profession: { classes: [], subClasses: [] },
@@ -484,9 +502,13 @@ function buildDisplayRows(sharedOperators, master) {
 }
 
 // 表示行の供給と filter 判定をここで直列化し、preview と product table を同じ入口にする。
-function buildOperatorView(sharedOperators, master, rawCriteria, rawSortState, language) {
+function buildOperatorView(sharedOperators, master, rawCriteria, rawSortState, language, rawDisplayOptions) {
     const criteria = normalizeFilterCriteria(rawCriteria);
-    const rows = buildDisplayRows(sharedOperators, master);
+    const displayOptions = isPlainObject(rawDisplayOptions) ? rawDisplayOptions : {};
+    const includeChinaAhead = displayOptions.includeChinaAhead !== false;
+    const rows = buildDisplayRows(sharedOperators, master).filter(row =>
+        includeChinaAhead || !isChinaAheadOperator(master.operators.get(row.code), displayOptions.today)
+    );
     return {
         criteria: criteria,
         totalCount: rows.length,
@@ -504,7 +526,7 @@ if (typeof module !== 'undefined' && module.exports) {
         parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, getOperatorInfo, resolveModuleCell, buildDisplayRows,
         DEFAULT_OPERATOR_VALUES, FILTER_FACETS, FILTER_FACET_KEYS, createEmptyFilterCriteria,
         normalizeFilterCriteria, isFilterCriteriaEmpty, matchesOperatorFilter, clearFilterFacet,
-        buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName,
+        buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName, isChinaAheadOperator,
         createEmptySortState, initialSortDirection, cycleSortState, sortTieBreakKeys, sortDisplayRows
     };
 }

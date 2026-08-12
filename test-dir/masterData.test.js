@@ -22,6 +22,7 @@ const {
     isFilterCriteriaEmpty,
     buildFilterOptionCatalog,
     buildOperatorView,
+    isChinaAheadOperator,
     createEmptySortState,
     initialSortDirection,
     cycleSortState,
@@ -425,6 +426,33 @@ test('f8: date は暦日 inclusive、region switch、missing と malformed を�
     malformedMaster.operators.set(dated.code, { ...dated, addDate: { ...dated.addDate, china: '2024/02/30' } });
     assert.ok(!codes(buildOperatorView([], malformedMaster, { date: { region: 'china' } })).includes(dated.code));
     assert.deepEqual(normalizeFilterCriteria({ date: { region: 'global', since: china, to: china } }).date, { region: 'global', since: china, to: china });
+});
+
+test('issue7: 大陸版先行判定は global の欠損・未来だけを対象にし、当日を通常表示に含める', () => {
+    const today = '2026-08-12';
+    assert.equal(isChinaAheadOperator({ addDate: { china: '2026/01/01' } }, today), true);
+    assert.equal(isChinaAheadOperator({ addDate: { china: '2026/01/01', global: '2026/08/13' } }, today), true);
+    assert.equal(isChinaAheadOperator({ addDate: { china: '2026/01/01', global: '2026/08/12' } }, today), false);
+    assert.equal(isChinaAheadOperator({ addDate: { china: '2026/01/01', global: '2026/08/11' } }, today), false);
+    assert.equal(isChinaAheadOperator({ addDate: { global: '2026/08/13' } }, today), false);
+    assert.equal(isChinaAheadOperator({ addDate: { china: 'invalid', global: '2026/08/13' } }, today), false);
+    assert.equal(isChinaAheadOperator({ addDate: { china: '2026/01/01', global: 'invalid' } }, today), false);
+});
+
+test('issue7: 表示設定を無効にすると母集団から先行オペレーターを除外してから既存フィルターを適用する', () => {
+    const fixtureOperators = [
+        { code: 'A', sex: 1, addDate: { china: '2026/01/01' } },
+        { code: 'B', sex: 1, addDate: { china: '2026/01/01', global: '2026/08/13' } },
+        { code: 'C', sex: 1, addDate: { china: '2026/01/01', global: '2026/08/12' } },
+        { code: 'D', sex: 2, addDate: { china: '2026/01/01', global: '2026/08/11' } }
+    ];
+    const fixtureMaster = { ...master, operators: new Map(fixtureOperators.map(operator => [operator.code, operator])) };
+    const hidden = buildOperatorView([], fixtureMaster, { sex: [1] }, null, 'ja', { includeChinaAhead: false, today: '2026-08-12' });
+    const shown = buildOperatorView([], fixtureMaster, { sex: [1] }, null, 'ja', { includeChinaAhead: true, today: '2026-08-12' });
+    assert.equal(hidden.totalCount, 2);
+    assert.deepEqual(codes(hidden), ['C']);
+    assert.equal(shown.totalCount, 4);
+    assert.deepEqual(codes(shown), ['A', 'B', 'C']);
 });
 
 test('f9: ownership/potential は row potential を唯一の入力にし、0 と master補完を未所持として扱う', () => {
