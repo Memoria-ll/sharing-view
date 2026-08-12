@@ -256,7 +256,12 @@ function displayOperators(operators) {
             if (rarityNum) tdName.classList.add(`rarity-${rarityNum}`);
         }
         ['potential', 'elite', 'level'].forEach(key => appendCell(tr, operator[key]));
-        ['skill', 'skill1', 'skill2', 'skill3'].forEach((key, index) => appendCell(tr, operator[key], index === 1 ? 'column-group-start' : ''));
+        appendCell(tr, operator.skill);
+        [1, 2, 3].forEach(skillNumber => appendCell(
+            tr,
+            resolveMasteryCell(charInfo, operator, skillNumber),
+            skillNumber === 1 ? 'column-group-start' : ''
+        ));
         masterData.moduleIds.forEach((moduleId, index) => appendCell(tr, resolveModuleCell(charInfo, operator, moduleId), index === 0 ? 'column-group-start' : ''));
         operatorsBody.appendChild(tr);
     });
@@ -270,7 +275,7 @@ function appendCell(tr, value, className = '') {
     const td = document.createElement('td');
     td.textContent = value;
     if (className) td.classList.add(className);
-    if (value === 0 || value === '-') td.classList.add('secondary-value');
+    if (isSecondaryDisplayValue(value)) td.classList.add('secondary-value');
     tr.appendChild(td);
     return td;
 }

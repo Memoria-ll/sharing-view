@@ -310,6 +310,10 @@ function moduleValueKey(moduleId) {
     return 'module' + moduleId;
 }
 
+function isSecondaryDisplayValue(value) {
+    return String(value) === '0' || value === '-';
+}
+
 // マスター上のオペレーター情報を取得する。マスターに無いコードは Unknown 表示用のフォールバックを返す
 function getOperatorInfo(master, code) {
     if (master.operators.has(code)) {
@@ -329,6 +333,18 @@ function resolveModuleCell(charInfo, row, moduleId) {
     // 所持判定は値が配列であること。キー存在だけで判定すると、配信側が非所持を
     // null/false/[] で表し始めた瞬間に静かに所持扱いになる。配列判定なら非所持側に倒れる
     if (!Array.isArray(charInfo.modules[moduleId])) {
+        return '-';
+    }
+    const value = row[key];
+    return Number.isInteger(value) ? String(value) : '0';
+}
+
+function resolveMasteryCell(charInfo, row, skillNumber) {
+    const key = 'skill' + skillNumber;
+    if (!isPlainObject(charInfo.skillMastery)) {
+        return row[key];
+    }
+    if (!Array.isArray(charInfo.skillMastery[String(skillNumber)])) {
         return '-';
     }
     const value = row[key];
@@ -459,6 +475,14 @@ function comparePrimarySortValue(left, right, master, key, language, direction) 
     if (key === 'code') return compareStrings(left.code, right.code, direction);
     if (key === 'name') return compareStrings(operatorSortName(master, left, language), operatorSortName(master, right, language), direction);
     if (key === 'elite' || key === 'level') return compareTraining(left, right, direction);
+    if (/^skill[1-3]$/.test(key)) {
+        const skillNumber = Number(key.slice('skill'.length));
+        const leftValue = resolveMasteryCell(getOperatorInfo(master, left.code), left, skillNumber);
+        const rightValue = resolveMasteryCell(getOperatorInfo(master, right.code), right, skillNumber);
+        const leftNumber = leftValue === '-' || leftValue == null ? null : Number(leftValue);
+        const rightNumber = rightValue === '-' || rightValue == null ? null : Number(rightValue);
+        return compareNullableNumbers(numericSortValue(leftNumber), numericSortValue(rightNumber), direction);
+    }
     if (key.startsWith('module:')) {
         const moduleId = key.slice('module:'.length);
         const leftValue = resolveModuleCell(getOperatorInfo(master, left.code), left, moduleId);
@@ -523,7 +547,7 @@ function buildOperatorView(sharedOperators, master, rawCriteria, rawSortState, l
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, getOperatorInfo, resolveModuleCell, buildDisplayRows,
+        parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, isSecondaryDisplayValue, getOperatorInfo, resolveModuleCell, resolveMasteryCell, buildDisplayRows,
         DEFAULT_OPERATOR_VALUES, FILTER_FACETS, FILTER_FACET_KEYS, createEmptyFilterCriteria,
         normalizeFilterCriteria, isFilterCriteriaEmpty, matchesOperatorFilter, clearFilterFacet,
         buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName, isChinaAheadOperator,
