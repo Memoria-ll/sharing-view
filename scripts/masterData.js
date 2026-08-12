@@ -339,6 +339,18 @@ function resolveModuleCell(charInfo, row, moduleId) {
     return Number.isInteger(value) ? String(value) : '0';
 }
 
+function resolveMasteryCell(charInfo, row, skillNumber) {
+    const key = 'skill' + skillNumber;
+    if (!isPlainObject(charInfo.skillMastery)) {
+        return row[key];
+    }
+    if (!Array.isArray(charInfo.skillMastery[String(skillNumber)])) {
+        return '-';
+    }
+    const value = row[key];
+    return Number.isInteger(value) ? String(value) : '0';
+}
+
 // 共有データが無いオペレーターの初期値。潜在0・スキル1はbackendの許容範囲/既定値とは別の表示規約
 const DEFAULT_OPERATOR_VALUES = {
     potential: 0,
@@ -463,6 +475,14 @@ function comparePrimarySortValue(left, right, master, key, language, direction) 
     if (key === 'code') return compareStrings(left.code, right.code, direction);
     if (key === 'name') return compareStrings(operatorSortName(master, left, language), operatorSortName(master, right, language), direction);
     if (key === 'elite' || key === 'level') return compareTraining(left, right, direction);
+    if (/^skill[1-3]$/.test(key)) {
+        const skillNumber = Number(key.slice('skill'.length));
+        const leftValue = resolveMasteryCell(getOperatorInfo(master, left.code), left, skillNumber);
+        const rightValue = resolveMasteryCell(getOperatorInfo(master, right.code), right, skillNumber);
+        const leftNumber = leftValue === '-' || leftValue == null ? null : Number(leftValue);
+        const rightNumber = rightValue === '-' || rightValue == null ? null : Number(rightValue);
+        return compareNullableNumbers(numericSortValue(leftNumber), numericSortValue(rightNumber), direction);
+    }
     if (key.startsWith('module:')) {
         const moduleId = key.slice('module:'.length);
         const leftValue = resolveModuleCell(getOperatorInfo(master, left.code), left, moduleId);
@@ -527,7 +547,7 @@ function buildOperatorView(sharedOperators, master, rawCriteria, rawSortState, l
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, isSecondaryDisplayValue, getOperatorInfo, resolveModuleCell, buildDisplayRows,
+        parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, isSecondaryDisplayValue, getOperatorInfo, resolveModuleCell, resolveMasteryCell, buildDisplayRows,
         DEFAULT_OPERATOR_VALUES, FILTER_FACETS, FILTER_FACET_KEYS, createEmptyFilterCriteria,
         normalizeFilterCriteria, isFilterCriteriaEmpty, matchesOperatorFilter, clearFilterFacet,
         buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName, isChinaAheadOperator,

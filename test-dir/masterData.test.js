@@ -14,6 +14,7 @@ const {
     isSecondaryDisplayValue,
     getOperatorInfo,
     resolveModuleCell,
+    resolveMasteryCell,
     buildDisplayRows,
     DEFAULT_OPERATOR_VALUES,
     FILTER_FACETS,
@@ -117,6 +118,19 @@ test('h3: 補助表示は数値と文字列の0、および非所持記号を同
     assert.equal(isSecondaryDisplayValue('-'), true);
     assert.equal(isSecondaryDisplayValue(1), false);
     assert.equal(isSecondaryDisplayValue('3'), false);
+});
+
+test('h4: 存在する特化枠は数値、存在しない特化枠は非所持記号にする', () => {
+    const twoSkillCode = findOperator(code => {
+        const mastery = master.operators.get(code).skillMastery;
+        return mastery && Array.isArray(mastery['1']) && Array.isArray(mastery['2']) && !Array.isArray(mastery['3']);
+    }, '特化可能なスキルが2つだけ');
+    const charInfo = master.operators.get(twoSkillCode);
+    const row = { skill1: 2, skill2: 0, skill3: 0 };
+    assert.equal(resolveMasteryCell(charInfo, row, 1), '2');
+    assert.equal(resolveMasteryCell(charInfo, row, 2), '0');
+    assert.equal(resolveMasteryCell(charInfo, row, 3), '-');
+    assert.equal(resolveMasteryCell(getOperatorInfo(master, 'ZZ99'), row, 2), 0);
 });
 
 // i. resolveModuleCell（罠4）
