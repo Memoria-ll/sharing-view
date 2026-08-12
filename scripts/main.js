@@ -248,7 +248,7 @@ function displayOperators(operators) {
             if (rarityNum) tdName.classList.add(`rarity-${rarityNum}`);
         }
         ['potential', 'elite', 'level'].forEach(key => appendCell(tr, operator[key]));
-        ['skill', 'skill1', 'skill2', 'skill3'].forEach((key, index) => appendCell(tr, operator[key], index === 0 ? 'column-group-start' : ''));
+        ['skill', 'skill1', 'skill2', 'skill3'].forEach((key, index) => appendCell(tr, operator[key], index === 1 ? 'column-group-start' : ''));
         masterData.moduleIds.forEach((moduleId, index) => appendCell(tr, resolveModuleCell(charInfo, operator, moduleId), index === 0 ? 'column-group-start' : ''));
         operatorsBody.appendChild(tr);
     });
