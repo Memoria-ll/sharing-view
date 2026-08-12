@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const operatorsBody = document.getElementById('operators-body');
             const errorRow = document.createElement('tr');
             const errorCell = document.createElement('td');
-            errorCell.colSpan = document.getElementById('operators-head-row').children.length;
+            errorCell.colSpan = 9 + masterData.moduleIds.length;
             errorCell.textContent = 'データの読み込みに失敗しました。';
             errorCell.style.textAlign = 'center';
             errorCell.style.padding = '20px';
@@ -178,11 +178,17 @@ function fallbackCopyToClipboard(text) {
 
 function renderTableHeaders() {
     const headRow = document.getElementById('operators-head-row');
+    const subheadRow = document.getElementById('operators-subhead-row');
     const labels = tableColumnLabels(currentLanguage, masterData.moduleIds);
-    headRow.querySelectorAll('th[data-column-key]').forEach(th => {
+    document.querySelectorAll('#operators-table th[data-column-key]').forEach(th => {
         th.textContent = labels[th.dataset.columnKey];
     });
-    headRow.querySelectorAll('th[data-module-id]').forEach(th => th.remove());
+    document.querySelector('[data-column-group="mastery"]').textContent = labels.mastery;
+    const moduleGroup = document.querySelector('[data-column-group="module"]');
+    moduleGroup.textContent = labels.module;
+    moduleGroup.colSpan = Math.max(1, masterData.moduleIds.length);
+    moduleGroup.hidden = masterData.moduleIds.length === 0;
+    subheadRow.querySelectorAll('th[data-module-id]').forEach(th => th.remove());
     labels.modules.forEach((label, index) => {
         const th = document.createElement('th');
         th.textContent = label;
@@ -190,7 +196,7 @@ function renderTableHeaders() {
         th.dataset.sortKey = `module:${masterData.moduleIds[index]}`;
         if (index === 0) th.classList.add('column-group-start');
         configureSortableHeader(th);
-        headRow.appendChild(th);
+        subheadRow.appendChild(th);
     });
     renderSortHeaderState();
 }

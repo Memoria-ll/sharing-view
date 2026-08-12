@@ -457,13 +457,27 @@ input:focus-visible {
     border-bottom: 1px solid var(--table-border);
 }
 
+#operators-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
 #operators-table th {
     background-color: var(--table-header-bg);
     font-weight: bold;
     color: var(--text-primary);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+}
+
+#operators-table [data-column-group] {
+    padding-top: 7px;
+    padding-bottom: 4px;
+    border-bottom-color: var(--group-divider);
+}
+
+#operators-table #operators-subhead-row th {
+    padding-top: 4px;
+    padding-bottom: 7px;
 }
 
 #operators-table .operator-name {
