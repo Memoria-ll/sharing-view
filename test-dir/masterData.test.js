@@ -11,6 +11,7 @@ const {
     parseMasterData,
     moduleColumnLabels,
     tableColumnLabels,
+    isSecondaryDisplayValue,
     getOperatorInfo,
     resolveModuleCell,
     buildDisplayRows,
@@ -108,6 +109,14 @@ test('h2: index.html の thead は固定列と特化グループのみ。モジ�
     assert.ok(!/Module\s/.test(theadMatch[0]), 'thead にモジュール列が静的に残っている');
     const sortKeys = [...theadMatch[0].matchAll(/data-sort-key="([^"]+)"/g)].map(match => match[1]);
     assert.deepEqual(sortKeys.slice(0, 2), ['code', 'name']);
+});
+
+test('h3: 補助表示は数値と文字列の0、および非所持記号を同じ扱いにする', () => {
+    assert.equal(isSecondaryDisplayValue(0), true);
+    assert.equal(isSecondaryDisplayValue('0'), true);
+    assert.equal(isSecondaryDisplayValue('-'), true);
+    assert.equal(isSecondaryDisplayValue(1), false);
+    assert.equal(isSecondaryDisplayValue('3'), false);
 });
 
 // i. resolveModuleCell（罠4）

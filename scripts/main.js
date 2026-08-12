@@ -270,7 +270,7 @@ function appendCell(tr, value, className = '') {
     const td = document.createElement('td');
     td.textContent = value;
     if (className) td.classList.add(className);
-    if (value === 0 || value === '-') td.classList.add('secondary-value');
+    if (isSecondaryDisplayValue(value)) td.classList.add('secondary-value');
     tr.appendChild(td);
     return td;
 }

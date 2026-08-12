@@ -310,6 +310,10 @@ function moduleValueKey(moduleId) {
     return 'module' + moduleId;
 }
 
+function isSecondaryDisplayValue(value) {
+    return String(value) === '0' || value === '-';
+}
+
 // マスター上のオペレーター情報を取得する。マスターに無いコードは Unknown 表示用のフォールバックを返す
 function getOperatorInfo(master, code) {
     if (master.operators.has(code)) {
@@ -523,7 +527,7 @@ function buildOperatorView(sharedOperators, master, rawCriteria, rawSortState, l
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, getOperatorInfo, resolveModuleCell, buildDisplayRows,
+        parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, isSecondaryDisplayValue, getOperatorInfo, resolveModuleCell, buildDisplayRows,
         DEFAULT_OPERATOR_VALUES, FILTER_FACETS, FILTER_FACET_KEYS, createEmptyFilterCriteria,
         normalizeFilterCriteria, isFilterCriteriaEmpty, matchesOperatorFilter, clearFilterFacet,
         buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName, isChinaAheadOperator,
