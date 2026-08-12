@@ -108,9 +108,6 @@ body {
     padding: 12px 0;
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 24px;
-    position: sticky;
-    top: 0;
-    z-index: 30;
     background: rgba(26, 26, 26, 0.96);
     backdrop-filter: blur(8px);
 }
@@ -241,7 +238,8 @@ button:hover {
 
 /* テーブルスタイル */
 .table-container {
-    overflow-x: auto;
+    max-height: calc(100vh - 210px);
+    overflow: auto;
     margin-bottom: 20px;
 }
 
@@ -531,6 +529,10 @@ footer {
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+    .table-container {
+        max-height: calc(100vh - 288px);
+    }
+
     .header {
         flex-direction: column;
         align-items: flex-start;

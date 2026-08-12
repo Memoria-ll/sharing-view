@@ -235,12 +235,12 @@ function displayOperators(operators) {
     view.rows.forEach(operator => {
         const tr = document.createElement('tr');
         const charInfo = getOperatorInfo(masterData, operator.code);
+        appendCell(tr, operator.code, 'operator-code');
         const tdName = appendCell(tr, resolveLocalizedName(charInfo.name, currentLanguage, 'Unknown'), 'operator-name');
         if (charInfo.rarity) {
             const rarityNum = charInfo.rarity.replace(/\D/g, '');
             if (rarityNum) tdName.classList.add(`rarity-${rarityNum}`);
         }
-        appendCell(tr, operator.code, 'operator-code');
         ['potential', 'elite', 'level'].forEach(key => appendCell(tr, operator[key]));
         ['skill', 'skill1', 'skill2', 'skill3'].forEach((key, index) => appendCell(tr, operator[key], index === 0 ? 'column-group-start' : ''));
         masterData.moduleIds.forEach((moduleId, index) => appendCell(tr, resolveModuleCell(charInfo, operator, moduleId), index === 0 ? 'column-group-start' : ''));
