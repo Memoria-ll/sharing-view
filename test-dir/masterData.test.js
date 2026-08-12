@@ -10,6 +10,7 @@ const { test } = require('node:test');
 const {
     parseMasterData,
     moduleColumnLabels,
+    tableColumnLabels,
     getOperatorInfo,
     resolveModuleCell,
     buildDisplayRows,
@@ -84,15 +85,28 @@ test('h1: moduleColumnLabels は "Module " + ID の形にする', () => {
     assert.equal(moduleColumnLabels(master.moduleIds).length, master.moduleIds.length);
 });
 
-test('h2: index.html の thead は非モジュール9本のみ。モジュール列は静的HTMLに残っていない', () => {
+test('h1b: tableColumnLabels は表示言語に応じて固定列とモジュール列を返す', () => {
+    assert.deepEqual(tableColumnLabels('ja', ['A', 'D']), {
+        name: 'オペレーター', code: 'Code', potential: '潜在', elite: '昇進', level: 'レベル', skill: 'スキル',
+        skill1: 'S1', skill2: 'S2', skill3: 'S3', mastery: '特化', module: 'モジュール', modules: ['A', 'D']
+    });
+    assert.equal(tableColumnLabels('en', []).name, 'Operator');
+    assert.equal(tableColumnLabels('ch', []).code, 'Code');
+    assert.deepEqual(tableColumnLabels('ch', ['X']).modules, ['X']);
+    assert.equal(tableColumnLabels('unknown', []).name, 'オペレーター');
+});
+
+test('h2: index.html の thead は固定列と特化グループのみ。モジュール列は静的HTMLに残っていない', () => {
     const fs = require('node:fs');
     const path = require('node:path');
     const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
     const theadMatch = html.match(/<thead>[\s\S]*?<\/thead>/);
     assert.ok(theadMatch, 'index.html に <thead> が見つからない');
     const thCount = (theadMatch[0].match(/<th\b/g) || []).length;
-    assert.equal(thCount, STATIC_TH_COUNT);
+    assert.equal(thCount, STATIC_TH_COUNT + 2);
     assert.ok(!/Module\s/.test(theadMatch[0]), 'thead にモジュール列が静的に残っている');
+    const sortKeys = [...theadMatch[0].matchAll(/data-sort-key="([^"]+)"/g)].map(match => match[1]);
+    assert.deepEqual(sortKeys.slice(0, 2), ['code', 'name']);
 });
 
 // i. resolveModuleCell（罠4）

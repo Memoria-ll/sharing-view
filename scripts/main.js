@@ -14,17 +14,20 @@ const FILTER_TEXT = {
     ja: {
         open: 'フィルター', title: 'オペレーターフィルター', clear: 'すべて解除', apply: '適用', cancel: 'キャンセル', close: '閉じる',
         none: '条件なし', result: '一致', total: '全件', preview: 'プレビュー', includeHidden: '隠し陣営を含む', includeSub: '副陣営を含む',
-        since: '開始日', to: '終了日', profession: '職業・職分', sex: '性別', place: '出身', rarity: 'レアリティ', race: '種族', faction: '陣営', date: '実装日', ownership: '所持/未所持', potential: '潜在'
+        since: '開始日', to: '終了日', profession: '職業・職分', sex: '性別', place: '出身', rarity: 'レアリティ', race: '種族', faction: '陣営', date: '実装日', ownership: '所持/未所持', potential: '潜在',
+        config: '設定', closeConfig: '閉じる', displayLanguage: '表示言語', copyUrl: 'URLをコピー', copied: 'コピーしました！', post: 'Xでポスト'
     },
     en: {
         open: 'Filter', title: 'Operator filters', clear: 'Clear all', apply: 'Apply', cancel: 'Cancel', close: 'Close',
         none: 'No conditions', result: 'Matched', total: 'Total', preview: 'Preview', includeHidden: 'Include hidden factions', includeSub: 'Include subfactions',
-        since: 'Since', to: 'To', profession: 'Class / subclass', sex: 'Sex', place: 'Place', rarity: 'Rarity', race: 'Race', faction: 'Faction', date: 'Release date', ownership: 'Ownership', potential: 'Potential'
+        since: 'Since', to: 'To', profession: 'Class / subclass', sex: 'Sex', place: 'Place', rarity: 'Rarity', race: 'Race', faction: 'Faction', date: 'Release date', ownership: 'Ownership', potential: 'Potential',
+        config: 'Config', closeConfig: 'Close', displayLanguage: 'Display language', copyUrl: 'Copy URL', copied: 'Copied!', post: 'Post on X'
     },
     ch: {
         open: '筛选', title: '干员筛选', clear: '清除全部', apply: '应用', cancel: '取消', close: '关闭',
         none: '无条件', result: '匹配', total: '全部', preview: '预览', includeHidden: '包含隐藏阵营', includeSub: '包含子阵营',
-        since: '开始日期', to: '结束日期', profession: '职业 / 分支', sex: '性别', place: '出身', rarity: '稀有度', race: '种族', faction: '阵营', date: '实装日期', ownership: '持有', potential: '潜能'
+        since: '开始日期', to: '结束日期', profession: '职业 / 分支', sex: '性别', place: '出身', rarity: '稀有度', race: '种族', faction: '阵营', date: '实装日期', ownership: '持有', potential: '潜能',
+        config: '设置', closeConfig: '关闭', displayLanguage: '显示语言', copyUrl: '复制链接', copied: '已复制！', post: '发布到 X'
     }
 };
 
@@ -44,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyUrlButton = document.getElementById('copy-url-button');
     const tweetButton = document.getElementById('tweet-button');
     const dialog = document.getElementById('operator-filter-dialog');
+    const configDialog = document.getElementById('config-dialog');
+    const openConfigButton = document.getElementById('open-config-button');
     const openButton = document.getElementById('open-filter-button');
 
     dialog.addEventListener('cancel', event => {
@@ -61,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
         finishFilterDialog('apply');
     });
     openButton.addEventListener('click', openFilterDialog);
+    openConfigButton.addEventListener('click', () => configDialog.showModal());
+    configDialog.addEventListener('close', () => openConfigButton.focus());
     initializeSortHeaders();
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -69,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[name="language"]').forEach(radio => {
         radio.addEventListener('change', event => {
             currentLanguage = event.target.value;
+            renderLocalizedControls();
             renderFilterToolbar();
             if (dialog.open) renderFilterDialog();
             if (importedOperators !== null) displayOperators(importedOperators);
@@ -79,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(raw => {
             masterData = parseMasterData(raw.operator, raw.gameData);
             filterOptionCatalog = buildFilterOptionCatalog(masterData);
-            renderModuleHeaders(masterData.moduleIds);
+            renderTableHeaders();
             if (dataId) {
                 currentDataId = dataId;
                 return fetchOperatorData(dataId);
@@ -98,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const operatorsBody = document.getElementById('operators-body');
             const errorRow = document.createElement('tr');
             const errorCell = document.createElement('td');
-            errorCell.colSpan = document.getElementById('operators-head-row').children.length;
+            errorCell.colSpan = 9 + masterData.moduleIds.length;
             errorCell.textContent = 'データの読み込みに失敗しました。';
             errorCell.style.textAlign = 'center';
             errorCell.style.padding = '20px';
@@ -114,9 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const url = `${window.location.origin}${window.location.pathname}?d=${currentDataId}`;
         copyToClipboard(url);
-        const originalText = copyUrlButton.textContent;
-        copyUrlButton.textContent = 'コピーしました！';
-        setTimeout(() => { copyUrlButton.textContent = originalText; }, 2000);
+        copyUrlButton.textContent = filterText('copied');
+        setTimeout(() => { copyUrlButton.textContent = filterText('copyUrl'); }, 2000);
     });
 
     tweetButton.addEventListener('click', () => {
@@ -129,6 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`, '_blank', 'width=550,height=420');
     });
 });
+
+function renderLocalizedControls() {
+    document.documentElement.lang = currentLanguage === 'ch' ? 'zh' : currentLanguage;
+    document.getElementById('open-config-button').textContent = 'Config';
+    document.getElementById('config-dialog-title').textContent = filterText('config');
+    document.getElementById('config-close-button').textContent = filterText('closeConfig');
+    document.getElementById('language-selector-title').textContent = filterText('displayLanguage');
+    document.getElementById('copy-url-button').textContent = filterText('copyUrl');
+    document.getElementById('tweet-button').textContent = filterText('post');
+    renderTableHeaders();
+}
 
 function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
@@ -158,22 +176,33 @@ function fallbackCopyToClipboard(text) {
     document.body.removeChild(textArea);
 }
 
-function renderModuleHeaders(moduleIds) {
+function renderTableHeaders() {
     const headRow = document.getElementById('operators-head-row');
-    headRow.querySelectorAll('th[data-module-id]').forEach(th => th.remove());
-    moduleColumnLabels(moduleIds).forEach((label, index) => {
+    const subheadRow = document.getElementById('operators-subhead-row');
+    const labels = tableColumnLabels(currentLanguage, masterData.moduleIds);
+    document.querySelectorAll('#operators-table th[data-column-key]').forEach(th => {
+        th.textContent = labels[th.dataset.columnKey];
+    });
+    document.querySelector('[data-column-group="mastery"]').textContent = labels.mastery;
+    const moduleGroup = document.querySelector('[data-column-group="module"]');
+    moduleGroup.textContent = labels.module;
+    moduleGroup.colSpan = Math.max(1, masterData.moduleIds.length);
+    moduleGroup.hidden = masterData.moduleIds.length === 0;
+    subheadRow.querySelectorAll('th[data-module-id]').forEach(th => th.remove());
+    labels.modules.forEach((label, index) => {
         const th = document.createElement('th');
         th.textContent = label;
-        th.dataset.moduleId = moduleIds[index];
-        th.dataset.sortKey = `module:${moduleIds[index]}`;
+        th.dataset.moduleId = masterData.moduleIds[index];
+        th.dataset.sortKey = `module:${masterData.moduleIds[index]}`;
+        if (index === 0) th.classList.add('column-group-start');
         configureSortableHeader(th);
-        headRow.appendChild(th);
+        subheadRow.appendChild(th);
     });
     renderSortHeaderState();
 }
 
 function initializeSortHeaders() {
-    document.querySelectorAll('#operators-head-row th[data-sort-key]').forEach(configureSortableHeader);
+    document.querySelectorAll('#operators-table thead th[data-sort-key]').forEach(configureSortableHeader);
     renderSortHeaderState();
 }
 
@@ -188,7 +217,7 @@ function configureSortableHeader(th) {
 }
 
 function renderSortHeaderState() {
-    document.querySelectorAll('#operators-head-row th[data-sort-key]').forEach(th => {
+    document.querySelectorAll('#operators-table thead th[data-sort-key]').forEach(th => {
         const isActive = sortState.key === th.dataset.sortKey && sortState.direction !== null;
         th.classList.toggle('sort-ascending', isActive && sortState.direction === 'ascending');
         th.classList.toggle('sort-descending', isActive && sortState.direction === 'descending');
@@ -212,14 +241,15 @@ function displayOperators(operators) {
     view.rows.forEach(operator => {
         const tr = document.createElement('tr');
         const charInfo = getOperatorInfo(masterData, operator.code);
-        appendCell(tr, operator.code);
-        const tdName = appendCell(tr, resolveLocalizedName(charInfo.name, currentLanguage, 'Unknown'));
+        appendCell(tr, operator.code, 'operator-code');
+        const tdName = appendCell(tr, resolveLocalizedName(charInfo.name, currentLanguage, 'Unknown'), 'operator-name');
         if (charInfo.rarity) {
             const rarityNum = charInfo.rarity.replace(/\D/g, '');
             if (rarityNum) tdName.classList.add(`rarity-${rarityNum}`);
         }
-        ['potential', 'elite', 'level', 'skill', 'skill1', 'skill2', 'skill3'].forEach(key => appendCell(tr, operator[key]));
-        masterData.moduleIds.forEach(moduleId => appendCell(tr, resolveModuleCell(charInfo, operator, moduleId)));
+        ['potential', 'elite', 'level'].forEach(key => appendCell(tr, operator[key]));
+        ['skill', 'skill1', 'skill2', 'skill3'].forEach((key, index) => appendCell(tr, operator[key], index === 1 ? 'column-group-start' : ''));
+        masterData.moduleIds.forEach((moduleId, index) => appendCell(tr, resolveModuleCell(charInfo, operator, moduleId), index === 0 ? 'column-group-start' : ''));
         operatorsBody.appendChild(tr);
     });
     const count = document.getElementById('filter-result-count');
@@ -228,9 +258,11 @@ function displayOperators(operators) {
     renderSortHeaderState();
 }
 
-function appendCell(tr, value) {
+function appendCell(tr, value, className = '') {
     const td = document.createElement('td');
     td.textContent = value;
+    if (className) td.classList.add(className);
+    if (value === 0 || value === '-') td.classList.add('secondary-value');
     tr.appendChild(td);
     return td;
 }
