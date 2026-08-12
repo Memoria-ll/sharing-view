@@ -13,17 +13,28 @@
         <header class="header">
             <h1>Arknights Shared Viewer</h1>
             <div class="header-actions">
-                <div class="language-selector">
-                    <label><input type="radio" name="language" value="ja" checked> 日本語</label>
-                    <label><input type="radio" name="language" value="en"> English</label>
-                    <label><input type="radio" name="language" value="ch"> 中文</label>
-                </div>
                 <div class="share-buttons">
                     <button id="copy-url-button">URLをコピー</button>
                     <button id="tweet-button">Xでポスト</button>
                 </div>
+                <button id="open-config-button" class="config-button" type="button">設定</button>
             </div>
         </header>
+
+        <dialog id="config-dialog" class="config-dialog" aria-labelledby="config-dialog-title">
+            <form method="dialog">
+                <header class="config-dialog-header">
+                    <h2 id="config-dialog-title">設定</h2>
+                    <button id="config-close-button" type="submit">閉じる</button>
+                </header>
+                <fieldset class="language-selector">
+                    <legend id="language-selector-title">表示言語</legend>
+                    <label><input type="radio" name="language" value="ja" checked> 日本語</label>
+                    <label><input type="radio" name="language" value="en"> English</label>
+                    <label><input type="radio" name="language" value="ch"> 中文</label>
+                </fieldset>
+            </form>
+        </dialog>
 
         <main>
             <section id="filter-toolbar" class="filter-toolbar" hidden aria-label="Operator filters">
@@ -59,15 +70,15 @@
                 <table id="operators-table">
                     <thead>
                         <tr id="operators-head-row">
-                            <th data-sort-key="code">Code</th>
-                            <th data-sort-key="name">OperatorName</th>
-                            <th data-sort-key="potential">Potential</th>
-                            <th data-sort-key="elite">Elite</th>
-                            <th data-sort-key="level">Level</th>
-                            <th data-sort-key="skill">Skill</th>
-                            <th data-sort-key="skill1">S1 Mastery</th>
-                            <th data-sort-key="skill2">S2 Mastery</th>
-                            <th data-sort-key="skill3">S3 Mastery</th>
+                            <th data-column-key="name" data-sort-key="name">オペレーター</th>
+                            <th data-column-key="code" data-sort-key="code">コード</th>
+                            <th data-column-key="potential" data-sort-key="potential">潜在</th>
+                            <th data-column-key="elite" data-sort-key="elite">昇進</th>
+                            <th data-column-key="level" data-sort-key="level">レベル</th>
+                            <th class="column-group-start" data-column-key="skill" data-sort-key="skill">スキル</th>
+                            <th data-column-key="skill1" data-sort-key="skill1">S1 特化</th>
+                            <th data-column-key="skill2" data-sort-key="skill2">S2 特化</th>
+                            <th data-column-key="skill3" data-sort-key="skill3">S3 特化</th>
                         </tr>
                     </thead>
                     <tbody id="operators-body">

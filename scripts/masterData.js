@@ -276,6 +276,17 @@ function moduleColumnLabels(moduleIds) {
     return moduleIds.map(id => 'Module ' + id);
 }
 
+const TABLE_COLUMN_TEXT = {
+    ja: { name: 'オペレーター', code: 'コード', potential: '潜在', elite: '昇進', level: 'レベル', skill: 'スキル', skill1: 'S1 特化', skill2: 'S2 特化', skill3: 'S3 特化', module: 'モジュール' },
+    en: { name: 'Operator', code: 'Code', potential: 'Potential', elite: 'Elite', level: 'Level', skill: 'Skill', skill1: 'S1 Mastery', skill2: 'S2 Mastery', skill3: 'S3 Mastery', module: 'Module' },
+    ch: { name: '干员', code: '编号', potential: '潜能', elite: '精英化', level: '等级', skill: '技能', skill1: '技能1专精', skill2: '技能2专精', skill3: '技能3专精', module: '模组' }
+};
+
+function tableColumnLabels(language, moduleIds) {
+    const text = TABLE_COLUMN_TEXT[language] || TABLE_COLUMN_TEXT.ja;
+    return { ...text, modules: moduleIds.map(id => text.module + ' ' + id) };
+}
+
 // モジュール所持/値を保持する共有データキー。backend の保存キー規則（'module' + 接尾辞）のミラー
 function moduleValueKey(moduleId) {
     return 'module' + moduleId;
@@ -490,7 +501,7 @@ function buildOperatorView(sharedOperators, master, rawCriteria, rawSortState, l
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
-        parseMasterData, moduleColumnLabels, moduleValueKey, getOperatorInfo, resolveModuleCell, buildDisplayRows,
+        parseMasterData, moduleColumnLabels, tableColumnLabels, moduleValueKey, getOperatorInfo, resolveModuleCell, buildDisplayRows,
         DEFAULT_OPERATOR_VALUES, FILTER_FACETS, FILTER_FACET_KEYS, createEmptyFilterCriteria,
         normalizeFilterCriteria, isFilterCriteriaEmpty, matchesOperatorFilter, clearFilterFacet,
         buildFilterOptionCatalog, buildOperatorView, resolveLocalizedName,

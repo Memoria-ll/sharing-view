@@ -10,6 +10,7 @@ const { test } = require('node:test');
 const {
     parseMasterData,
     moduleColumnLabels,
+    tableColumnLabels,
     getOperatorInfo,
     resolveModuleCell,
     buildDisplayRows,
@@ -84,6 +85,16 @@ test('h1: moduleColumnLabels は "Module " + ID の形にする', () => {
     assert.equal(moduleColumnLabels(master.moduleIds).length, master.moduleIds.length);
 });
 
+test('h1b: tableColumnLabels は表示言語に応じて固定列とモジュール列を返す', () => {
+    assert.deepEqual(tableColumnLabels('ja', ['A', 'D']), {
+        name: 'オペレーター', code: 'コード', potential: '潜在', elite: '昇進', level: 'レベル', skill: 'スキル',
+        skill1: 'S1 特化', skill2: 'S2 特化', skill3: 'S3 特化', module: 'モジュール', modules: ['モジュール A', 'モジュール D']
+    });
+    assert.equal(tableColumnLabels('en', []).name, 'Operator');
+    assert.deepEqual(tableColumnLabels('ch', ['X']).modules, ['模组 X']);
+    assert.equal(tableColumnLabels('unknown', []).name, 'オペレーター');
+});
+
 test('h2: index.html の thead は非モジュール9本のみ。モジュール列は静的HTMLに残っていない', () => {
     const fs = require('node:fs');
     const path = require('node:path');
@@ -93,6 +104,8 @@ test('h2: index.html の thead は非モジュール9本のみ。モジュール
     const thCount = (theadMatch[0].match(/<th\b/g) || []).length;
     assert.equal(thCount, STATIC_TH_COUNT);
     assert.ok(!/Module\s/.test(theadMatch[0]), 'thead にモジュール列が静的に残っている');
+    const sortKeys = [...theadMatch[0].matchAll(/data-sort-key="([^"]+)"/g)].map(match => match[1]);
+    assert.deepEqual(sortKeys.slice(0, 2), ['name', 'code']);
 });
 
 // i. resolveModuleCell（罠4）
