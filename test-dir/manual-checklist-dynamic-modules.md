@@ -10,8 +10,8 @@
 | # | 手順 | 期待結果 |
 |---|---|---|
 | V2 | `?d=` なしで開き、`#operators-body tr` の数を数える | 0（`?d=` が無いと `displayOperators` は呼ばれない。全件表示は共有URLを開いたときの挙動） |
-| V9 | 取得失敗時（`?d=` に存在しないIDを指定）のエラー行の `colSpan` | `#operators-head-row` の `<th>` 数と一致 |
-| V10 | 言語ラジオを3回切り替えたあとの `<th>` 数 | 切り替え前と同じ（増えない） |
+| V9 | 取得失敗時（`?d=` に存在しないIDを指定）のエラー行の `colSpan` | 2段ヘッダーの物理列数（`rowspan="2"` の見出し + 下段見出し）と一致 |
+| V10 | 言語ラジオを3回切り替えたあとの物理列数 | 切り替え前と同じ（増えない） |
 
 ## マスターから期待値を計算して照合する（V1・V3〜V8）
 
@@ -26,9 +26,13 @@ const [operator, gameData] = await Promise.all([
 ]);
 const ids = gameData.gameData.module;
 const ops = Object.fromEntries(operator.operators.map(o => [o.code, o]));
-const STATIC = 9;  // 非モジュール列（Code〜S3 Mastery）
+const STATIC = 9;  // 非モジュール列（Code〜S3）
 
-const head = [...document.querySelectorAll('#operators-head-row th')].map(th => th.textContent);
+const leafHeaders = [...document.querySelectorAll(
+  '#operators-head-row th[rowspan="2"], #operators-subhead-row th'
+)];
+const moduleHead = [...document.querySelectorAll('#operators-subhead-row th[data-module-id]')]
+  .map(th => th.textContent);
 const rows = [...document.querySelectorAll('#operators-body tr')];
 const codeOf = tr => tr.children[0].textContent;
 const moduleCells = tr => [...tr.children].slice(STATIC).map(td => td.textContent);
@@ -38,8 +42,8 @@ const check = (name, actual, expected) =>
   console.log(`${actual === expected ? 'PASS' : 'FAIL'}  ${name}: ${actual}  期待 ${expected}`);
 
 // V1: 列数とモジュール列ラベル
-check('列数', head.length, STATIC + ids.length);
-check('モジュール列ラベル', head.slice(STATIC).join(','), ids.map(id => 'Module ' + id).join(','));
+check('列数', leafHeaders.length, STATIC + ids.length);
+check('モジュール列ラベル', moduleHead.join(','), ids.join(','));
 
 // V3: 行数（マスター全件 + 共有データにしか無いコード）
 const masterRows = rows.filter(tr => Object.hasOwn(ops, codeOf(tr)));
@@ -93,4 +97,4 @@ PC の現行 Chrome / Edge / Firefox / Safari で、既存の共有 URL と `?d=
 | F9 | China の同日 `since=to`、Global 欠損代表、China→Global の順に操作する | 同日境界を含む。Global 欠損は除外される。region 切替後も bounds は保持され、preview/Apply は選択 region の集合になる。 |
 | F10 | 所持=true と potential=0 を同時に選ぶ | preview は 0。Apply 後の tbody は疑似 row なしの 0 行で、page count は 0。全 clear→Apply で初期 code 順に戻る。 |
 | F11 | dialog を閉じて ja→en→ch を切り替え、再 open する | toolbar/operator 名と option/card 表示が追従し、適用 identity は不変。dialog open 中の programmatic language change でも draft identity は変わらない。 |
-| F12 | dialog の open/Apply/Cancel と言語3切替の前後で header を比較する | `th` 数と module 列の順序は初期 snapshot から変わらない。dialog は PC viewport 内に収まり、header/footer は見え、必要なら中央 body のみ scroll する。 |
+| F12 | dialog の open/Apply/Cancel と言語3切替の前後で header を比較する | 物理列数と module 下段見出しの順序は初期 snapshot から変わらない。dialog は PC viewport 内に収まり、header/footer は見え、必要なら中央 body のみ scroll する。 |
