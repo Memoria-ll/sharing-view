@@ -445,7 +445,8 @@ input:focus-visible {
 
 #operators-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     border: 0;
 }
 
@@ -461,6 +462,7 @@ input:focus-visible {
     position: sticky;
     top: 0;
     z-index: 10;
+    background-color: var(--table-header-bg);
 }
 
 #operators-table th {
