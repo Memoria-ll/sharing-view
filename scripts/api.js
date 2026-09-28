@@ -31,7 +31,13 @@ async function fetchMasterData() {
 // HTTP APIを使用してデータを取得する関数
 async function fetchOperatorData(dataId) {
     try {
-        const response = await fetch(`https://us-central1-arknights-sharing-view.cloudfunctions.net/getCharacterDataHttp?id=${dataId}`);
+        if (!/^(?:[A-Za-z0-9]{6}|[A-Za-z0-9]{10,11})$/.test(dataId)) {
+            throw new Error('共有IDの形式が不正です');
+        }
+        const response = await fetch(`https://api.memoria-ll.link/v2/public/${encodeURIComponent(dataId)}/operators`, {
+            credentials: 'omit',
+            signal: AbortSignal.timeout(15000)
+        });
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
