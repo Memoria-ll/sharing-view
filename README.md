@@ -53,7 +53,7 @@ const { characters } = await response.json();
 console.log(characters);
 ```
 
-**別のWebサイト上でこのJavaScriptを実行する場合は、後述の[CORS制約](#api-cors)があります。**
+別のWebサイト上で実行する場合も利用できます。本人用データの取得・更新には、後述の[ownerKeyによる認証](#api-write)が必要です。
 
 新規の共有IDは大文字・小文字を区別する英数字11文字です。旧形式の6文字・10文字IDも公開取得に使えます。
 IDを指定するAPIのみで、共有IDの全件一覧・検索APIはありません。公開データは共有IDを知っている人が取得できます。
@@ -195,7 +195,6 @@ APIのエラー応答は `{"error":"エラーコード"}` です。
 |---|---|---|
 | 400 | `invalid_payload` / `invalid_json` / `invalid_id` / `query_not_allowed` | 入力の項目・型・ID・クエリを確認 |
 | 401 | `owner_auth_required` | ownerKeyと共有IDの組み合わせを確認 |
-| 403 | `origin_not_allowed` | 下記CORSの許可Originを確認 |
 | 404 | `not_found` | データがない、または未対応のパス・メソッド・ID形式 |
 | 409 | `revision_conflict` | 最新snapshotと手元を比較して更新内容を判断 |
 | 413 | `payload_too_large` / `snapshot_too_large` | 送信サイズを削減 |
@@ -212,9 +211,7 @@ APIのエラー応答は `{"error":"エラーコード"}` です。
 
 ### ブラウザから使う場合のCORS
 
-現在、ブラウザからのアクセスは `https://sharing-view.memoria-ll.link` のOriginを許可しています。
-APIがインターネット上で公開されていても、任意のWebサイトから直接 `fetch` できる設定ではありません。
-未許可のOriginを送ると403になり、`mode: 'no-cors'` ではレスポンスを読み取れません。
-
-別のWebサイトから直接利用したい場合は、[Issues](https://github.com/Memoria-ll/sharing-view/issues)で利用目的とOrigin（スキーム・ホスト・必要ならポート）を知らせてください。
-CLI・デスクトップアプリ・自分のサーバーからOriginヘッダーを送らずに呼ぶ場合、このCORS制約はありません。認証と回数制限は同じです。
+公開APIは `Access-Control-Allow-Origin: *` を返すため、どのWebサイトからも直接 `fetch` できます。
+JSONでの新規作成、ownerKey付きの更新・本人用データ取得に必要なpreflightも受け付けます。
+Cookieを使わず、`Access-Control-Allow-Credentials` は返しません。JavaScriptからは `credentials: 'omit'` で呼び出してください。
+ownerKeyを持たないサイトが本人用データを読んだり、既存共有を更新したりすることはできません。認証と回数制限は引き続き適用されます。
