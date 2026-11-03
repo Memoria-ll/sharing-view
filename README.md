@@ -215,3 +215,13 @@ APIのエラー応答は `{"error":"エラーコード"}` です。
 JSONでの新規作成、ownerKey付きの更新・本人用データ取得に必要なpreflightも受け付けます。
 Cookieを使わず、`Access-Control-Allow-Credentials` は返しません。JavaScriptからは `credentials: 'omit'` で呼び出してください。
 ownerKeyを持たないサイトが本人用データを読んだり、既存共有を更新したりすることはできません。認証と回数制限は引き続き適用されます。
+
+## ページビュー計測
+
+配信は既存の GitHub Pages。
+読込時1回だけ、中央 Worker の `https://memoria-analytics.yorutsuki22.workers.dev/_analytics/events` へ `{event: "page_view", path: location.pathname}` を POST します。対象パスは `/` と `/index.html` のみ。サイト側の Pages Functions やホスト移行は不要です。
+
+自動計測は `sharing-view.memoria-ll.link` のHTTPSのみ。プレビュー・ローカル開発では送信しません。Cookie・永続ID・名前・共有ID・クエリ・フラグメント・Refererは送信せず、5秒で中断して失敗を無視します。
+中央 Worker が許可済み Origin から hostname を決め、`ANALYTICS` の `memoria_events` へ `indexes: [hostname]`、`blobs: [hostname, "page_view", path, ""]`、`doubles: [0, 0]` を保存します。中央 Worker の公開・CORS設定は別途必要です。
+
+検証: `node --test`。テストだけ `globalThis.__MEMORIA_ANALYTICS_TEST__ = true` でローカル送信を許可できます。
